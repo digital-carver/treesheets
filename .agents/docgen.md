@@ -11,7 +11,7 @@ Treat the existing tutorial as a quick getting-started page, **not** as the full
 ## Documentation Architecture
 
 - Use `docs-src/` as the source directory for generated documentation inputs.
-- Use `docs/machinegen/` as the generated HTML output directory.
+- Use `TS/docs/machinegen/` as the generated HTML output directory.
 - Use TOML feature manifests as the structured source of truth.
 - Use a Python renderer script, `docs-src/render_docs.py`, to convert TOML manifests to static HTML.
 - The renderer must use Python’s built-in `tomllib`, so it must require Python 3.11+.
@@ -32,14 +32,15 @@ docs-src/
     feature.html
   render_docs.py
 
-docs/
-  machinegen/
-    index.html
-    editing.html
-    selection.html
-    grids.html
-    scripting.html
-    sources.html
+TS/
+  docs/
+    machinegen/
+      index.html
+      editing.html
+      selection.html
+      grids.html
+      scripting.html
+      sources.html
 ```
 
 ## Required Config
@@ -144,7 +145,7 @@ Do not invent behavior. If source evidence is incomplete, mark it clearly.
 
 - `implementation_verified`: UI/menu/shortcut and implementation traced.
 - `ui_verified`: UI/menu/shortcut found, implementation not fully traced.
-- `docs_history_verified`: existing docs/history/tutorial only.
+- `docs_history_verified`: existing docs or history or tutorial only.
 - `source_not_found`: behavior mentioned but source not yet located.
 - `needs_human_check`: likely behavior or ambiguous behavior that requires manual testing or maintainer confirmation.
 
@@ -182,7 +183,7 @@ AI-generated reference docs. Reliability indicators and footnote citations are i
 The renderer should generate:
 
 - normal documentation pages
-- a source audit page at `docs/machinegen/sources.html`
+- a source audit page at `TS/docs/machinegen/sources.html`
 
 The source audit page should list:
 
@@ -223,5 +224,5 @@ Existing docs such as `tutorial.html` and `history.txt` may be cited, but they s
 
 ## Process Constraint
 
-Do not directly hand-edit generated HTML pages except shared templates.
-If generated output is incorrect, fix the TOML manifests, renderer, or templates and regenerate the documentation cleanly.
+Do not directly edit generated HTML pages in docs. Editing the  shared templates in docs-src is allowed.
+If generated output is incorrect, or if there are issues while trying to generate it, fix the TOML manifests, renderer, or templates and regenerate the documentation cleanly.
