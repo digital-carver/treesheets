@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scripting and Evaluation - TreeSheets Reference</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111318;
+      --panel: #171b22;
+      --panel-2: #1d232d;
+      --text: #e5e9f0;
+      --muted: #9ba7b6;
+      --faint: #6f7a89;
+      --border: #2b3440;
+      --link: #91c9ff;
+      --green: #587d64;
+      --teal: #486f7e;
+      --amber: #7d6845;
+      --violet: #68617d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(210px, 260px) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    nav {
+      border-right: 1px solid var(--border);
+      background: #0f1116;
+      padding: 28px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    nav .brand {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    nav a {
+      display: block;
+      padding: 7px 9px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    nav a.active {
+      background: var(--panel-2);
+      color: var(--text);
+    }
+    main {
+      max-width: 1120px;
+      width: 100%;
+      padding: 42px 48px 72px;
+    }
+    header.page-header {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 22px;
+    }
+    h1 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: 23px;
+      line-height: 1.3;
+      margin: 0;
+      letter-spacing: 0;
+    }
+    h3 {
+      font-size: 16px;
+      margin: 22px 0 8px;
+      color: #cbd4df;
+      letter-spacing: 0;
+    }
+    .meta, .notice, .description, .verification, .footnotes {
+      color: var(--muted);
+    }
+    .notice { margin-top: 5px; font-size: 14px; }
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 22px 0;
+    }
+    .feature-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      color: #f1f5f9;
+      font-size: 12px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .badge-implementation_verified { background: var(--green); }
+    .badge-ui_verified { background: var(--teal); }
+    .badge-docs_history_verified { background: var(--amber); }
+    .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      color: #cbd4df;
+      font-weight: 650;
+    }
+    code {
+      background: #0d1015;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: #dbeafe;
+    }
+    .source-refs {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footnotes {
+      border-top: 1px solid var(--border);
+      margin-top: 34px;
+      padding-top: 16px;
+      font-size: 14px;
+    }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .audit-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    ul { padding-left: 22px; }
+    @media (max-width: 760px) {
+      .layout { display: block; }
+      nav {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      main { padding: 28px 20px 56px; }
+      .feature-head { display: block; }
+      .badge { margin-top: 8px; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="brand">TreeSheets Reference</div>
+      <a href="index.html">TreeSheets Reference</a>
+<a href="selection.html">Selection and Navigation</a>
+<a href="editing.html">Editing Cells</a>
+<a href="grids.html">Grids and Layout</a>
+<a href="import_export.html">Import and Export</a>
+<a href="search.html">Search and Filtering</a>
+<a class="active" href="scripting.html">Scripting and Evaluation</a>
+<a href="sources.html">Source Audit</a>
+    </nav>
+    <main>
+      <header class="page-header">
+        <h1>Scripting and Evaluation</h1>
+        <p class="description">Lobster script menu integration, program evaluation, and operation cell markers.</p>
+        <div class="meta">Updated last on 2026-05-07 · Source commit <code>a6d64cacc924</code></div>
+        <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
+      </header>
+      <p>When Lobster support is enabled, TreeSheets exposes script history commands and a program evaluation mode based on cell types.</p><article class="feature" id="scripting-evaluation">
+  <div class="feature-head">
+    <h2>Program evaluation and Lobster scripts</h2>
+    <span class="badge badge-implementation_verified">Implementation verified</span>
+  </div>
+  <p class="verification">Verified from conditional Lobster menu code, Program menu definitions, and evaluator dispatch.</p>
+  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Run</td><td>Program &gt; Run</td><td>Ctrl+Alt+F5</td><td><code>wxID_EXECUTE</code></td></tr>
+<tr><td>Mark as</td><td>Program &gt; Mark as</td><td>Ctrl+Alt+D/O/A/R/./,</td><td><code>A_MARKDATA/A_MARKCODE/A_MARKVARD/A_MARKVARU/A_MARKVIEWH/A_MARKVIEWV</code></td></tr>
+<tr><td>Add/remove Lobster script</td><td>Script</td><td>Ctrl+Alt+L, Ctrl+Shift+Alt+L</td><td><code>A_ADDSCRIPT/A_DETSCRIPT</code></td></tr></tbody></table>
+  <h3>Behavior</h3><p>Program &gt; Run evaluates the root cell through the evaluator, resets children, clears selection, and refreshes. Mark commands assign cell types used by the evaluator; operation cells infer their precise operation type from text. When Lobster is enabled, scripts are loaded into a Script menu and executed from history entries.</p>
+<h3>Context</h3><p>Run acts on the document root. Mark commands require an active grid selection. Script menu commands are compiled only when ENABLE_LOBSTER is defined.</p>
+<h3>Effects</h3><p>Run records undo on the root, evaluates, resets layouts, clears selection and drag state, and refreshes. Mark commands add undo and change celltype for every selected cell.</p>
+<h3>Edge Cases</h3><p>Script history command IDs are separate from tag command IDs and are handled in TSFrame::OnMenu before normal Document::Action dispatch.</p>
+<h3>Quirks</h3><p>The generated docs mark script menu behavior as implementation verified but conditional on ENABLE_LOBSTER.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-scripting-evaluation-1">[1]</a> <a href="#src-scripting-evaluation-2">[2]</a> <a href="#src-scripting-evaluation-3">[3]</a> <a href="#src-scripting-evaluation-4">[4]</a> <a href="#src-scripting-evaluation-5">[5]</a> <a href="#src-scripting-evaluation-6">[6]</a> <a href="#src-scripting-evaluation-7">[7]</a></div>
+</article>
+
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-scripting-evaluation-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L652-L681">src/tsframe.h:L652-L681</a> - Conditional Script menu and Program menu entries.</li>
+<li id="src-scripting-evaluation-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L1161-L1178">src/tsframe.h:L1161-L1178</a> - Add/remove Lobster script menu behavior.</li>
+<li id="src-scripting-evaluation-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L1258-L1266">src/tsframe.h:L1258-L1266</a> - Script history command dispatch.</li>
+<li id="src-scripting-evaluation-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L897-L904">src/document.h:L897-L904</a> - Run command evaluates the document root and refreshes.</li>
+<li id="src-scripting-evaluation-5"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1488-L1508">src/document.h:L1488-L1508</a> - Mark commands assign evaluator cell types.</li>
+<li id="src-scripting-evaluation-6"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/evaluator.h#L207-L208">src/evaluator.h:L207-L208</a> - Evaluator entry point evaluates the root cell.</li>
+<li id="src-scripting-evaluation-7"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/cell.h#L9-L9">src/cell.h:L9-L9</a> - Cell type enum used by program/evaluator markers.</li></ol></section>
+    </main>
+  </div>
+</body>
+</html>
+

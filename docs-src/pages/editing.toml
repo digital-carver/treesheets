@@ -1,0 +1,8 @@
+id = "editing"
+title = "Editing Cells"
+order = 20
+description = "Text editing, clipboard operations, deletion, notes, images, styles, and sizing."
+intro = """
+Editing commands often branch on whether the current selection is a grid selection, a thin grid-line selection, or text edit mode inside one cell.
+"""
+

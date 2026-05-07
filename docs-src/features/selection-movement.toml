@@ -1,0 +1,68 @@
+id = "selection-movement"
+title = "Move, extend, and move cells"
+category = "selection"
+page = "selection"
+
+[[commands]]
+name = "Move selection"
+menu_path = "Edit > Selection"
+shortcut = "Arrow keys"
+command_id = "A_LEFT/A_RIGHT/A_UP/A_DOWN"
+
+[[commands]]
+name = "Move cells"
+menu_path = "Edit > Selection"
+shortcut = "Ctrl+Arrow"
+command_id = "A_MLEFT/A_MRIGHT/A_MUP/A_MDOWN"
+
+[[commands]]
+name = "Extend selection"
+menu_path = "Edit > Selection"
+shortcut = "Shift+Arrow, Ctrl+Shift+Arrow"
+command_id = "A_SLEFT/A_SRIGHT/A_SUP/A_SDOWN/A_SC*"
+
+[verification]
+level = "implementation_verified"
+text = "Menu entries, keyboard fallback, and selection cursor implementation were traced."
+
+[behavior]
+summary = """
+Arrow commands move the selection or text cursor. Ctrl+Arrow moves selected cells around the grid outside text edit mode; in text edit mode horizontal Ctrl movement jumps by word-like runs. Shift extends the rectangular grid selection or the text selection.
+"""
+context = """
+Movement acts on the active grid selection. Text edit mode changes the same command IDs into cursor and text-selection actions.
+"""
+effects = """
+Cell movement records undo, calls Grid::Move, wraps coordinates through grid bounds, resets affected children, and scrolls to the new selection. Shift expansion changes the selection rectangle while clamping to grid bounds.
+"""
+edge_cases = """
+On GTK, several accelerators are emulated in Document::Key because wxGTK does not support those keycodes as menu accelerators.
+"""
+quirks = """
+Ctrl+I can arrive as Ctrl+Tab on Linux, so Ctrl+Tab tab switching is intentionally ignored there and Ctrl+Shift+Tab remains the reliable previous-tab shortcut.
+"""
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "225-270"
+label = "Selection movement, cell movement, and extension menu entries."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "829-872"
+label = "GTK keyboard fallback for arrows, tab, page up/down, and shortcut quirks."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1428-1471"
+label = "Document command dispatch for movement and full row/column extension."
+
+[[sources]]
+type = "implementation"
+file = "src/selection.h"
+lines = "125-190"
+label = "Selection::Dir handles moving cells, word movement, and shift extension."
+

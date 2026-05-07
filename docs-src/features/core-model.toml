@@ -1,0 +1,44 @@
+id = "core-model"
+title = "Cells, grids, and selections"
+category = "core concepts"
+page = "index"
+
+[verification]
+level = "implementation_verified"
+text = "Verified from the Selection class and Grid/Cell model methods."
+
+[behavior]
+summary = """
+A TreeSheets document is a root cell with an optional grid. A grid owns cells and keeps dimensions, column widths, orientation, border state, and folding state. A selection points at a grid with x/y coordinates and width/height, or uses zero width/height as a thin grid-line selection.
+"""
+context = """
+Commands generally require an active selection with a grid. Single-cell commands call GetCell or ThinExpand; whole-grid commands may operate when the selection covers all cells.
+"""
+effects = """
+Selection state can enter text edit mode, exit text edit mode, expand to all cells, or be reassigned to a parent or child grid.
+"""
+edge_cases = """
+If a command needs a selected grid or one cell and the selection cannot provide it, Document::Action returns user-facing messages such as NoSel, OneCell, NoThin, or NoGrid.
+"""
+quirks = """
+The same Selection object represents text cursors, rectangular cell selections, and thin grid-line insertion/deletion targets.
+"""
+
+[[sources]]
+type = "implementation"
+file = "src/selection.h"
+lines = "1-31"
+label = "Selection stores grid coordinates, size, cursor fields, and select-all behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/grid.h"
+lines = "491-520"
+label = "Grid insertion updates dimensions, cells, orientation, and column widths."
+
+[[sources]]
+type = "implementation"
+file = "src/cell.h"
+lines = "377-383"
+label = "Cells create nested grids with AddGrid."
+

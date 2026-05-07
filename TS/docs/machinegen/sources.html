@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source Audit - TreeSheets Reference</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111318;
+      --panel: #171b22;
+      --panel-2: #1d232d;
+      --text: #e5e9f0;
+      --muted: #9ba7b6;
+      --faint: #6f7a89;
+      --border: #2b3440;
+      --link: #91c9ff;
+      --green: #587d64;
+      --teal: #486f7e;
+      --amber: #7d6845;
+      --violet: #68617d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(210px, 260px) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    nav {
+      border-right: 1px solid var(--border);
+      background: #0f1116;
+      padding: 28px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    nav .brand {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    nav a {
+      display: block;
+      padding: 7px 9px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    nav a.active {
+      background: var(--panel-2);
+      color: var(--text);
+    }
+    main {
+      max-width: 1120px;
+      width: 100%;
+      padding: 42px 48px 72px;
+    }
+    header.page-header {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 22px;
+    }
+    h1 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: 23px;
+      line-height: 1.3;
+      margin: 0;
+      letter-spacing: 0;
+    }
+    h3 {
+      font-size: 16px;
+      margin: 22px 0 8px;
+      color: #cbd4df;
+      letter-spacing: 0;
+    }
+    .meta, .notice, .description, .verification, .footnotes {
+      color: var(--muted);
+    }
+    .notice { margin-top: 5px; font-size: 14px; }
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 22px 0;
+    }
+    .feature-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      color: #f1f5f9;
+      font-size: 12px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .badge-implementation_verified { background: var(--green); }
+    .badge-ui_verified { background: var(--teal); }
+    .badge-docs_history_verified { background: var(--amber); }
+    .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      color: #cbd4df;
+      font-weight: 650;
+    }
+    code {
+      background: #0d1015;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: #dbeafe;
+    }
+    .source-refs {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footnotes {
+      border-top: 1px solid var(--border);
+      margin-top: 34px;
+      padding-top: 16px;
+      font-size: 14px;
+    }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .audit-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    ul { padding-left: 22px; }
+    @media (max-width: 760px) {
+      .layout { display: block; }
+      nav {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      main { padding: 28px 20px 56px; }
+      .feature-head { display: block; }
+      .badge { margin-top: 8px; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="brand">TreeSheets Reference</div>
+      <a href="index.html">TreeSheets Reference</a>
+<a href="selection.html">Selection and Navigation</a>
+<a href="editing.html">Editing Cells</a>
+<a href="grids.html">Grids and Layout</a>
+<a href="import_export.html">Import and Export</a>
+<a href="search.html">Search and Filtering</a>
+<a href="scripting.html">Scripting and Evaluation</a>
+<a class="active" href="sources.html">Source Audit</a>
+    </nav>
+    <main>
+      <header class="page-header">
+        <h1>Source Audit</h1>
+        <p class="description">Cited source ranges, verification coverage, and citation override checks.</p>
+        <div class="meta">Updated last on 2026-05-07 · Source commit <code>a6d64cacc924</code></div>
+        <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
+      </header>
+      <div class="audit-grid"><div class="audit-box"><h2>Implementation verified</h2><p><a href="index.html#core-model">Cells, grids, and selections</a>, <a href="editing.html#clipboard-delete">Clipboard, delete, and collapse</a>, <a href="editing.html#images-links">Images, links, and file launching</a>, <a href="editing.html#text-edit-mode">Text edit mode</a>, <a href="editing.html#styles-sizing-color">Text style, sizing, colors, and borders</a>, <a href="grids.html#grid-structure">Create, fold, wrap, transpose, flatten, and hierarchify grids</a>, <a href="grids.html#layout-rendering">Layout direction and render styles</a>, <a href="import_export.html#import-export">Import and export current views</a>, <a href="scripting.html#scripting-evaluation">Program evaluation and Lobster scripts</a>, <a href="search.html#search-filter-replace">Search, replace, and filters</a>, <a href="selection.html#selection-movement">Move, extend, and move cells</a>, <a href="selection.html#select-all-and-parent">Select all, parent, and first child</a></p></div>
+<div class="audit-box"><h2>UI verified</h2><p>None</p></div>
+<div class="audit-box"><h2>Docs/history verified</h2><p>None</p></div>
+<div class="audit-box"><h2>Source not found</h2><p>None</p></div>
+<div class="audit-box"><h2>Needs human check</h2><p>None</p></div></div><h2>Cited Files and Ranges</h2><ul><li><code>src/cell.h</code>: <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/cell.h#L377-L383">L377-383</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/cell.h#L9-L14">L9-14</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/cell.h#L9-L9">L9-9</a></li>
+<li><code>src/document.h</code>: <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1324-L1422">L1324-1422</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1545-L1567">L1545-1567</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2112-L2169">L2112-2169</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1626-L1640">L1626-1640</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1762-L1864">L1762-1864</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1866-L1902">L1866-1902</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2330-L2363">L2330-2363</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L810-L819">L810-819</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L874-L889">L874-889</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1606-L1624">L1606-1624</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1474-L1485">L1474-1485</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1051-L1059">L1051-1059</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1660-L1740">L1660-1740</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2317-L2325">L2317-2325</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1522-L1543">L1522-1543</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1742-L1752">L1742-1752</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1912-L1966">L1912-1966</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1674-L1684">L1674-1684</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2083-L2092">L2083-2092</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L731-L786">L731-786</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L926-L950">L926-950</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L935-L942">L935-942</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L897-L904">L897-904</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1488-L1508">L1488-1508</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1155-L1221">L1155-1221</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1263-L1274">L1263-1274</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2072-L2081">L2072-2081</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2434-L2440">L2434-2440</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L829-L872">L829-872</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1428-L1471">L1428-1471</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1423-L1435">L1423-1435</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1510-L1543">L1510-1543</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2028-L2040">L2028-2040</a></li>
+<li><code>src/evaluator.h</code>: <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/evaluator.h#L207-L208">L207-208</a></li>
+<li><code>src/grid.h</code>: <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/grid.h#L491-L520">L491-520</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/grid.h#L444-L480">L444-480</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/grid.h#L664-L669">L664-669</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/grid.h#L584-L600">L584-600</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/grid.h#L575-L602">L575-602</a></li>
+<li><code>src/selection.h</code>: <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/selection.h#L1-L31">L1-31</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/selection.h#L51-L63">L51-63</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/selection.h#L347-L367">L347-367</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/selection.h#L125-L190">L125-190</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/selection.h#L18-L26">L18-26</a></li>
+<li><code>src/system.h</code>: <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/system.h#L397-L451">L397-451</a></li>
+<li><code>src/tsframe.h</code>: <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L402-L432">L402-432</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L700-L702">L700-702</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L347-L377">L347-377</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L281-L307">L281-307</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L180-L205">L180-205</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L309-L325">L309-325</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L333-L345">L333-345</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L434-L457">L434-457</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L103-L119">L103-119</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L380-L399">L380-399</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L121-L152">L121-152</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L652-L681">L652-681</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L1161-L1178">L1161-1178</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L1258-L1266">L1258-1266</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L474-L516">L474-516</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L871-L893">L871-893</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L1084-L1102">L1084-1102</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L1223-L1237">L1223-1237</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L1288-L1314">L1288-1314</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L225-L270">L225-270</a>, <a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L223-L273">L223-273</a></li></ul><h2>Features Lacking Implementation Verification</h2><ul><li>None</li></ul><h2>Non-default Commit Overrides</h2><ul><li>None</li></ul>
+    </main>
+  </div>
+</body>
+</html>
+

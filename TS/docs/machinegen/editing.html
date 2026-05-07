@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Editing Cells - TreeSheets Reference</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111318;
+      --panel: #171b22;
+      --panel-2: #1d232d;
+      --text: #e5e9f0;
+      --muted: #9ba7b6;
+      --faint: #6f7a89;
+      --border: #2b3440;
+      --link: #91c9ff;
+      --green: #587d64;
+      --teal: #486f7e;
+      --amber: #7d6845;
+      --violet: #68617d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(210px, 260px) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    nav {
+      border-right: 1px solid var(--border);
+      background: #0f1116;
+      padding: 28px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    nav .brand {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    nav a {
+      display: block;
+      padding: 7px 9px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    nav a.active {
+      background: var(--panel-2);
+      color: var(--text);
+    }
+    main {
+      max-width: 1120px;
+      width: 100%;
+      padding: 42px 48px 72px;
+    }
+    header.page-header {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 22px;
+    }
+    h1 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: 23px;
+      line-height: 1.3;
+      margin: 0;
+      letter-spacing: 0;
+    }
+    h3 {
+      font-size: 16px;
+      margin: 22px 0 8px;
+      color: #cbd4df;
+      letter-spacing: 0;
+    }
+    .meta, .notice, .description, .verification, .footnotes {
+      color: var(--muted);
+    }
+    .notice { margin-top: 5px; font-size: 14px; }
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 22px 0;
+    }
+    .feature-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      color: #f1f5f9;
+      font-size: 12px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .badge-implementation_verified { background: var(--green); }
+    .badge-ui_verified { background: var(--teal); }
+    .badge-docs_history_verified { background: var(--amber); }
+    .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      color: #cbd4df;
+      font-weight: 650;
+    }
+    code {
+      background: #0d1015;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: #dbeafe;
+    }
+    .source-refs {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footnotes {
+      border-top: 1px solid var(--border);
+      margin-top: 34px;
+      padding-top: 16px;
+      font-size: 14px;
+    }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .audit-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    ul { padding-left: 22px; }
+    @media (max-width: 760px) {
+      .layout { display: block; }
+      nav {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      main { padding: 28px 20px 56px; }
+      .feature-head { display: block; }
+      .badge { margin-top: 8px; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="brand">TreeSheets Reference</div>
+      <a href="index.html">TreeSheets Reference</a>
+<a href="selection.html">Selection and Navigation</a>
+<a class="active" href="editing.html">Editing Cells</a>
+<a href="grids.html">Grids and Layout</a>
+<a href="import_export.html">Import and Export</a>
+<a href="search.html">Search and Filtering</a>
+<a href="scripting.html">Scripting and Evaluation</a>
+<a href="sources.html">Source Audit</a>
+    </nav>
+    <main>
+      <header class="page-header">
+        <h1>Editing Cells</h1>
+        <p class="description">Text editing, clipboard operations, deletion, notes, images, styles, and sizing.</p>
+        <div class="meta">Updated last on 2026-05-07 · Source commit <code>a6d64cacc924</code></div>
+        <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
+      </header>
+      <p>Editing commands often branch on whether the current selection is a grid selection, a thin grid-line selection, or text edit mode inside one cell.</p><article class="feature" id="clipboard-delete">
+  <div class="feature-head">
+    <h2>Clipboard, delete, and collapse</h2>
+    <span class="badge badge-implementation_verified">Implementation verified</span>
+  </div>
+  <p class="verification">Clipboard menu entries, alternate accelerators, and command branches were traced.</p>
+  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Cut / Copy / Paste</td><td>Edit</td><td>Ctrl+X, Ctrl+C, Ctrl+V; Shift+Del, Ctrl+Ins, Shift+Ins</td><td><code>wxID_CUT/wxID_COPY/wxID_PASTE</code></td></tr>
+<tr><td>Delete after / before</td><td>Edit</td><td>Del, Backspace</td><td><code>A_DELETE/A_BACKSPACE</code></td></tr>
+<tr><td>Collapse cells</td><td>Edit &gt; Collapse Cells</td><td>Ctrl+L</td><td><code>A_COLLAPSE</code></td></tr></tbody></table>
+  <h3>Behavior</h3><p>Cut and copy serialize the current selection unless it is a thin grid-line selection; in text edit mode they require a non-empty text range. Paste accepts TreeSheets internal cell clipboard, text, file drops, images, and multi-line text that can create a subgrid. Delete and Backspace either remove rows/columns from thin selections, edit text, or delete selected cell content and potentially compact the grid. Collapse merges selected cell text into the first selected cell and deletes the remaining selected cells.</p>
+<h3>Context</h3><p>Clipboard and delete behavior is highly selection-dependent: text edit, thin grid line, one cell, or rectangular grid selection all route differently.</p>
+<h3>Effects</h3><p>Mutating operations add undo, clear or modify cells, call MultiCellDelete or text deletion helpers, refresh the canvas, and may zoom out if the current grid disappeared.</p>
+<h3>Edge Cases</h3><p>Delete at the end of text and Backspace at the beginning of text are no-ops. Collapse requires more than one selected cell and some content to collapse.</p>
+<h3>Quirks</h3><p>Pasting a TreeSheets file path asks whether to open the file, paste the path, or cancel. Multi-line text paste can replace a cell with a grid of rows and then merge with the parent when the original cell has no text.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-clipboard-delete-1">[1]</a> <a href="#src-clipboard-delete-2">[2]</a> <a href="#src-clipboard-delete-3">[3]</a> <a href="#src-clipboard-delete-4">[4]</a> <a href="#src-clipboard-delete-5">[5]</a> <a href="#src-clipboard-delete-6">[6]</a></div>
+</article>
+
+<article class="feature" id="images-links">
+  <div class="feature-head">
+    <h2>Images, links, and file launching</h2>
+    <span class="badge badge-implementation_verified">Implementation verified</span>
+  </div>
+  <p class="verification">Verified from image/browsing menus and Document image/link handlers.</p>
+  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Images</td><td>Edit &gt; Images</td><td>Shift+Alt+I for insert last image</td><td><code>A_IMAGE/A_IMAGESVA/A_IMAGESCP/A_IMAGESCW/A_IMAGESCF/A_IMAGESCN/A_SAVE_AS_JPEG/A_SAVE_AS_PNG/A_LASTIMAGE/A_IMAGER</code></td></tr>
+<tr><td>Browsing</td><td>Edit &gt; Browsing</td><td>F5, F4</td><td><code>A_BROWSE/A_BROWSEF</code></td></tr></tbody></table>
+  <h3>Behavior</h3><p>Image commands add, save, rescale, display-scale, reset, convert, reuse, or remove images in selected cells. Browsing commands launch selected cell text either as a URL in the default browser or as a file path in the default application.</p>
+<h3>Context</h3><p>Most image commands require selected cells and act recursively through the selection when collecting images. Browsing iterates selected cells without recursion.</p>
+<h3>Effects</h3><p>Image mutation updates image buffers or display scale, resets layout, and refreshes. File browsing resolves relative file paths against the current TreeSheets file path before launching.</p>
+<h3>Edge Cases</h3><p>Saving images reports when the selection has no images. Browsing stops after a configured maximum number of launches and reports failed launches.</p>
+<h3>Quirks</h3><p>Display-only image scaling applies to all uses of the same image object, not only the selected cell.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-images-links-1">[1]</a> <a href="#src-images-links-2">[2]</a> <a href="#src-images-links-3">[3]</a> <a href="#src-images-links-4">[4]</a> <a href="#src-images-links-5">[5]</a></div>
+</article>
+
+<article class="feature" id="text-edit-mode">
+  <div class="feature-head">
+    <h2>Text edit mode</h2>
+    <span class="badge badge-implementation_verified">Implementation verified</span>
+  </div>
+  <p class="verification">Verified from menu definitions, key handling, and A_ENTERCELL branches.</p>
+  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Enter/exit text edit mode</td><td>Edit &gt; Text Editing &gt; Enter/exit text edit mode</td><td>Enter</td><td><code>A_ENTERCELL</code></td></tr>
+<tr><td>Jump to end / start</td><td>Edit &gt; Text Editing</td><td>F2, Ctrl+Enter or Alt+Enter depending on platform</td><td><code>A_ENTERCELL_JUMPTOEND/A_ENTERCELL_JUMPTOSTART</code></td></tr>
+<tr><td>Progress to next cell</td><td>Edit &gt; Text Editing</td><td>Alt+Enter or Ctrl+Enter depending on platform</td><td><code>A_PROGRESSCELL</code></td></tr></tbody></table>
+  <h3>Behavior</h3><p>Text edit mode turns a single cell selection into an insertion cursor or text range. Enter opens edit mode with all text selected by default, F2 opens at the end, and progress variants leave edit mode by moving to a neighboring cell when already editing.</p>
+<h3>Context</h3><p>The command requires a single selected cell, or a thin selection that can be expanded into a cell. Typing printable characters also enters or creates text content after expanding/wrapping a selection as needed.</p>
+<h3>Effects</h3><p>Entering text edit mode sets the I-beam cursor, cursor positions, paint-scroll flag, and refreshes the canvas. Text keystrokes add undo and insert into the cell text.</p>
+<h3>Edge Cases</h3><p>If the selection cannot be expanded to one cell, the command reports that one cell must be selected.</p>
+<h3>Quirks</h3><p>The labels for Ctrl/Alt Enter are platform-dependent: macOS uses Ctrl for layout/render shortcuts and non-macOS uses Alt in several menu strings.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-text-edit-mode-1">[1]</a> <a href="#src-text-edit-mode-2">[2]</a> <a href="#src-text-edit-mode-3">[3]</a> <a href="#src-text-edit-mode-4">[4]</a> <a href="#src-text-edit-mode-5">[5]</a></div>
+</article>
+
+<article class="feature" id="styles-sizing-color">
+  <div class="feature-head">
+    <h2>Text style, sizing, colors, and borders</h2>
+    <span class="badge badge-implementation_verified">Implementation verified</span>
+  </div>
+  <p class="verification">Verified from style menus, command branches, Grid::SetStyle, and color/dropdown handlers.</p>
+  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Toggle text styles</td><td>Edit &gt; Text Style</td><td>Ctrl+B, Ctrl+I, Ctrl+Alt+T, Ctrl+U, Ctrl+T</td><td><code>wxID_BOLD/wxID_ITALIC/A_TT/wxID_UNDERLINE/wxID_STRIKETHROUGH</code></td></tr>
+<tr><td>Text sizing and column width</td><td>Edit &gt; Text Sizing</td><td>Shift+PgUp/PgDn, Alt+PgUp/PgDn, Ctrl+R</td><td><code>A_INCSIZE/A_DECSIZE/A_INCWIDTH/A_DECWIDTH/A_RESETWIDTH</code></td></tr>
+<tr><td>Grid border width</td><td>Edit &gt; Set Grid Border Width</td><td>Ctrl+Shift+1..5, Ctrl+Shift+9</td><td><code>A_BORD0..A_BORD5</code></td></tr></tbody></table>
+  <h3>Behavior</h3><p>Style commands toggle bit flags on the selected cells. Text size and column width commands are routed through mouse-wheel style handlers or explicit reset branches. Border width commands set the selected grid's outer spacing. Last-color commands apply remembered cell, text, or border colors to the selection.</p>
+<h3>Context</h3><p>These commands require a selected grid. Style and reset commands iterate selected cells, while border width acts on the selected grid itself.</p>
+<h3>Effects</h3><p>Commands add undo, mutate style bits, relative sizes, column widths, cell/text/border colors, reset layout caches, refresh the canvas, and update status where appropriate.</p>
+<h3>Edge Cases</h3><p>Reset colors treats tag cells specially by resetting the stored tag color, while normal cells reset text, cell, and nested-grid border colors.</p>
+<h3>Quirks</h3><p>Border menu labels are numbered 0 through 5, but the implementation stores width as action - A_BORD0 + 1.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-styles-sizing-color-1">[1]</a> <a href="#src-styles-sizing-color-2">[2]</a> <a href="#src-styles-sizing-color-3">[3]</a> <a href="#src-styles-sizing-color-4">[4]</a> <a href="#src-styles-sizing-color-5">[5]</a> <a href="#src-styles-sizing-color-6">[6]</a> <a href="#src-styles-sizing-color-7">[7]</a></div>
+</article>
+
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-clipboard-delete-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L402-L432">src/tsframe.h:L402-L432</a> - Edit menu entries for clipboard, collapse, and delete.</li>
+<li id="src-clipboard-delete-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L700-L702">src/tsframe.h:L700-L702</a> - Alternate clipboard accelerators.</li>
+<li id="src-clipboard-delete-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1324-L1422">src/document.h:L1324-L1422</a> - Backspace, delete, cut/copy, bitmap copy, and collapse implementation.</li>
+<li id="src-clipboard-delete-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1545-L1567">src/document.h:L1545-L1567</a> - Paste command dispatch for bitmap, file, text, and internal clipboard data.</li>
+<li id="src-clipboard-delete-5"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2112-L2169">src/document.h:L2112-L2169</a> - Paste/drop helpers for files, text, and bitmaps.</li>
+<li id="src-clipboard-delete-6"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/grid.h#L444-L480">src/grid.h:L444-L480</a> - MultiCellDelete clears content, deletes rows/columns, or enters edit mode.</li>
+<li id="src-images-links-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L347-L377">src/tsframe.h:L347-L377</a> - Image and browsing menu entries.</li>
+<li id="src-images-links-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1626-L1640">src/document.h:L1626-L1640</a> - Add and remove image behavior.</li>
+<li id="src-images-links-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1762-L1864">src/document.h:L1762-L1864</a> - Image scaling, saving, and conversion commands.</li>
+<li id="src-images-links-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1866-L1902">src/document.h:L1866-L1902</a> - Open selected text as URL or file.</li>
+<li id="src-images-links-5"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2330-L2363">src/document.h:L2330-L2363</a> - Image loading and applying image dropdown choices.</li>
+<li id="src-text-edit-mode-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L281-L307">src/tsframe.h:L281-L307</a> - Text editing menu entries.</li>
+<li id="src-text-edit-mode-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L810-L819">src/document.h:L810-L819</a> - Return key dispatch to text edit or grid creation commands.</li>
+<li id="src-text-edit-mode-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L874-L889">src/document.h:L874-L889</a> - Printable character handling expands selections and inserts text.</li>
+<li id="src-text-edit-mode-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1606-L1624">src/document.h:L1606-L1624</a> - Enter-cell command behavior.</li>
+<li id="src-text-edit-mode-5"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/selection.h#L51-L63">src/selection.h:L51-L63</a> - Selection text edit state and cursor setup.</li>
+<li id="src-styles-sizing-color-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L180-L205">src/tsframe.h:L180-L205</a> - Text sizing and border-width menu entries.</li>
+<li id="src-styles-sizing-color-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L309-L325">src/tsframe.h:L309-L325</a> - Text style and last-color menu entries.</li>
+<li id="src-styles-sizing-color-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1474-L1485">src/document.h:L1474-L1485</a> - Style command dispatch.</li>
+<li id="src-styles-sizing-color-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1051-L1059">src/document.h:L1051-L1059</a> - Zoom/text-size/column-width action routing.</li>
+<li id="src-styles-sizing-color-5"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1660-L1740">src/document.h:L1660-L1740</a> - Border, reset, last-color, and mini-size behavior.</li>
+<li id="src-styles-sizing-color-6"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/grid.h#L664-L669">src/grid.h:L664-L669</a> - Grid::SetStyle toggles text style bits on selected cells.</li>
+<li id="src-styles-sizing-color-7"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2317-L2325">src/document.h:L2317-L2325</a> - Color dropdown handler applies selected color to cells.</li></ol></section>
+    </main>
+  </div>
+</body>
+</html>
+

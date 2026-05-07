@@ -1,0 +1,80 @@
+id = "clipboard-delete"
+title = "Clipboard, delete, and collapse"
+category = "editing"
+page = "editing"
+
+[[commands]]
+name = "Cut / Copy / Paste"
+menu_path = "Edit"
+shortcut = "Ctrl+X, Ctrl+C, Ctrl+V; Shift+Del, Ctrl+Ins, Shift+Ins"
+command_id = "wxID_CUT/wxID_COPY/wxID_PASTE"
+
+[[commands]]
+name = "Delete after / before"
+menu_path = "Edit"
+shortcut = "Del, Backspace"
+command_id = "A_DELETE/A_BACKSPACE"
+
+[[commands]]
+name = "Collapse cells"
+menu_path = "Edit > Collapse Cells"
+shortcut = "Ctrl+L"
+command_id = "A_COLLAPSE"
+
+[verification]
+level = "implementation_verified"
+text = "Clipboard menu entries, alternate accelerators, and command branches were traced."
+
+[behavior]
+summary = """
+Cut and copy serialize the current selection unless it is a thin grid-line selection; in text edit mode they require a non-empty text range. Paste accepts TreeSheets internal cell clipboard, text, file drops, images, and multi-line text that can create a subgrid. Delete and Backspace either remove rows/columns from thin selections, edit text, or delete selected cell content and potentially compact the grid. Collapse merges selected cell text into the first selected cell and deletes the remaining selected cells.
+"""
+context = """
+Clipboard and delete behavior is highly selection-dependent: text edit, thin grid line, one cell, or rectangular grid selection all route differently.
+"""
+effects = """
+Mutating operations add undo, clear or modify cells, call MultiCellDelete or text deletion helpers, refresh the canvas, and may zoom out if the current grid disappeared.
+"""
+edge_cases = """
+Delete at the end of text and Backspace at the beginning of text are no-ops. Collapse requires more than one selected cell and some content to collapse.
+"""
+quirks = """
+Pasting a TreeSheets file path asks whether to open the file, paste the path, or cancel. Multi-line text paste can replace a cell with a grid of rows and then merge with the parent when the original cell has no text.
+"""
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "402-432"
+label = "Edit menu entries for clipboard, collapse, and delete."
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "700-702"
+label = "Alternate clipboard accelerators."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1324-1422"
+label = "Backspace, delete, cut/copy, bitmap copy, and collapse implementation."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1545-1567"
+label = "Paste command dispatch for bitmap, file, text, and internal clipboard data."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "2112-2169"
+label = "Paste/drop helpers for files, text, and bitmaps."
+
+[[sources]]
+type = "implementation"
+file = "src/grid.h"
+lines = "444-480"
+label = "MultiCellDelete clears content, deletes rows/columns, or enters edit mode."
+

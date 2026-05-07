@@ -1,0 +1,86 @@
+id = "scripting-evaluation"
+title = "Program evaluation and Lobster scripts"
+category = "scripting"
+page = "scripting"
+
+[[commands]]
+name = "Run"
+menu_path = "Program > Run"
+shortcut = "Ctrl+Alt+F5"
+command_id = "wxID_EXECUTE"
+
+[[commands]]
+name = "Mark as"
+menu_path = "Program > Mark as"
+shortcut = "Ctrl+Alt+D/O/A/R/./,"
+command_id = "A_MARKDATA/A_MARKCODE/A_MARKVARD/A_MARKVARU/A_MARKVIEWH/A_MARKVIEWV"
+
+[[commands]]
+name = "Add/remove Lobster script"
+menu_path = "Script"
+shortcut = "Ctrl+Alt+L, Ctrl+Shift+Alt+L"
+command_id = "A_ADDSCRIPT/A_DETSCRIPT"
+
+[verification]
+level = "implementation_verified"
+text = "Verified from conditional Lobster menu code, Program menu definitions, and evaluator dispatch."
+
+[behavior]
+summary = """
+Program > Run evaluates the root cell through the evaluator, resets children, clears selection, and refreshes. Mark commands assign cell types used by the evaluator; operation cells infer their precise operation type from text. When Lobster is enabled, scripts are loaded into a Script menu and executed from history entries.
+"""
+context = """
+Run acts on the document root. Mark commands require an active grid selection. Script menu commands are compiled only when ENABLE_LOBSTER is defined.
+"""
+effects = """
+Run records undo on the root, evaluates, resets layouts, clears selection and drag state, and refreshes. Mark commands add undo and change celltype for every selected cell.
+"""
+edge_cases = """
+Script history command IDs are separate from tag command IDs and are handled in TSFrame::OnMenu before normal Document::Action dispatch.
+"""
+quirks = """
+The generated docs mark script menu behavior as implementation verified but conditional on ENABLE_LOBSTER.
+"""
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "652-681"
+label = "Conditional Script menu and Program menu entries."
+
+[[sources]]
+type = "implementation"
+file = "src/tsframe.h"
+lines = "1161-1178"
+label = "Add/remove Lobster script menu behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/tsframe.h"
+lines = "1258-1266"
+label = "Script history command dispatch."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "897-904"
+label = "Run command evaluates the document root and refreshes."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1488-1508"
+label = "Mark commands assign evaluator cell types."
+
+[[sources]]
+type = "implementation"
+file = "src/evaluator.h"
+lines = "207-208"
+label = "Evaluator entry point evaluates the root cell."
+
+[[sources]]
+type = "implementation"
+file = "src/cell.h"
+lines = "9-9"
+label = "Cell type enum used by program/evaluator markers."
+

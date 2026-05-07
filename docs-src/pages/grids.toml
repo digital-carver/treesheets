@@ -1,0 +1,8 @@
+id = "grids"
+title = "Grids and Layout"
+order = 30
+description = "Subgrid creation, folding, hierarchy operations, layout direction, render styles, and flattening."
+intro = """
+Grids are nested inside cells. Many structural commands either operate on the selected grid or on subgrids inside the selected cells.
+"""
+

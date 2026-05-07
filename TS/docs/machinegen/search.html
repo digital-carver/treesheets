@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search and Filtering - TreeSheets Reference</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111318;
+      --panel: #171b22;
+      --panel-2: #1d232d;
+      --text: #e5e9f0;
+      --muted: #9ba7b6;
+      --faint: #6f7a89;
+      --border: #2b3440;
+      --link: #91c9ff;
+      --green: #587d64;
+      --teal: #486f7e;
+      --amber: #7d6845;
+      --violet: #68617d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(210px, 260px) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    nav {
+      border-right: 1px solid var(--border);
+      background: #0f1116;
+      padding: 28px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    nav .brand {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    nav a {
+      display: block;
+      padding: 7px 9px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    nav a.active {
+      background: var(--panel-2);
+      color: var(--text);
+    }
+    main {
+      max-width: 1120px;
+      width: 100%;
+      padding: 42px 48px 72px;
+    }
+    header.page-header {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 22px;
+    }
+    h1 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: 23px;
+      line-height: 1.3;
+      margin: 0;
+      letter-spacing: 0;
+    }
+    h3 {
+      font-size: 16px;
+      margin: 22px 0 8px;
+      color: #cbd4df;
+      letter-spacing: 0;
+    }
+    .meta, .notice, .description, .verification, .footnotes {
+      color: var(--muted);
+    }
+    .notice { margin-top: 5px; font-size: 14px; }
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 22px 0;
+    }
+    .feature-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      color: #f1f5f9;
+      font-size: 12px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .badge-implementation_verified { background: var(--green); }
+    .badge-ui_verified { background: var(--teal); }
+    .badge-docs_history_verified { background: var(--amber); }
+    .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      color: #cbd4df;
+      font-weight: 650;
+    }
+    code {
+      background: #0d1015;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: #dbeafe;
+    }
+    .source-refs {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footnotes {
+      border-top: 1px solid var(--border);
+      margin-top: 34px;
+      padding-top: 16px;
+      font-size: 14px;
+    }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .audit-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    ul { padding-left: 22px; }
+    @media (max-width: 760px) {
+      .layout { display: block; }
+      nav {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      main { padding: 28px 20px 56px; }
+      .feature-head { display: block; }
+      .badge { margin-top: 8px; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="brand">TreeSheets Reference</div>
+      <a href="index.html">TreeSheets Reference</a>
+<a href="selection.html">Selection and Navigation</a>
+<a href="editing.html">Editing Cells</a>
+<a href="grids.html">Grids and Layout</a>
+<a href="import_export.html">Import and Export</a>
+<a class="active" href="search.html">Search and Filtering</a>
+<a href="scripting.html">Scripting and Evaluation</a>
+<a href="sources.html">Source Audit</a>
+    </nav>
+    <main>
+      <header class="page-header">
+        <h1>Search and Filtering</h1>
+        <p class="description">Search toolbar behavior, replace actions, and document filters.</p>
+        <div class="meta">Updated last on 2026-05-07 · Source commit <code>a6d64cacc924</code></div>
+        <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
+      </header>
+      <p>Search state lives on the application system object and is consumed by document commands that jump, replace, or hide non-matching cells.</p><article class="feature" id="search-filter-replace">
+  <div class="feature-head">
+    <h2>Search, replace, and filters</h2>
+    <span class="badge badge-implementation_verified">Implementation verified</span>
+  </div>
+  <p class="verification">Verified from search/view menus, toolbar events, and Document search/filter branches.</p>
+  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Search / Next / Previous</td><td>Search</td><td>Ctrl+F, F3, Shift+F3</td><td><code>wxID_FIND/A_SEARCHNEXT/A_SEARCHPREV</code></td></tr>
+<tr><td>Replace</td><td>Search</td><td>Ctrl+H, Ctrl+K, Ctrl+J</td><td><code>wxID_REPLACE/A_REPLACEONCE/A_REPLACEONCEJ/A_REPLACEALL</code></td></tr>
+<tr><td>Filter</td><td>View &gt; Filter</td><td>Ctrl+Shift+F, Ctrl+F3</td><td><code>A_FILTER*</code></td></tr></tbody></table>
+  <h3>Behavior</h3><p>Search text is captured by the toolbar field, optionally lowercased for case-insensitive search, and used by next/previous commands. Replace can affect the current selection, replace and jump, or replace all. Filters hide cells that do not match current search, edit recency/date ranges, notes, or cell background.</p>
+<h3>Context</h3><p>Search and replace toolbar controls must exist and be enabled for focus commands. Replace requires a non-empty search string.</p>
+<h3>Effects</h3><p>Search jumps set selection to the matching cell and optionally focus the canvas. Replace adds undo, mutates text, refreshes the document, and may jump. Filters mutate each cell's filtered flag, reset children, set paint-scroll state, and refresh.</p>
+<h3>Edge Cases</h3><p>If no search string exists, next/previous can seed the search field from the currently selected cell text; otherwise they report that one cell must be selected or no text exists.</p>
+<h3>Quirks</h3><p>On Windows, Enter in the search/replace text controls is emulated in OnMenu because EVT_TEXT_ENTER is not generated.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-search-filter-replace-1">[1]</a> <a href="#src-search-filter-replace-2">[2]</a> <a href="#src-search-filter-replace-3">[3]</a> <a href="#src-search-filter-replace-4">[4]</a> <a href="#src-search-filter-replace-5">[5]</a> <a href="#src-search-filter-replace-6">[6]</a> <a href="#src-search-filter-replace-7">[7]</a> <a href="#src-search-filter-replace-8">[8]</a> <a href="#src-search-filter-replace-9">[9]</a></div>
+</article>
+
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-search-filter-replace-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L474-L516">src/tsframe.h:L474-L516</a> - Search and filter menu entries.</li>
+<li id="src-search-filter-replace-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L871-L893">src/tsframe.h:L871-L893</a> - Search and replace toolbar controls.</li>
+<li id="src-search-filter-replace-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L1084-L1102">src/tsframe.h:L1084-L1102</a> - Windows Enter-key emulation for search/replace text controls.</li>
+<li id="src-search-filter-replace-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L1223-L1237">src/tsframe.h:L1223-L1237</a> - Search/replace commands focus toolbar controls or show status messages.</li>
+<li id="src-search-filter-replace-5"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L1288-L1314">src/tsframe.h:L1288-L1314</a> - OnSearch and OnSearchReplaceEnter update search state and dispatch actions.</li>
+<li id="src-search-filter-replace-6"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1155-L1221">src/document.h:L1155-L1221</a> - Search next/previous, case sensitivity, and replace branches.</li>
+<li id="src-search-filter-replace-7"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1263-L1274">src/document.h:L1263-L1274</a> - Search and edit filter action dispatch.</li>
+<li id="src-search-filter-replace-8"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2072-L2081">src/document.h:L2072-L2081</a> - SearchNext finds and selects matching cells.</li>
+<li id="src-search-filter-replace-9"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2434-L2440">src/document.h:L2434-L2440</a> - SetSearchFilter toggles filtered flags for non-matching cells.</li></ol></section>
+    </main>
+  </div>
+</body>
+</html>
+

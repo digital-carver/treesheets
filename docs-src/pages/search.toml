@@ -1,0 +1,8 @@
+id = "search"
+title = "Search and Filtering"
+order = 50
+description = "Search toolbar behavior, replace actions, and document filters."
+intro = """
+Search state lives on the application system object and is consumed by document commands that jump, replace, or hide non-matching cells.
+"""
+

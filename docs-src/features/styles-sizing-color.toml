@@ -1,0 +1,86 @@
+id = "styles-sizing-color"
+title = "Text style, sizing, colors, and borders"
+category = "editing"
+page = "editing"
+
+[[commands]]
+name = "Toggle text styles"
+menu_path = "Edit > Text Style"
+shortcut = "Ctrl+B, Ctrl+I, Ctrl+Alt+T, Ctrl+U, Ctrl+T"
+command_id = "wxID_BOLD/wxID_ITALIC/A_TT/wxID_UNDERLINE/wxID_STRIKETHROUGH"
+
+[[commands]]
+name = "Text sizing and column width"
+menu_path = "Edit > Text Sizing"
+shortcut = "Shift+PgUp/PgDn, Alt+PgUp/PgDn, Ctrl+R"
+command_id = "A_INCSIZE/A_DECSIZE/A_INCWIDTH/A_DECWIDTH/A_RESETWIDTH"
+
+[[commands]]
+name = "Grid border width"
+menu_path = "Edit > Set Grid Border Width"
+shortcut = "Ctrl+Shift+1..5, Ctrl+Shift+9"
+command_id = "A_BORD0..A_BORD5"
+
+[verification]
+level = "implementation_verified"
+text = "Verified from style menus, command branches, Grid::SetStyle, and color/dropdown handlers."
+
+[behavior]
+summary = """
+Style commands toggle bit flags on the selected cells. Text size and column width commands are routed through mouse-wheel style handlers or explicit reset branches. Border width commands set the selected grid's outer spacing. Last-color commands apply remembered cell, text, or border colors to the selection.
+"""
+context = """
+These commands require a selected grid. Style and reset commands iterate selected cells, while border width acts on the selected grid itself.
+"""
+effects = """
+Commands add undo, mutate style bits, relative sizes, column widths, cell/text/border colors, reset layout caches, refresh the canvas, and update status where appropriate.
+"""
+edge_cases = """
+Reset colors treats tag cells specially by resetting the stored tag color, while normal cells reset text, cell, and nested-grid border colors.
+"""
+quirks = """
+Border menu labels are numbered 0 through 5, but the implementation stores width as action - A_BORD0 + 1.
+"""
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "180-205"
+label = "Text sizing and border-width menu entries."
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "309-325"
+label = "Text style and last-color menu entries."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1474-1485"
+label = "Style command dispatch."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1051-1059"
+label = "Zoom/text-size/column-width action routing."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1660-1740"
+label = "Border, reset, last-color, and mini-size behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/grid.h"
+lines = "664-669"
+label = "Grid::SetStyle toggles text style bits on selected cells."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "2317-2325"
+label = "Color dropdown handler applies selected color to cells."
+

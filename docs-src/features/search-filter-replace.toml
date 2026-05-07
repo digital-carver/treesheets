@@ -1,0 +1,98 @@
+id = "search-filter-replace"
+title = "Search, replace, and filters"
+category = "search"
+page = "search"
+
+[[commands]]
+name = "Search / Next / Previous"
+menu_path = "Search"
+shortcut = "Ctrl+F, F3, Shift+F3"
+command_id = "wxID_FIND/A_SEARCHNEXT/A_SEARCHPREV"
+
+[[commands]]
+name = "Replace"
+menu_path = "Search"
+shortcut = "Ctrl+H, Ctrl+K, Ctrl+J"
+command_id = "wxID_REPLACE/A_REPLACEONCE/A_REPLACEONCEJ/A_REPLACEALL"
+
+[[commands]]
+name = "Filter"
+menu_path = "View > Filter"
+shortcut = "Ctrl+Shift+F, Ctrl+F3"
+command_id = "A_FILTER*"
+
+[verification]
+level = "implementation_verified"
+text = "Verified from search/view menus, toolbar events, and Document search/filter branches."
+
+[behavior]
+summary = """
+Search text is captured by the toolbar field, optionally lowercased for case-insensitive search, and used by next/previous commands. Replace can affect the current selection, replace and jump, or replace all. Filters hide cells that do not match current search, edit recency/date ranges, notes, or cell background.
+"""
+context = """
+Search and replace toolbar controls must exist and be enabled for focus commands. Replace requires a non-empty search string.
+"""
+effects = """
+Search jumps set selection to the matching cell and optionally focus the canvas. Replace adds undo, mutates text, refreshes the document, and may jump. Filters mutate each cell's filtered flag, reset children, set paint-scroll state, and refresh.
+"""
+edge_cases = """
+If no search string exists, next/previous can seed the search field from the currently selected cell text; otherwise they report that one cell must be selected or no text exists.
+"""
+quirks = """
+On Windows, Enter in the search/replace text controls is emulated in OnMenu because EVT_TEXT_ENTER is not generated.
+"""
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "474-516"
+label = "Search and filter menu entries."
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "871-893"
+label = "Search and replace toolbar controls."
+
+[[sources]]
+type = "implementation"
+file = "src/tsframe.h"
+lines = "1084-1102"
+label = "Windows Enter-key emulation for search/replace text controls."
+
+[[sources]]
+type = "implementation"
+file = "src/tsframe.h"
+lines = "1223-1237"
+label = "Search/replace commands focus toolbar controls or show status messages."
+
+[[sources]]
+type = "implementation"
+file = "src/tsframe.h"
+lines = "1288-1314"
+label = "OnSearch and OnSearchReplaceEnter update search state and dispatch actions."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1155-1221"
+label = "Search next/previous, case sensitivity, and replace branches."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1263-1274"
+label = "Search and edit filter action dispatch."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "2072-2081"
+label = "SearchNext finds and selects matching cells."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "2434-2440"
+label = "SetSearchFilter toggles filtered flags for non-matching cells."
+

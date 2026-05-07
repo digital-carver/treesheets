@@ -1,0 +1,8 @@
+id = "selection"
+title = "Selection and Navigation"
+order = 10
+description = "Selection shapes, movement, expansion, parent/child traversal, and matching-cell jumps."
+intro = """
+TreeSheets uses one selection model for cells, grid lines, and text cursors. Many commands first expand thin grid-line selections or single-cell selections before acting.
+"""
+

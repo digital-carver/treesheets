@@ -1,0 +1,8 @@
+id = "import_export"
+title = "Import and Export"
+order = 40
+description = "File import, export formats, clipboard serialization, and image export behavior."
+intro = """
+TreeSheets converts the current view or selected content into XML, HTML, text, CSV, bitmap, SVG, and clipboard formats. CSV export has extra flat-grid requirements.
+"""
+

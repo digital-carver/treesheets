@@ -1,0 +1,8 @@
+id = "scripting"
+title = "Scripting and Evaluation"
+order = 60
+description = "Lobster script menu integration, program evaluation, and operation cell markers."
+intro = """
+When Lobster support is enabled, TreeSheets exposes script history commands and a program evaluation mode based on cell types.
+"""
+

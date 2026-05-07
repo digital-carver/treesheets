@@ -1,0 +1,74 @@
+id = "text-edit-mode"
+title = "Text edit mode"
+category = "editing"
+page = "editing"
+
+[[commands]]
+name = "Enter/exit text edit mode"
+menu_path = "Edit > Text Editing > Enter/exit text edit mode"
+shortcut = "Enter"
+command_id = "A_ENTERCELL"
+
+[[commands]]
+name = "Jump to end / start"
+menu_path = "Edit > Text Editing"
+shortcut = "F2, Ctrl+Enter or Alt+Enter depending on platform"
+command_id = "A_ENTERCELL_JUMPTOEND/A_ENTERCELL_JUMPTOSTART"
+
+[[commands]]
+name = "Progress to next cell"
+menu_path = "Edit > Text Editing"
+shortcut = "Alt+Enter or Ctrl+Enter depending on platform"
+command_id = "A_PROGRESSCELL"
+
+[verification]
+level = "implementation_verified"
+text = "Verified from menu definitions, key handling, and A_ENTERCELL branches."
+
+[behavior]
+summary = """
+Text edit mode turns a single cell selection into an insertion cursor or text range. Enter opens edit mode with all text selected by default, F2 opens at the end, and progress variants leave edit mode by moving to a neighboring cell when already editing.
+"""
+context = """
+The command requires a single selected cell, or a thin selection that can be expanded into a cell. Typing printable characters also enters or creates text content after expanding/wrapping a selection as needed.
+"""
+effects = """
+Entering text edit mode sets the I-beam cursor, cursor positions, paint-scroll flag, and refreshes the canvas. Text keystrokes add undo and insert into the cell text.
+"""
+edge_cases = """
+If the selection cannot be expanded to one cell, the command reports that one cell must be selected.
+"""
+quirks = """
+The labels for Ctrl/Alt Enter are platform-dependent: macOS uses Ctrl for layout/render shortcuts and non-macOS uses Alt in several menu strings.
+"""
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "281-307"
+label = "Text editing menu entries."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "810-819"
+label = "Return key dispatch to text edit or grid creation commands."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "874-889"
+label = "Printable character handling expands selections and inserts text."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1606-1624"
+label = "Enter-cell command behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/selection.h"
+lines = "51-63"
+label = "Selection text edit state and cursor setup."
+

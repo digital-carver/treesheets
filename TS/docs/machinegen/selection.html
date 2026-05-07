@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Selection and Navigation - TreeSheets Reference</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111318;
+      --panel: #171b22;
+      --panel-2: #1d232d;
+      --text: #e5e9f0;
+      --muted: #9ba7b6;
+      --faint: #6f7a89;
+      --border: #2b3440;
+      --link: #91c9ff;
+      --green: #587d64;
+      --teal: #486f7e;
+      --amber: #7d6845;
+      --violet: #68617d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(210px, 260px) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    nav {
+      border-right: 1px solid var(--border);
+      background: #0f1116;
+      padding: 28px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    nav .brand {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    nav a {
+      display: block;
+      padding: 7px 9px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    nav a.active {
+      background: var(--panel-2);
+      color: var(--text);
+    }
+    main {
+      max-width: 1120px;
+      width: 100%;
+      padding: 42px 48px 72px;
+    }
+    header.page-header {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 22px;
+    }
+    h1 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: 23px;
+      line-height: 1.3;
+      margin: 0;
+      letter-spacing: 0;
+    }
+    h3 {
+      font-size: 16px;
+      margin: 22px 0 8px;
+      color: #cbd4df;
+      letter-spacing: 0;
+    }
+    .meta, .notice, .description, .verification, .footnotes {
+      color: var(--muted);
+    }
+    .notice { margin-top: 5px; font-size: 14px; }
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 22px 0;
+    }
+    .feature-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      color: #f1f5f9;
+      font-size: 12px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .badge-implementation_verified { background: var(--green); }
+    .badge-ui_verified { background: var(--teal); }
+    .badge-docs_history_verified { background: var(--amber); }
+    .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      color: #cbd4df;
+      font-weight: 650;
+    }
+    code {
+      background: #0d1015;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: #dbeafe;
+    }
+    .source-refs {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footnotes {
+      border-top: 1px solid var(--border);
+      margin-top: 34px;
+      padding-top: 16px;
+      font-size: 14px;
+    }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .audit-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    ul { padding-left: 22px; }
+    @media (max-width: 760px) {
+      .layout { display: block; }
+      nav {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      main { padding: 28px 20px 56px; }
+      .feature-head { display: block; }
+      .badge { margin-top: 8px; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="brand">TreeSheets Reference</div>
+      <a href="index.html">TreeSheets Reference</a>
+<a class="active" href="selection.html">Selection and Navigation</a>
+<a href="editing.html">Editing Cells</a>
+<a href="grids.html">Grids and Layout</a>
+<a href="import_export.html">Import and Export</a>
+<a href="search.html">Search and Filtering</a>
+<a href="scripting.html">Scripting and Evaluation</a>
+<a href="sources.html">Source Audit</a>
+    </nav>
+    <main>
+      <header class="page-header">
+        <h1>Selection and Navigation</h1>
+        <p class="description">Selection shapes, movement, expansion, parent/child traversal, and matching-cell jumps.</p>
+        <div class="meta">Updated last on 2026-05-07 · Source commit <code>a6d64cacc924</code></div>
+        <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
+      </header>
+      <p>TreeSheets uses one selection model for cells, grid lines, and text cursors. Many commands first expand thin grid-line selections or single-cell selections before acting.</p><article class="feature" id="selection-movement">
+  <div class="feature-head">
+    <h2>Move, extend, and move cells</h2>
+    <span class="badge badge-implementation_verified">Implementation verified</span>
+  </div>
+  <p class="verification">Menu entries, keyboard fallback, and selection cursor implementation were traced.</p>
+  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Move selection</td><td>Edit &gt; Selection</td><td>Arrow keys</td><td><code>A_LEFT/A_RIGHT/A_UP/A_DOWN</code></td></tr>
+<tr><td>Move cells</td><td>Edit &gt; Selection</td><td>Ctrl+Arrow</td><td><code>A_MLEFT/A_MRIGHT/A_MUP/A_MDOWN</code></td></tr>
+<tr><td>Extend selection</td><td>Edit &gt; Selection</td><td>Shift+Arrow, Ctrl+Shift+Arrow</td><td><code>A_SLEFT/A_SRIGHT/A_SUP/A_SDOWN/A_SC*</code></td></tr></tbody></table>
+  <h3>Behavior</h3><p>Arrow commands move the selection or text cursor. Ctrl+Arrow moves selected cells around the grid outside text edit mode; in text edit mode horizontal Ctrl movement jumps by word-like runs. Shift extends the rectangular grid selection or the text selection.</p>
+<h3>Context</h3><p>Movement acts on the active grid selection. Text edit mode changes the same command IDs into cursor and text-selection actions.</p>
+<h3>Effects</h3><p>Cell movement records undo, calls Grid::Move, wraps coordinates through grid bounds, resets affected children, and scrolls to the new selection. Shift expansion changes the selection rectangle while clamping to grid bounds.</p>
+<h3>Edge Cases</h3><p>On GTK, several accelerators are emulated in Document::Key because wxGTK does not support those keycodes as menu accelerators.</p>
+<h3>Quirks</h3><p>Ctrl+I can arrive as Ctrl+Tab on Linux, so Ctrl+Tab tab switching is intentionally ignored there and Ctrl+Shift+Tab remains the reliable previous-tab shortcut.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-selection-movement-1">[1]</a> <a href="#src-selection-movement-2">[2]</a> <a href="#src-selection-movement-3">[3]</a> <a href="#src-selection-movement-4">[4]</a></div>
+</article>
+
+<article class="feature" id="select-all-and-parent">
+  <div class="feature-head">
+    <h2>Select all, parent, and first child</h2>
+    <span class="badge badge-implementation_verified">Implementation verified</span>
+  </div>
+  <p class="verification">Menu entries and command branches were traced to Selection and Document implementations.</p>
+  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Select all in current grid/cell</td><td>Edit &gt; Selection &gt; Select all in current grid/cell</td><td>Ctrl+A</td><td><code>wxID_SELECTALL</code></td></tr>
+<tr><td>Select Parent / Cancel text edits</td><td>Edit &gt; Selection &gt; Select Parent; Edit &gt; Text Editing &gt; Cancel text edits</td><td>Esc</td><td><code>A_CANCELEDIT</code></td></tr>
+<tr><td>Select First Child / Insert New Grid</td><td>Edit &gt; Selection &gt; Select First Child; Edit &gt; Insert New Grid</td><td>Shift+Enter / Ins</td><td><code>A_ENTERGRID</code></td></tr></tbody></table>
+  <h3>Behavior</h3><p>Select all selects every cell in the current grid, or all text in the current cell when already in text edit mode. Esc exits text edit mode; outside text edit mode it selects the parent cell, or the entire root grid if there is no parent. Entering a child grid selects the first cell of an existing subgrid, or creates a new 1x1 subgrid when none exists.</p>
+<h3>Context</h3><p>Select all requires a current grid. Parent traversal needs a grid selection; child traversal requires a single expandable cell.</p>
+<h3>Effects</h3><p>Selection coordinates are rewritten to the target grid or parent cell. Creating a subgrid records undo, creates the grid, selects its first cell, and refreshes the canvas.</p>
+<h3>Edge Cases</h3><p>Esc in text edit mode may undo coalesced text entry before leaving edit mode. Creating an NxN grid prompts for size and can be cancelled.</p>
+<h3>Quirks</h3><p>A_ENTERGRID is exposed in two contexts: as child selection when a child grid exists, and as grid creation when the selected cell has none.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-select-all-and-parent-1">[1]</a> <a href="#src-select-all-and-parent-2">[2]</a> <a href="#src-select-all-and-parent-3">[3]</a> <a href="#src-select-all-and-parent-4">[4]</a> <a href="#src-select-all-and-parent-5">[5]</a></div>
+</article>
+
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-selection-movement-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L225-L270">src/tsframe.h:L225-L270</a> - Selection movement, cell movement, and extension menu entries.</li>
+<li id="src-selection-movement-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L829-L872">src/document.h:L829-L872</a> - GTK keyboard fallback for arrows, tab, page up/down, and shortcut quirks.</li>
+<li id="src-selection-movement-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1428-L1471">src/document.h:L1428-L1471</a> - Document command dispatch for movement and full row/column extension.</li>
+<li id="src-selection-movement-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/selection.h#L125-L190">src/selection.h:L125-L190</a> - Selection::Dir handles moving cells, word movement, and shift extension.</li>
+<li id="src-select-all-and-parent-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L223-L273">src/tsframe.h:L223-L273</a> - Selection menu entries for select all, parent, and child traversal.</li>
+<li id="src-select-all-and-parent-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/selection.h#L18-L26">src/selection.h:L18-L26</a> - Select all switches between text and grid selection behavior.</li>
+<li id="src-select-all-and-parent-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1423-L1435">src/document.h:L1423-L1435</a> - Document command branch for wxID_SELECTALL and cursor movement.</li>
+<li id="src-select-all-and-parent-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1510-L1543">src/document.h:L1510-L1543</a> - Parent selection and enter/create child grid behavior.</li>
+<li id="src-select-all-and-parent-5"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2028-L2040">src/document.h:L2028-L2040</a> - Esc behavior while in text edit mode.</li></ol></section>
+    </main>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TreeSheets Reference - TreeSheets Reference</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111318;
+      --panel: #171b22;
+      --panel-2: #1d232d;
+      --text: #e5e9f0;
+      --muted: #9ba7b6;
+      --faint: #6f7a89;
+      --border: #2b3440;
+      --link: #91c9ff;
+      --green: #587d64;
+      --teal: #486f7e;
+      --amber: #7d6845;
+      --violet: #68617d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(210px, 260px) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    nav {
+      border-right: 1px solid var(--border);
+      background: #0f1116;
+      padding: 28px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    nav .brand {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    nav a {
+      display: block;
+      padding: 7px 9px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    nav a.active {
+      background: var(--panel-2);
+      color: var(--text);
+    }
+    main {
+      max-width: 1120px;
+      width: 100%;
+      padding: 42px 48px 72px;
+    }
+    header.page-header {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 22px;
+    }
+    h1 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: 23px;
+      line-height: 1.3;
+      margin: 0;
+      letter-spacing: 0;
+    }
+    h3 {
+      font-size: 16px;
+      margin: 22px 0 8px;
+      color: #cbd4df;
+      letter-spacing: 0;
+    }
+    .meta, .notice, .description, .verification, .footnotes {
+      color: var(--muted);
+    }
+    .notice { margin-top: 5px; font-size: 14px; }
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 22px 0;
+    }
+    .feature-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      color: #f1f5f9;
+      font-size: 12px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .badge-implementation_verified { background: var(--green); }
+    .badge-ui_verified { background: var(--teal); }
+    .badge-docs_history_verified { background: var(--amber); }
+    .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      color: #cbd4df;
+      font-weight: 650;
+    }
+    code {
+      background: #0d1015;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: #dbeafe;
+    }
+    .source-refs {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footnotes {
+      border-top: 1px solid var(--border);
+      margin-top: 34px;
+      padding-top: 16px;
+      font-size: 14px;
+    }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .audit-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    ul { padding-left: 22px; }
+    @media (max-width: 760px) {
+      .layout { display: block; }
+      nav {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      main { padding: 28px 20px 56px; }
+      .feature-head { display: block; }
+      .badge { margin-top: 8px; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="brand">TreeSheets Reference</div>
+      <a class="active" href="index.html">TreeSheets Reference</a>
+<a href="selection.html">Selection and Navigation</a>
+<a href="editing.html">Editing Cells</a>
+<a href="grids.html">Grids and Layout</a>
+<a href="import_export.html">Import and Export</a>
+<a href="search.html">Search and Filtering</a>
+<a href="scripting.html">Scripting and Evaluation</a>
+<a href="sources.html">Source Audit</a>
+    </nav>
+    <main>
+      <header class="page-header">
+        <h1>TreeSheets Reference</h1>
+        <p class="description">Source-cited reference documentation generated from the current TreeSheets source tree.</p>
+        <div class="meta">Updated last on 2026-05-07 · Source commit <code>a6d64cacc924</code></div>
+        <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
+      </header>
+      <p>TreeSheets is organized around cells that can contain text, images, notes, and nested grids. These pages document the behavior that could be traced from menus, event dispatch, and implementation code in the current repository state.</p><div class="audit-grid"><div class="audit-box"><strong>12</strong><br>feature sections</div><div class="audit-box"><strong>12</strong><br>implementation verified</div><div class="audit-box"><strong>a6d64cacc924</strong><br>source commit</div></div><h2>Pages</h2><ul><li><a href="selection.html">Selection and Navigation</a> - Selection shapes, movement, expansion, parent/child traversal, and matching-cell jumps.</li>
+<li><a href="editing.html">Editing Cells</a> - Text editing, clipboard operations, deletion, notes, images, styles, and sizing.</li>
+<li><a href="grids.html">Grids and Layout</a> - Subgrid creation, folding, hierarchy operations, layout direction, render styles, and flattening.</li>
+<li><a href="import_export.html">Import and Export</a> - File import, export formats, clipboard serialization, and image export behavior.</li>
+<li><a href="search.html">Search and Filtering</a> - Search toolbar behavior, replace actions, and document filters.</li>
+<li><a href="scripting.html">Scripting and Evaluation</a> - Lobster script menu integration, program evaluation, and operation cell markers.</li><li><a href="sources.html">Source Audit</a> - cited files, verification status, and override checks.</li></ul><article class="feature" id="core-model">
+  <div class="feature-head">
+    <h2>Cells, grids, and selections</h2>
+    <span class="badge badge-implementation_verified">Implementation verified</span>
+  </div>
+  <p class="verification">Verified from the Selection class and Grid/Cell model methods.</p>
+  
+  <h3>Behavior</h3><p>A TreeSheets document is a root cell with an optional grid. A grid owns cells and keeps dimensions, column widths, orientation, border state, and folding state. A selection points at a grid with x/y coordinates and width/height, or uses zero width/height as a thin grid-line selection.</p>
+<h3>Context</h3><p>Commands generally require an active selection with a grid. Single-cell commands call GetCell or ThinExpand; whole-grid commands may operate when the selection covers all cells.</p>
+<h3>Effects</h3><p>Selection state can enter text edit mode, exit text edit mode, expand to all cells, or be reassigned to a parent or child grid.</p>
+<h3>Edge Cases</h3><p>If a command needs a selected grid or one cell and the selection cannot provide it, Document::Action returns user-facing messages such as NoSel, OneCell, NoThin, or NoGrid.</p>
+<h3>Quirks</h3><p>The same Selection object represents text cursors, rectangular cell selections, and thin grid-line insertion/deletion targets.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-core-model-1">[1]</a> <a href="#src-core-model-2">[2]</a> <a href="#src-core-model-3">[3]</a></div>
+</article>
+
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-core-model-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/selection.h#L1-L31">src/selection.h:L1-L31</a> - Selection stores grid coordinates, size, cursor fields, and select-all behavior.</li>
+<li id="src-core-model-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/grid.h#L491-L520">src/grid.h:L491-L520</a> - Grid insertion updates dimensions, cells, orientation, and column widths.</li>
+<li id="src-core-model-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/cell.h#L377-L383">src/cell.h:L377-L383</a> - Cells create nested grids with AddGrid.</li></ol></section>
+    </main>
+  </div>
+</body>
+</html>
+

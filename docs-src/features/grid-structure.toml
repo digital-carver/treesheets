@@ -1,0 +1,92 @@
+id = "grid-structure"
+title = "Create, fold, wrap, transpose, flatten, and hierarchify grids"
+category = "grids"
+page = "grids"
+
+[[commands]]
+name = "Insert New Grid / NxN Grid"
+menu_path = "Edit"
+shortcut = "Ins or Ctrl+G; Ctrl+Shift+Enter"
+command_id = "A_ENTERGRID/A_ENTERGRIDN"
+
+[[commands]]
+name = "Wrap in new parent"
+menu_path = "Edit"
+shortcut = "F9"
+command_id = "A_WRAP"
+
+[[commands]]
+name = "Fold / Fold All / Unfold All"
+menu_path = "Edit"
+shortcut = "F10 or Ctrl+F10; Ctrl+Shift+F10; Ctrl+Alt+F10"
+command_id = "A_FOLD/A_FOLDALL/A_UNFOLDALL"
+
+[[commands]]
+name = "Transpose / Hierarchify / Flatten"
+menu_path = "Edit > Grid Reorganization"
+shortcut = "Ctrl+Shift+T for transpose"
+command_id = "A_TRANSPOSE/A_HIFY/A_FLATTEN"
+
+[verification]
+level = "implementation_verified"
+text = "Verified from menu entries and grid-structure command branches."
+
+[behavior]
+summary = """
+Grid creation adds a subgrid to one selected cell or enters an existing one. Wrap creates a new parent hierarchy around the selection. Folding toggles whether selected subgrids are displayed. Transpose changes grid orientation, Hierarchify converts a table-like grid into hierarchy, and Flatten converts nested hierarchy into a flat grid sized by depth and leaves.
+"""
+context = """
+Creation needs one expandable cell. Transpose rejects thin selections. Hierarchify requires a selected cell or whole grid with a table-like grid. Flatten requires a grid and can operate on the selected cell or all selected grid.
+"""
+effects = """
+Structural commands add undo, mutate grid ownership or layout, reset child layout caches, rewrite selection, and refresh the canvas.
+"""
+edge_cases = """
+Root-grid deletion is guarded in Grid::DelSelf. Hierarchify refuses grids whose cells already contain subgrids.
+"""
+quirks = """
+Fold stores a boolean on Grid and export serialization includes a folded attribute for XML output.
+"""
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "333-345"
+label = "Grid reorganization menu entries."
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "434-457"
+label = "Grid insertion, wrap, and fold menu entries."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1522-1543"
+label = "Insert/select subgrid implementation."
+
+[[sources]]
+type = "implementation"
+file = "src/selection.h"
+lines = "347-367"
+label = "Selection::Wrap creates a new hierarchy level."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1742-1752"
+label = "Fold, fold all, and unfold all behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1912-1966"
+label = "Transpose, hierarchify, and flatten behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/grid.h"
+lines = "584-600"
+label = "Grid export includes folded and layout-related attributes."
+

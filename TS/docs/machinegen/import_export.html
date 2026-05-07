@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Import and Export - TreeSheets Reference</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111318;
+      --panel: #171b22;
+      --panel-2: #1d232d;
+      --text: #e5e9f0;
+      --muted: #9ba7b6;
+      --faint: #6f7a89;
+      --border: #2b3440;
+      --link: #91c9ff;
+      --green: #587d64;
+      --teal: #486f7e;
+      --amber: #7d6845;
+      --violet: #68617d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(210px, 260px) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    nav {
+      border-right: 1px solid var(--border);
+      background: #0f1116;
+      padding: 28px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    nav .brand {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    nav a {
+      display: block;
+      padding: 7px 9px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    nav a.active {
+      background: var(--panel-2);
+      color: var(--text);
+    }
+    main {
+      max-width: 1120px;
+      width: 100%;
+      padding: 42px 48px 72px;
+    }
+    header.page-header {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 22px;
+    }
+    h1 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: 23px;
+      line-height: 1.3;
+      margin: 0;
+      letter-spacing: 0;
+    }
+    h3 {
+      font-size: 16px;
+      margin: 22px 0 8px;
+      color: #cbd4df;
+      letter-spacing: 0;
+    }
+    .meta, .notice, .description, .verification, .footnotes {
+      color: var(--muted);
+    }
+    .notice { margin-top: 5px; font-size: 14px; }
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 22px 0;
+    }
+    .feature-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      color: #f1f5f9;
+      font-size: 12px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .badge-implementation_verified { background: var(--green); }
+    .badge-ui_verified { background: var(--teal); }
+    .badge-docs_history_verified { background: var(--amber); }
+    .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      color: #cbd4df;
+      font-weight: 650;
+    }
+    code {
+      background: #0d1015;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: #dbeafe;
+    }
+    .source-refs {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footnotes {
+      border-top: 1px solid var(--border);
+      margin-top: 34px;
+      padding-top: 16px;
+      font-size: 14px;
+    }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .audit-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    ul { padding-left: 22px; }
+    @media (max-width: 760px) {
+      .layout { display: block; }
+      nav {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      main { padding: 28px 20px 56px; }
+      .feature-head { display: block; }
+      .badge { margin-top: 8px; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="brand">TreeSheets Reference</div>
+      <a href="index.html">TreeSheets Reference</a>
+<a href="selection.html">Selection and Navigation</a>
+<a href="editing.html">Editing Cells</a>
+<a href="grids.html">Grids and Layout</a>
+<a class="active" href="import_export.html">Import and Export</a>
+<a href="search.html">Search and Filtering</a>
+<a href="scripting.html">Scripting and Evaluation</a>
+<a href="sources.html">Source Audit</a>
+    </nav>
+    <main>
+      <header class="page-header">
+        <h1>Import and Export</h1>
+        <p class="description">File import, export formats, clipboard serialization, and image export behavior.</p>
+        <div class="meta">Updated last on 2026-05-07 · Source commit <code>a6d64cacc924</code></div>
+        <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
+      </header>
+      <p>TreeSheets converts the current view or selected content into XML, HTML, text, CSV, bitmap, SVG, and clipboard formats. CSV export has extra flat-grid requirements.</p><article class="feature" id="import-export">
+  <div class="feature-head">
+    <h2>Import and export current views</h2>
+    <span class="badge badge-implementation_verified">Implementation verified</span>
+  </div>
+  <p class="verification">Verified from File menu definitions, Document export dispatch, System import dispatch, and serialization helpers.</p>
+  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Export view as</td><td>File &gt; Export view as</td><td></td><td><code>A_EXPXML/A_EXPHTMLT/A_EXPHTMLTE/A_EXPHTMLB/A_EXPHTMLO/A_EXPTEXT/A_EXPCSV/A_EXPIMAGE/A_EXPSVG</code></td></tr>
+<tr><td>Import from</td><td>File &gt; Import from</td><td></td><td><code>A_IMPXML/A_IMPXMLA/A_IMPTXTI/A_IMPTXTC/A_IMPTXTS/A_IMPTXTT</code></td></tr></tbody></table>
+  <h3>Behavior</h3><p>Export writes the current view as XML, HTML tables, HTML with images, bullet-list HTML, outline HTML, indented text, CSV, PNG, or SVG. Import can load XML, XML with attributes, indented text, comma/semicolon CSV, and tab-delimited text.</p>
+<h3>Context</h3><p>Export uses currentdrawroot as the export root and selected view state. Import opens one or more files and initializes a new document from parsed content.</p>
+<h3>Effects</h3><p>Successful import creates or replaces the active document contents, marks it modified, clears selection/drag state, and refreshes. HTML with images writes companion image files.</p>
+<h3>Edge Cases</h3><p>CSV export refuses non-flat grids and suggests zooming to the desired grid or using Flatten. Import failure shows an error message.</p>
+<h3>Quirks</h3><p>XML export can round-trip TreeSheets structure, while CSV export is intentionally limited to flat grids.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-import-export-1">[1]</a> <a href="#src-import-export-2">[2]</a> <a href="#src-import-export-3">[3]</a> <a href="#src-import-export-4">[4]</a> <a href="#src-import-export-5">[5]</a> <a href="#src-import-export-6">[6]</a></div>
+</article>
+
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-import-export-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L121-L152">src/tsframe.h:L121-L152</a> - Export and import menu entries.</li>
+<li id="src-import-export-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L731-L786">src/document.h:L731-L786</a> - Export writes image/SVG/text formats and companion images.</li>
+<li id="src-import-export-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L926-L950">src/document.h:L926-L950</a> - Document command dispatch for export and import.</li>
+<li id="src-import-export-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L935-L942">src/document.h:L935-L942</a> - CSV export flat-grid guard.</li>
+<li id="src-import-export-5"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/system.h#L397-L451">src/system.h:L397-L451</a> - System import parsing for XML and text/CSV/tab-delimited files.</li>
+<li id="src-import-export-6"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/grid.h#L575-L602">src/grid.h:L575-L602</a> - Grid ConvertToText emits XML, HTML tables/lists, and CSV separators.</li></ol></section>
+    </main>
+  </div>
+</body>
+</html>
+

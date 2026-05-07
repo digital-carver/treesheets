@@ -1,0 +1,74 @@
+id = "import-export"
+title = "Import and export current views"
+category = "import/export"
+page = "import_export"
+
+[[commands]]
+name = "Export view as"
+menu_path = "File > Export view as"
+shortcut = ""
+command_id = "A_EXPXML/A_EXPHTMLT/A_EXPHTMLTE/A_EXPHTMLB/A_EXPHTMLO/A_EXPTEXT/A_EXPCSV/A_EXPIMAGE/A_EXPSVG"
+
+[[commands]]
+name = "Import from"
+menu_path = "File > Import from"
+shortcut = ""
+command_id = "A_IMPXML/A_IMPXMLA/A_IMPTXTI/A_IMPTXTC/A_IMPTXTS/A_IMPTXTT"
+
+[verification]
+level = "implementation_verified"
+text = "Verified from File menu definitions, Document export dispatch, System import dispatch, and serialization helpers."
+
+[behavior]
+summary = """
+Export writes the current view as XML, HTML tables, HTML with images, bullet-list HTML, outline HTML, indented text, CSV, PNG, or SVG. Import can load XML, XML with attributes, indented text, comma/semicolon CSV, and tab-delimited text.
+"""
+context = """
+Export uses currentdrawroot as the export root and selected view state. Import opens one or more files and initializes a new document from parsed content.
+"""
+effects = """
+Successful import creates or replaces the active document contents, marks it modified, clears selection/drag state, and refreshes. HTML with images writes companion image files.
+"""
+edge_cases = """
+CSV export refuses non-flat grids and suggests zooming to the desired grid or using Flatten. Import failure shows an error message.
+"""
+quirks = """
+XML export can round-trip TreeSheets structure, while CSV export is intentionally limited to flat grids.
+"""
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "121-152"
+label = "Export and import menu entries."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "731-786"
+label = "Export writes image/SVG/text formats and companion images."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "926-950"
+label = "Document command dispatch for export and import."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "935-942"
+label = "CSV export flat-grid guard."
+
+[[sources]]
+type = "implementation"
+file = "src/system.h"
+lines = "397-451"
+label = "System import parsing for XML and text/CSV/tab-delimited files."
+
+[[sources]]
+type = "implementation"
+file = "src/grid.h"
+lines = "575-602"
+label = "Grid ConvertToText emits XML, HTML tables/lists, and CSV separators."
+

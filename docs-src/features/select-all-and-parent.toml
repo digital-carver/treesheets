@@ -1,0 +1,74 @@
+id = "select-all-and-parent"
+title = "Select all, parent, and first child"
+category = "selection"
+page = "selection"
+
+[[commands]]
+name = "Select all in current grid/cell"
+menu_path = "Edit > Selection > Select all in current grid/cell"
+shortcut = "Ctrl+A"
+command_id = "wxID_SELECTALL"
+
+[[commands]]
+name = "Select Parent / Cancel text edits"
+menu_path = "Edit > Selection > Select Parent; Edit > Text Editing > Cancel text edits"
+shortcut = "Esc"
+command_id = "A_CANCELEDIT"
+
+[[commands]]
+name = "Select First Child / Insert New Grid"
+menu_path = "Edit > Selection > Select First Child; Edit > Insert New Grid"
+shortcut = "Shift+Enter / Ins"
+command_id = "A_ENTERGRID"
+
+[verification]
+level = "implementation_verified"
+text = "Menu entries and command branches were traced to Selection and Document implementations."
+
+[behavior]
+summary = """
+Select all selects every cell in the current grid, or all text in the current cell when already in text edit mode. Esc exits text edit mode; outside text edit mode it selects the parent cell, or the entire root grid if there is no parent. Entering a child grid selects the first cell of an existing subgrid, or creates a new 1x1 subgrid when none exists.
+"""
+context = """
+Select all requires a current grid. Parent traversal needs a grid selection; child traversal requires a single expandable cell.
+"""
+effects = """
+Selection coordinates are rewritten to the target grid or parent cell. Creating a subgrid records undo, creates the grid, selects its first cell, and refreshes the canvas.
+"""
+edge_cases = """
+Esc in text edit mode may undo coalesced text entry before leaving edit mode. Creating an NxN grid prompts for size and can be cancelled.
+"""
+quirks = """
+A_ENTERGRID is exposed in two contexts: as child selection when a child grid exists, and as grid creation when the selected cell has none.
+"""
+
+[[sources]]
+type = "ui"
+file = "src/tsframe.h"
+lines = "223-273"
+label = "Selection menu entries for select all, parent, and child traversal."
+
+[[sources]]
+type = "implementation"
+file = "src/selection.h"
+lines = "18-26"
+label = "Select all switches between text and grid selection behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1423-1435"
+label = "Document command branch for wxID_SELECTALL and cursor movement."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1510-1543"
+label = "Parent selection and enter/create child grid behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "2028-2040"
+label = "Esc behavior while in text edit mode."
+
