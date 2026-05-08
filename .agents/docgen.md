@@ -8,6 +8,15 @@ Create and maintain detailed, source-cited TreeSheets documentation from reposit
 
 Treat the existing tutorial as a quick getting-started page, **not** as the full documentation. The generated documentation should be a proper reference manual.
 
+Target audience:
+
+- Write for a smart technical user of TreeSheets, not primarily for a TreeSheets source-code contributor.
+- Assume the reader is comfortable with precise UI concepts, shortcuts, menus, selection states, edit modes, grids, subgrids, scripting, and file formats.
+- Do not assume the reader wants to understand the C++ codebase.
+- Use implementation code as evidence for user-visible behavior, not as normal explanatory text.
+- Avoid raw internal variable names, enum names, command IDs, constants, and implementation formulas in user-facing prose unless they directly explain a visible behavior, bug, limitation, or scripting/API detail.
+- If internal identifiers are useful for auditability, keep them in source labels, source audit pages, or compact developer notes rather than the main explanation.
+
 ## Documentation Architecture
 
 - Use `docs-src/` as the source directory for generated documentation inputs.
@@ -120,6 +129,20 @@ Describe known confusing behavior, misleading docs, platform differences, or his
 
 Feature documentation should document behavior, not only menu labels.
 
+The TOML manifest structure is an authoring aid. Do not mechanically expose it as the HTML reading structure.
+
+In particular, do not render `[behavior].summary`, `[behavior].context`, `[behavior].effects`, `[behavior].edge_cases`, and `[behavior].quirks` as repeated visible subheadings for every feature.
+
+Render each feature as readable user-facing documentation:
+
+- Start with the practical behavior in plain prose.
+- Mention context requirements only when they matter to using the feature.
+- Mention effects and edge cases near the behavior they affect.
+- Use a note/callout only for genuinely surprising quirks, misleading existing docs, platform differences, destructive behavior, data-loss risk, or likely user confusion.
+- Omit empty, redundant, or unimportant fields from visible output.
+- Use bullets or tables when they improve clarity.
+- Make the page read like a manual, not a schema dump.
+
 For each feature, try to trace:
 
 ```text
@@ -130,7 +153,6 @@ Document:
 
 - menu path, if any
 - shortcut, if any
-- command ID / handler, if found
 - behavior
 - selection/context requirements
 - effects on document, view, selection, cursor, edit mode, styles, or grid structure
@@ -140,6 +162,16 @@ Document:
 - source citations
 
 Do not invent behavior. If source evidence is incomplete, mark it clearly.
+
+Trace command IDs and handlers for source verification, but do not normally show them in user-facing documentation.
+
+User-facing prose rules:
+
+- Translate source-level findings into TreeSheets user behavior.
+- Prefer “Changing this command adjusts the selected column width” over exposing implementation arithmetic or storage formulas.
+- Prefer “This command is available from the Edit menu” over exposing all-caps internal menu or command IDs.
+- Mention implementation details only when documenting scripting APIs, maintainer-facing quirks, source-level bugs, or behavior that cannot be explained accurately without them.
+- If an implementation detail is retained, immediately explain the visible consequence for the user.
 
 ## Verification Levels
 
