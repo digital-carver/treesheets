@@ -23,7 +23,7 @@ command_id = "A_ENTERGRID"
 
 [verification]
 level = "implementation_verified"
-text = "Menu entries and command branches were traced to Selection and Document implementations."
+text = "Verified from menu entries and the corresponding selection behavior."
 
 [behavior]
 summary = """
@@ -39,7 +39,7 @@ edge_cases = """
 Esc in text edit mode may undo coalesced text entry before leaving edit mode. Creating an NxN grid prompts for size and can be cancelled.
 """
 quirks = """
-A_ENTERGRID is exposed in two contexts: as child selection when a child grid exists, and as grid creation when the selected cell has none.
+The same user action can either enter an existing child grid or create a new child grid, depending on whether the selected cell already contains one.
 """
 
 [[sources]]
@@ -58,7 +58,7 @@ label = "Select all switches between text and grid selection behavior."
 type = "implementation"
 file = "src/document.h"
 lines = "1423-1435"
-label = "Document command branch for wxID_SELECTALL and cursor movement."
+label = "Document command branch for select-all and cursor movement."
 
 [[sources]]
 type = "implementation"
@@ -71,4 +71,3 @@ type = "implementation"
 file = "src/document.h"
 lines = "2028-2040"
 label = "Esc behavior while in text edit mode."
-

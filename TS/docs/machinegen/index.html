@@ -19,6 +19,7 @@
       --teal: #486f7e;
       --amber: #7d6845;
       --violet: #68617d;
+      --note: #25303a;
     }
     * { box-sizing: border-box; }
     body {
@@ -90,6 +91,9 @@
       color: var(--muted);
     }
     .notice { margin-top: 5px; font-size: 14px; }
+    .description {
+      max-width: 78ch;
+    }
     .feature {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -118,6 +122,44 @@
     .badge-ui_verified { background: var(--teal); }
     .badge-docs_history_verified { background: var(--amber); }
     .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    .feature-body {
+      margin-top: 14px;
+      max-width: 82ch;
+    }
+    .lead p:first-child {
+      font-size: 17px;
+      color: #edf2f7;
+    }
+    .usage-notes {
+      margin: 14px 0;
+      padding-left: 22px;
+      color: #c9d3df;
+    }
+    .usage-notes li {
+      margin: 8px 0;
+    }
+    .callout {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-left: 3px solid var(--teal);
+      background: var(--note);
+      color: #d6dee8;
+      border-radius: 6px;
+    }
+    .callout p {
+      margin: 0;
+    }
+    .command-block {
+      margin-top: 20px;
+    }
+    .block-title {
+      color: #cbd4df;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -196,10 +238,10 @@
       <header class="page-header">
         <h1>TreeSheets Reference</h1>
         <p class="description">Source-cited reference documentation generated from the current TreeSheets source tree.</p>
-        <div class="meta">Updated last on 2026-05-07 · Source commit <code>a6d64cacc924</code></div>
+        <div class="meta">Updated last on 2026-05-08 · Source commit <code>261add4e446c</code></div>
         <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
       </header>
-      <p>TreeSheets is organized around cells that can contain text, images, notes, and nested grids. These pages document the behavior that could be traced from menus, event dispatch, and implementation code in the current repository state.</p><div class="audit-grid"><div class="audit-box"><strong>12</strong><br>feature sections</div><div class="audit-box"><strong>12</strong><br>implementation verified</div><div class="audit-box"><strong>a6d64cacc924</strong><br>source commit</div></div><h2>Pages</h2><ul><li><a href="selection.html">Selection and Navigation</a> - Selection shapes, movement, expansion, parent/child traversal, and matching-cell jumps.</li>
+      <p>TreeSheets is organized around cells that can contain text, images, notes, and nested grids. These pages describe how the application behaves from a user&#x27;s point of view, with source citations kept nearby for reliability checks.</p><div class="audit-grid"><div class="audit-box"><strong>12</strong><br>feature sections</div><div class="audit-box"><strong>12</strong><br>implementation verified</div><div class="audit-box"><strong>261add4e446c</strong><br>source commit</div></div><h2>Pages</h2><ul><li><a href="selection.html">Selection and Navigation</a> - Selection shapes, movement, expansion, parent/child traversal, and matching-cell jumps.</li>
 <li><a href="editing.html">Editing Cells</a> - Text editing, clipboard operations, deletion, notes, images, styles, and sizing.</li>
 <li><a href="grids.html">Grids and Layout</a> - Subgrid creation, folding, hierarchy operations, layout direction, render styles, and flattening.</li>
 <li><a href="import_export.html">Import and Export</a> - File import, export formats, clipboard serialization, and image export behavior.</li>
@@ -209,22 +251,24 @@
     <h2>Cells, grids, and selections</h2>
     <span class="badge badge-implementation_verified">Implementation verified</span>
   </div>
-  <p class="verification">Verified from the Selection class and Grid/Cell model methods.</p>
+  <div class="feature-body">
+<div class="lead"><p>A TreeSheets document starts from a root cell that can contain a grid. Each grid contains cells and remembers layout details such as its size, column widths, orientation, border appearance, and fold state. A selection can cover cells, sit on a grid line, or become a text cursor inside one cell.</p></div>
+<ul class="usage-notes">
+<li>Most commands need an active grid selection. Single-cell commands require one selected cell or a grid-line selection that can be expanded into a neighboring cell; whole-grid commands usually require the current selection to cover the grid.</li>
+<li>Selection state can enter text edit mode, exit text edit mode, expand to all cells, or be reassigned to a parent or child grid.</li>
+<li>If a command needs a selected grid, a non-thin selection, or exactly one cell and the current selection cannot provide it, TreeSheets reports that requirement instead of changing the document.</li>
+</ul>
+<aside class="callout"><p>The same visible selection system covers three modes: rectangular cell selections, grid-line positions used for insertion or deletion, and text cursors inside a cell.</p></aside>
+</div>
   
-  <h3>Behavior</h3><p>A TreeSheets document is a root cell with an optional grid. A grid owns cells and keeps dimensions, column widths, orientation, border state, and folding state. A selection points at a grid with x/y coordinates and width/height, or uses zero width/height as a thin grid-line selection.</p>
-<h3>Context</h3><p>Commands generally require an active selection with a grid. Single-cell commands call GetCell or ThinExpand; whole-grid commands may operate when the selection covers all cells.</p>
-<h3>Effects</h3><p>Selection state can enter text edit mode, exit text edit mode, expand to all cells, or be reassigned to a parent or child grid.</p>
-<h3>Edge Cases</h3><p>If a command needs a selected grid or one cell and the selection cannot provide it, Document::Action returns user-facing messages such as NoSel, OneCell, NoThin, or NoGrid.</p>
-<h3>Quirks</h3><p>The same Selection object represents text cursors, rectangular cell selections, and thin grid-line insertion/deletion targets.</p>
+  <p class="verification">Verified from the selection, grid, and cell model code.</p>
   
   <div class="source-refs">Sources: <a href="#src-core-model-1">[1]</a> <a href="#src-core-model-2">[2]</a> <a href="#src-core-model-3">[3]</a></div>
 </article>
-
-<section class="footnotes"><h2>Sources</h2><ol><li id="src-core-model-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/selection.h#L1-L31">src/selection.h:L1-L31</a> - Selection stores grid coordinates, size, cursor fields, and select-all behavior.</li>
-<li id="src-core-model-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/grid.h#L491-L520">src/grid.h:L491-L520</a> - Grid insertion updates dimensions, cells, orientation, and column widths.</li>
-<li id="src-core-model-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/cell.h#L377-L383">src/cell.h:L377-L383</a> - Cells create nested grids with AddGrid.</li></ol></section>
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-core-model-1"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/selection.h#L1-L31">src/selection.h:L1-L31</a> - Selection state stores grid location, size, cursor fields, and select-all behavior.</li>
+<li id="src-core-model-2"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/grid.h#L491-L520">src/grid.h:L491-L520</a> - Grid insertion updates dimensions, cells, orientation, and column widths.</li>
+<li id="src-core-model-3"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/cell.h#L377-L383">src/cell.h:L377-L383</a> - Cells create nested grids.</li></ol></section>
     </main>
   </div>
 </body>
 </html>
-

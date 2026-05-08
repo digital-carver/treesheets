@@ -23,7 +23,7 @@ command_id = "A_FILTER*"
 
 [verification]
 level = "implementation_verified"
-text = "Verified from search/view menus, toolbar events, and Document search/filter branches."
+text = "Verified from search/view menus, toolbar events, and search/filter behavior."
 
 [behavior]
 summary = """
@@ -95,4 +95,3 @@ type = "implementation"
 file = "src/document.h"
 lines = "2434-2440"
 label = "SetSearchFilter toggles filtered flags for non-matching cells."
-

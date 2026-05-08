@@ -3,6 +3,5 @@ title = "TreeSheets Reference"
 order = 0
 description = "Source-cited reference documentation generated from the current TreeSheets source tree."
 intro = """
-TreeSheets is organized around cells that can contain text, images, notes, and nested grids. These pages document the behavior that could be traced from menus, event dispatch, and implementation code in the current repository state.
+TreeSheets is organized around cells that can contain text, images, notes, and nested grids. These pages describe how the application behaves from a user's point of view, with source citations kept nearby for reliability checks.
 """
-

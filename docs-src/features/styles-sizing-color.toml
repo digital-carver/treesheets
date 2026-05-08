@@ -23,23 +23,23 @@ command_id = "A_BORD0..A_BORD5"
 
 [verification]
 level = "implementation_verified"
-text = "Verified from style menus, command branches, Grid::SetStyle, and color/dropdown handlers."
+text = "Verified from style menus, style behavior, and color/dropdown behavior."
 
 [behavior]
 summary = """
-Style commands toggle bit flags on the selected cells. Text size and column width commands are routed through mouse-wheel style handlers or explicit reset branches. Border width commands set the selected grid's outer spacing. Last-color commands apply remembered cell, text, or border colors to the selection.
+Style commands toggle bold, italic, typewriter, underline, and strikethrough styling on the selected cells. Text size and column width commands adjust the selected content or reset it to defaults. Border width commands change the selected grid's border spacing. Last-color commands apply the most recently used cell, text, or border color to the selection.
 """
 context = """
 These commands require a selected grid. Style and reset commands iterate selected cells, while border width acts on the selected grid itself.
 """
 effects = """
-Commands add undo, mutate style bits, relative sizes, column widths, cell/text/border colors, reset layout caches, refresh the canvas, and update status where appropriate.
+Commands add undo, change style, size, width, or color data, refresh layout, redraw the canvas, and update status where appropriate.
 """
 edge_cases = """
 Reset colors treats tag cells specially by resetting the stored tag color, while normal cells reset text, cell, and nested-grid border colors.
 """
 quirks = """
-Border menu labels are numbered 0 through 5, but the implementation stores width as action - A_BORD0 + 1.
+The border menu labels are numbered 0 through 5, but the visible result is a set of progressively wider grid borders rather than a literal zero-width-to-five-width scale.
 """
 
 [[sources]]
@@ -76,11 +76,10 @@ label = "Border, reset, last-color, and mini-size behavior."
 type = "implementation"
 file = "src/grid.h"
 lines = "664-669"
-label = "Grid::SetStyle toggles text style bits on selected cells."
+label = "Grid style helper toggles text style flags on selected cells."
 
 [[sources]]
 type = "implementation"
 file = "src/document.h"
 lines = "2317-2325"
 label = "Color dropdown handler applies selected color to cells."
-

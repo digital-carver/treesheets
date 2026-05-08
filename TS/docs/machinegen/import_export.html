@@ -19,6 +19,7 @@
       --teal: #486f7e;
       --amber: #7d6845;
       --violet: #68617d;
+      --note: #25303a;
     }
     * { box-sizing: border-box; }
     body {
@@ -90,6 +91,9 @@
       color: var(--muted);
     }
     .notice { margin-top: 5px; font-size: 14px; }
+    .description {
+      max-width: 78ch;
+    }
     .feature {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -118,6 +122,44 @@
     .badge-ui_verified { background: var(--teal); }
     .badge-docs_history_verified { background: var(--amber); }
     .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    .feature-body {
+      margin-top: 14px;
+      max-width: 82ch;
+    }
+    .lead p:first-child {
+      font-size: 17px;
+      color: #edf2f7;
+    }
+    .usage-notes {
+      margin: 14px 0;
+      padding-left: 22px;
+      color: #c9d3df;
+    }
+    .usage-notes li {
+      margin: 8px 0;
+    }
+    .callout {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-left: 3px solid var(--teal);
+      background: var(--note);
+      color: #d6dee8;
+      border-radius: 6px;
+    }
+    .callout p {
+      margin: 0;
+    }
+    .command-block {
+      margin-top: 20px;
+    }
+    .block-title {
+      color: #cbd4df;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -196,7 +238,7 @@
       <header class="page-header">
         <h1>Import and Export</h1>
         <p class="description">File import, export formats, clipboard serialization, and image export behavior.</p>
-        <div class="meta">Updated last on 2026-05-07 · Source commit <code>a6d64cacc924</code></div>
+        <div class="meta">Updated last on 2026-05-08 · Source commit <code>261add4e446c</code></div>
         <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
       </header>
       <p>TreeSheets converts the current view or selected content into XML, HTML, text, CSV, bitmap, SVG, and clipboard formats. CSV export has extra flat-grid requirements.</p><article class="feature" id="import-export">
@@ -204,26 +246,28 @@
     <h2>Import and export current views</h2>
     <span class="badge badge-implementation_verified">Implementation verified</span>
   </div>
-  <p class="verification">Verified from File menu definitions, Document export dispatch, System import dispatch, and serialization helpers.</p>
-  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Export view as</td><td>File &gt; Export view as</td><td></td><td><code>A_EXPXML/A_EXPHTMLT/A_EXPHTMLTE/A_EXPHTMLB/A_EXPHTMLO/A_EXPTEXT/A_EXPCSV/A_EXPIMAGE/A_EXPSVG</code></td></tr>
-<tr><td>Import from</td><td>File &gt; Import from</td><td></td><td><code>A_IMPXML/A_IMPXMLA/A_IMPTXTI/A_IMPTXTC/A_IMPTXTS/A_IMPTXTT</code></td></tr></tbody></table>
-  <h3>Behavior</h3><p>Export writes the current view as XML, HTML tables, HTML with images, bullet-list HTML, outline HTML, indented text, CSV, PNG, or SVG. Import can load XML, XML with attributes, indented text, comma/semicolon CSV, and tab-delimited text.</p>
-<h3>Context</h3><p>Export uses currentdrawroot as the export root and selected view state. Import opens one or more files and initializes a new document from parsed content.</p>
-<h3>Effects</h3><p>Successful import creates or replaces the active document contents, marks it modified, clears selection/drag state, and refreshes. HTML with images writes companion image files.</p>
-<h3>Edge Cases</h3><p>CSV export refuses non-flat grids and suggests zooming to the desired grid or using Flatten. Import failure shows an error message.</p>
-<h3>Quirks</h3><p>XML export can round-trip TreeSheets structure, while CSV export is intentionally limited to flat grids.</p>
+  <div class="feature-body">
+<div class="lead"><p>Export writes the current view as XML, HTML tables, HTML with images, bullet-list HTML, outline HTML, indented text, CSV, PNG, or SVG. Import can load XML, XML with attributes, indented text, comma/semicolon CSV, and tab-delimited text.</p></div>
+<ul class="usage-notes">
+<li>Export uses currentdrawroot as the export root and selected view state. Import opens one or more files and initializes a new document from parsed content.</li>
+<li>Successful import creates or replaces the active document contents, marks it modified, clears selection/drag state, and refreshes. HTML with images writes companion image files.</li>
+<li>CSV export refuses non-flat grids and suggests zooming to the desired grid or using Flatten. Import failure shows an error message.</li>
+</ul>
+<aside class="callout"><p>XML export can round-trip TreeSheets structure, while CSV export is intentionally limited to flat grids.</p></aside>
+</div>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu</th><th>Shortcut</th></tr></thead><tbody><tr><td>Export view as</td><td>File &gt; Export view as</td><td></td></tr>
+<tr><td>Import from</td><td>File &gt; Import from</td><td></td></tr></tbody></table></div>
+  <p class="verification">Verified from File menu definitions and the import/export code paths.</p>
   
   <div class="source-refs">Sources: <a href="#src-import-export-1">[1]</a> <a href="#src-import-export-2">[2]</a> <a href="#src-import-export-3">[3]</a> <a href="#src-import-export-4">[4]</a> <a href="#src-import-export-5">[5]</a> <a href="#src-import-export-6">[6]</a></div>
 </article>
-
-<section class="footnotes"><h2>Sources</h2><ol><li id="src-import-export-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L121-L152">src/tsframe.h:L121-L152</a> - Export and import menu entries.</li>
-<li id="src-import-export-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L731-L786">src/document.h:L731-L786</a> - Export writes image/SVG/text formats and companion images.</li>
-<li id="src-import-export-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L926-L950">src/document.h:L926-L950</a> - Document command dispatch for export and import.</li>
-<li id="src-import-export-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L935-L942">src/document.h:L935-L942</a> - CSV export flat-grid guard.</li>
-<li id="src-import-export-5"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/system.h#L397-L451">src/system.h:L397-L451</a> - System import parsing for XML and text/CSV/tab-delimited files.</li>
-<li id="src-import-export-6"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/grid.h#L575-L602">src/grid.h:L575-L602</a> - Grid ConvertToText emits XML, HTML tables/lists, and CSV separators.</li></ol></section>
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-import-export-1"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L121-L152">src/tsframe.h:L121-L152</a> - Export and import menu entries.</li>
+<li id="src-import-export-2"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L731-L786">src/document.h:L731-L786</a> - Export writes image/SVG/text formats and companion images.</li>
+<li id="src-import-export-3"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L926-L950">src/document.h:L926-L950</a> - Document command dispatch for export and import.</li>
+<li id="src-import-export-4"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L935-L942">src/document.h:L935-L942</a> - CSV export flat-grid guard.</li>
+<li id="src-import-export-5"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/system.h#L397-L451">src/system.h:L397-L451</a> - System import parsing for XML and text/CSV/tab-delimited files.</li>
+<li id="src-import-export-6"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/grid.h#L575-L602">src/grid.h:L575-L602</a> - Grid ConvertToText emits XML, HTML tables/lists, and CSV separators.</li></ol></section>
     </main>
   </div>
 </body>
 </html>
-

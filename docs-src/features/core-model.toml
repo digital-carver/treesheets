@@ -5,30 +5,30 @@ page = "index"
 
 [verification]
 level = "implementation_verified"
-text = "Verified from the Selection class and Grid/Cell model methods."
+text = "Verified from the selection, grid, and cell model code."
 
 [behavior]
 summary = """
-A TreeSheets document is a root cell with an optional grid. A grid owns cells and keeps dimensions, column widths, orientation, border state, and folding state. A selection points at a grid with x/y coordinates and width/height, or uses zero width/height as a thin grid-line selection.
+A TreeSheets document starts from a root cell that can contain a grid. Each grid contains cells and remembers layout details such as its size, column widths, orientation, border appearance, and fold state. A selection can cover cells, sit on a grid line, or become a text cursor inside one cell.
 """
 context = """
-Commands generally require an active selection with a grid. Single-cell commands call GetCell or ThinExpand; whole-grid commands may operate when the selection covers all cells.
+Most commands need an active grid selection. Single-cell commands require one selected cell or a grid-line selection that can be expanded into a neighboring cell; whole-grid commands usually require the current selection to cover the grid.
 """
 effects = """
 Selection state can enter text edit mode, exit text edit mode, expand to all cells, or be reassigned to a parent or child grid.
 """
 edge_cases = """
-If a command needs a selected grid or one cell and the selection cannot provide it, Document::Action returns user-facing messages such as NoSel, OneCell, NoThin, or NoGrid.
+If a command needs a selected grid, a non-thin selection, or exactly one cell and the current selection cannot provide it, TreeSheets reports that requirement instead of changing the document.
 """
 quirks = """
-The same Selection object represents text cursors, rectangular cell selections, and thin grid-line insertion/deletion targets.
+The same visible selection system covers three modes: rectangular cell selections, grid-line positions used for insertion or deletion, and text cursors inside a cell.
 """
 
 [[sources]]
 type = "implementation"
 file = "src/selection.h"
 lines = "1-31"
-label = "Selection stores grid coordinates, size, cursor fields, and select-all behavior."
+label = "Selection state stores grid location, size, cursor fields, and select-all behavior."
 
 [[sources]]
 type = "implementation"
@@ -40,5 +40,4 @@ label = "Grid insertion updates dimensions, cells, orientation, and column width
 type = "implementation"
 file = "src/cell.h"
 lines = "377-383"
-label = "Cells create nested grids with AddGrid."
-
+label = "Cells create nested grids."

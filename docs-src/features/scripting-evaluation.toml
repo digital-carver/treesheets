@@ -23,23 +23,23 @@ command_id = "A_ADDSCRIPT/A_DETSCRIPT"
 
 [verification]
 level = "implementation_verified"
-text = "Verified from conditional Lobster menu code, Program menu definitions, and evaluator dispatch."
+text = "Verified from Program menu definitions, Lobster menu setup, and evaluation behavior."
 
 [behavior]
 summary = """
 Program > Run evaluates the root cell through the evaluator, resets children, clears selection, and refreshes. Mark commands assign cell types used by the evaluator; operation cells infer their precise operation type from text. When Lobster is enabled, scripts are loaded into a Script menu and executed from history entries.
 """
 context = """
-Run acts on the document root. Mark commands require an active grid selection. Script menu commands are compiled only when ENABLE_LOBSTER is defined.
+Run acts on the document root. Mark commands require an active grid selection. Script menu commands are available only in builds compiled with Lobster support.
 """
 effects = """
 Run records undo on the root, evaluates, resets layouts, clears selection and drag state, and refreshes. Mark commands add undo and change celltype for every selected cell.
 """
 edge_cases = """
-Script history command IDs are separate from tag command IDs and are handled in TSFrame::OnMenu before normal Document::Action dispatch.
+Script menu entries and tag popup entries share the same menu dispatch path, so script commands are handled before ordinary document-editing commands.
 """
 quirks = """
-The generated docs mark script menu behavior as implementation verified but conditional on ENABLE_LOBSTER.
+Script menu behavior is source-verified, but it appears in the application only when Lobster support is enabled at build time.
 """
 
 [[sources]]
@@ -83,4 +83,3 @@ type = "implementation"
 file = "src/cell.h"
 lines = "9-9"
 label = "Cell type enum used by program/evaluator markers."
-

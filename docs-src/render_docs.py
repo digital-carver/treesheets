@@ -23,7 +23,7 @@ import tomllib
 
 ROOT = Path(__file__).resolve().parent
 REPO_ROOT = ROOT.parent
-OUT = REPO_ROOT / "docs" / "machinegen"
+OUT = REPO_ROOT / "TS" / "docs" / "machinegen"
 
 VERIFY_LABELS = {
     "implementation_verified": "Implementation verified",
@@ -33,13 +33,7 @@ VERIFY_LABELS = {
     "needs_human_check": "Needs human check",
 }
 
-BEHAVIOR_ORDER = [
-    ("summary", "Behavior"),
-    ("context", "Context"),
-    ("effects", "Effects"),
-    ("edge_cases", "Edge Cases"),
-    ("quirks", "Quirks"),
-]
+USAGE_NOTE_FIELDS = ["context", "effects", "edge_cases"]
 
 
 @dataclass
@@ -111,24 +105,36 @@ def command_table(feature: dict[str, Any]) -> str:
             f"<td>{esc(command.get('name', ''))}</td>"
             f"<td>{esc(command.get('menu_path', ''))}</td>"
             f"<td>{esc(command.get('shortcut', ''))}</td>"
-            f"<td><code>{esc(command.get('command_id', ''))}</code></td>"
             "</tr>"
         )
     return (
-        "<table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th>"
-        "<th>ID / Handler</th></tr></thead><tbody>"
+        '<div class="command-block"><div class="block-title">Where to find it</div>'
+        "<table><thead><tr><th>Action</th><th>Menu</th><th>Shortcut</th>"
+        "</tr></thead><tbody>"
         + "\n".join(rows)
-        + "</tbody></table>"
+        + "</tbody></table></div>"
     )
 
 
-def behavior_sections(feature: dict[str, Any]) -> str:
+def behavior_article(feature: dict[str, Any]) -> str:
     behavior = feature.get("behavior", {})
-    parts = []
-    for key, title in BEHAVIOR_ORDER:
-        value = behavior.get(key, "").strip()
-        if value:
-            parts.append(f"<h3>{title}</h3>{text_to_paragraphs(value)}")
+    parts = ['<div class="feature-body">']
+    summary = behavior.get("summary", "").strip()
+    if summary:
+        parts.append(f'<div class="lead">{text_to_paragraphs(summary)}</div>')
+
+    usage_notes = [behavior.get(key, "").strip() for key in USAGE_NOTE_FIELDS]
+    usage_notes = [note for note in usage_notes if note]
+    if usage_notes:
+        parts.append('<ul class="usage-notes">')
+        for note in usage_notes:
+            parts.append(f"<li>{esc(note)}</li>")
+        parts.append("</ul>")
+
+    quirks = behavior.get("quirks", "").strip()
+    if quirks:
+        parts.append(f'<aside class="callout">{text_to_paragraphs(quirks)}</aside>')
+    parts.append("</div>")
     return "\n".join(parts)
 
 
@@ -167,7 +173,7 @@ def render_feature(feature: dict[str, Any], by_id: dict[str, dict[str, Any]]) ->
             "verification_label": esc(VERIFY_LABELS.get(level, level.replace("_", " ").title())),
             "verification_text": esc(verification.get("text", "")),
             "command_table": command_table(feature),
-            "behavior_sections": behavior_sections(feature),
+            "behavior_sections": behavior_article(feature),
             "related_links": related_links(feature, by_id),
             "source_refs": source_refs(feature),
         },

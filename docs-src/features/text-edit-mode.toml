@@ -23,7 +23,7 @@ command_id = "A_PROGRESSCELL"
 
 [verification]
 level = "implementation_verified"
-text = "Verified from menu definitions, key handling, and A_ENTERCELL branches."
+text = "Verified from text-editing menu definitions, key handling, and command behavior."
 
 [behavior]
 summary = """
@@ -71,4 +71,3 @@ type = "implementation"
 file = "src/selection.h"
 lines = "51-63"
 label = "Selection text edit state and cursor setup."
-

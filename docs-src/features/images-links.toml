@@ -17,7 +17,7 @@ command_id = "A_BROWSE/A_BROWSEF"
 
 [verification]
 level = "implementation_verified"
-text = "Verified from image/browsing menus and Document image/link handlers."
+text = "Verified from image and browsing menus plus the behavior they trigger."
 
 [behavior]
 summary = """
@@ -65,4 +65,3 @@ type = "implementation"
 file = "src/document.h"
 lines = "2330-2363"
 label = "Image loading and applying image dropdown choices."
-

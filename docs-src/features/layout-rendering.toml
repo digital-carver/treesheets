@@ -23,7 +23,7 @@ command_id = "A_TEXTGRID"
 
 [verification]
 level = "implementation_verified"
-text = "Verified from platform-specific menu labels and layrender implementation."
+text = "Verified from platform-specific menu labels and layout/render command behavior."
 
 [behavior]
 summary = """
@@ -33,7 +33,7 @@ context = """
 The selected grid must not be a thin selection. Render-style-only commands set the containing grid draw style when the whole grid is selected.
 """
 effects = """
-Commands add undo, call SetGridTextLayout, reset children, and refresh the canvas.
+Commands add undo, apply the chosen layout or render style, refresh layout, and redraw the canvas.
 """
 edge_cases = """
 Thin selections are rejected with the normal no-thin-selection message.
@@ -71,4 +71,3 @@ type = "implementation"
 file = "src/cell.h"
 lines = "9-14"
 label = "Cell and draw-style enum values."
-

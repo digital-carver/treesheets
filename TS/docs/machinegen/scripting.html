@@ -19,6 +19,7 @@
       --teal: #486f7e;
       --amber: #7d6845;
       --violet: #68617d;
+      --note: #25303a;
     }
     * { box-sizing: border-box; }
     body {
@@ -90,6 +91,9 @@
       color: var(--muted);
     }
     .notice { margin-top: 5px; font-size: 14px; }
+    .description {
+      max-width: 78ch;
+    }
     .feature {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -118,6 +122,44 @@
     .badge-ui_verified { background: var(--teal); }
     .badge-docs_history_verified { background: var(--amber); }
     .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    .feature-body {
+      margin-top: 14px;
+      max-width: 82ch;
+    }
+    .lead p:first-child {
+      font-size: 17px;
+      color: #edf2f7;
+    }
+    .usage-notes {
+      margin: 14px 0;
+      padding-left: 22px;
+      color: #c9d3df;
+    }
+    .usage-notes li {
+      margin: 8px 0;
+    }
+    .callout {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-left: 3px solid var(--teal);
+      background: var(--note);
+      color: #d6dee8;
+      border-radius: 6px;
+    }
+    .callout p {
+      margin: 0;
+    }
+    .command-block {
+      margin-top: 20px;
+    }
+    .block-title {
+      color: #cbd4df;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -196,7 +238,7 @@
       <header class="page-header">
         <h1>Scripting and Evaluation</h1>
         <p class="description">Lobster script menu integration, program evaluation, and operation cell markers.</p>
-        <div class="meta">Updated last on 2026-05-07 · Source commit <code>a6d64cacc924</code></div>
+        <div class="meta">Updated last on 2026-05-08 · Source commit <code>261add4e446c</code></div>
         <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
       </header>
       <p>When Lobster support is enabled, TreeSheets exposes script history commands and a program evaluation mode based on cell types.</p><article class="feature" id="scripting-evaluation">
@@ -204,28 +246,30 @@
     <h2>Program evaluation and Lobster scripts</h2>
     <span class="badge badge-implementation_verified">Implementation verified</span>
   </div>
-  <p class="verification">Verified from conditional Lobster menu code, Program menu definitions, and evaluator dispatch.</p>
-  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Run</td><td>Program &gt; Run</td><td>Ctrl+Alt+F5</td><td><code>wxID_EXECUTE</code></td></tr>
-<tr><td>Mark as</td><td>Program &gt; Mark as</td><td>Ctrl+Alt+D/O/A/R/./,</td><td><code>A_MARKDATA/A_MARKCODE/A_MARKVARD/A_MARKVARU/A_MARKVIEWH/A_MARKVIEWV</code></td></tr>
-<tr><td>Add/remove Lobster script</td><td>Script</td><td>Ctrl+Alt+L, Ctrl+Shift+Alt+L</td><td><code>A_ADDSCRIPT/A_DETSCRIPT</code></td></tr></tbody></table>
-  <h3>Behavior</h3><p>Program &gt; Run evaluates the root cell through the evaluator, resets children, clears selection, and refreshes. Mark commands assign cell types used by the evaluator; operation cells infer their precise operation type from text. When Lobster is enabled, scripts are loaded into a Script menu and executed from history entries.</p>
-<h3>Context</h3><p>Run acts on the document root. Mark commands require an active grid selection. Script menu commands are compiled only when ENABLE_LOBSTER is defined.</p>
-<h3>Effects</h3><p>Run records undo on the root, evaluates, resets layouts, clears selection and drag state, and refreshes. Mark commands add undo and change celltype for every selected cell.</p>
-<h3>Edge Cases</h3><p>Script history command IDs are separate from tag command IDs and are handled in TSFrame::OnMenu before normal Document::Action dispatch.</p>
-<h3>Quirks</h3><p>The generated docs mark script menu behavior as implementation verified but conditional on ENABLE_LOBSTER.</p>
+  <div class="feature-body">
+<div class="lead"><p>Program &gt; Run evaluates the root cell through the evaluator, resets children, clears selection, and refreshes. Mark commands assign cell types used by the evaluator; operation cells infer their precise operation type from text. When Lobster is enabled, scripts are loaded into a Script menu and executed from history entries.</p></div>
+<ul class="usage-notes">
+<li>Run acts on the document root. Mark commands require an active grid selection. Script menu commands are available only in builds compiled with Lobster support.</li>
+<li>Run records undo on the root, evaluates, resets layouts, clears selection and drag state, and refreshes. Mark commands add undo and change celltype for every selected cell.</li>
+<li>Script menu entries and tag popup entries share the same menu dispatch path, so script commands are handled before ordinary document-editing commands.</li>
+</ul>
+<aside class="callout"><p>Script menu behavior is source-verified, but it appears in the application only when Lobster support is enabled at build time.</p></aside>
+</div>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu</th><th>Shortcut</th></tr></thead><tbody><tr><td>Run</td><td>Program &gt; Run</td><td>Ctrl+Alt+F5</td></tr>
+<tr><td>Mark as</td><td>Program &gt; Mark as</td><td>Ctrl+Alt+D/O/A/R/./,</td></tr>
+<tr><td>Add/remove Lobster script</td><td>Script</td><td>Ctrl+Alt+L, Ctrl+Shift+Alt+L</td></tr></tbody></table></div>
+  <p class="verification">Verified from Program menu definitions, Lobster menu setup, and evaluation behavior.</p>
   
   <div class="source-refs">Sources: <a href="#src-scripting-evaluation-1">[1]</a> <a href="#src-scripting-evaluation-2">[2]</a> <a href="#src-scripting-evaluation-3">[3]</a> <a href="#src-scripting-evaluation-4">[4]</a> <a href="#src-scripting-evaluation-5">[5]</a> <a href="#src-scripting-evaluation-6">[6]</a> <a href="#src-scripting-evaluation-7">[7]</a></div>
 </article>
-
-<section class="footnotes"><h2>Sources</h2><ol><li id="src-scripting-evaluation-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L652-L681">src/tsframe.h:L652-L681</a> - Conditional Script menu and Program menu entries.</li>
-<li id="src-scripting-evaluation-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L1161-L1178">src/tsframe.h:L1161-L1178</a> - Add/remove Lobster script menu behavior.</li>
-<li id="src-scripting-evaluation-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L1258-L1266">src/tsframe.h:L1258-L1266</a> - Script history command dispatch.</li>
-<li id="src-scripting-evaluation-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L897-L904">src/document.h:L897-L904</a> - Run command evaluates the document root and refreshes.</li>
-<li id="src-scripting-evaluation-5"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1488-L1508">src/document.h:L1488-L1508</a> - Mark commands assign evaluator cell types.</li>
-<li id="src-scripting-evaluation-6"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/evaluator.h#L207-L208">src/evaluator.h:L207-L208</a> - Evaluator entry point evaluates the root cell.</li>
-<li id="src-scripting-evaluation-7"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/cell.h#L9-L9">src/cell.h:L9-L9</a> - Cell type enum used by program/evaluator markers.</li></ol></section>
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-scripting-evaluation-1"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L652-L681">src/tsframe.h:L652-L681</a> - Conditional Script menu and Program menu entries.</li>
+<li id="src-scripting-evaluation-2"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L1161-L1178">src/tsframe.h:L1161-L1178</a> - Add/remove Lobster script menu behavior.</li>
+<li id="src-scripting-evaluation-3"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L1258-L1266">src/tsframe.h:L1258-L1266</a> - Script history command dispatch.</li>
+<li id="src-scripting-evaluation-4"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L897-L904">src/document.h:L897-L904</a> - Run command evaluates the document root and refreshes.</li>
+<li id="src-scripting-evaluation-5"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L1488-L1508">src/document.h:L1488-L1508</a> - Mark commands assign evaluator cell types.</li>
+<li id="src-scripting-evaluation-6"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/evaluator.h#L207-L208">src/evaluator.h:L207-L208</a> - Evaluator entry point evaluates the root cell.</li>
+<li id="src-scripting-evaluation-7"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/cell.h#L9-L9">src/cell.h:L9-L9</a> - Cell type enum used by program/evaluator markers.</li></ol></section>
     </main>
   </div>
 </body>
 </html>
-

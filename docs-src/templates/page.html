@@ -19,6 +19,7 @@
       --teal: #486f7e;
       --amber: #7d6845;
       --violet: #68617d;
+      --note: #25303a;
     }
     * { box-sizing: border-box; }
     body {
@@ -90,6 +91,9 @@
       color: var(--muted);
     }
     .notice { margin-top: 5px; font-size: 14px; }
+    .description {
+      max-width: 78ch;
+    }
     .feature {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -118,6 +122,44 @@
     .badge-ui_verified { background: var(--teal); }
     .badge-docs_history_verified { background: var(--amber); }
     .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    .feature-body {
+      margin-top: 14px;
+      max-width: 82ch;
+    }
+    .lead p:first-child {
+      font-size: 17px;
+      color: #edf2f7;
+    }
+    .usage-notes {
+      margin: 14px 0;
+      padding-left: 22px;
+      color: #c9d3df;
+    }
+    .usage-notes li {
+      margin: 8px 0;
+    }
+    .callout {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-left: 3px solid var(--teal);
+      background: var(--note);
+      color: #d6dee8;
+      border-radius: 6px;
+    }
+    .callout p {
+      margin: 0;
+    }
+    .command-block {
+      margin-top: 20px;
+    }
+    .block-title {
+      color: #cbd4df;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -197,4 +239,3 @@
   </div>
 </body>
 </html>
-

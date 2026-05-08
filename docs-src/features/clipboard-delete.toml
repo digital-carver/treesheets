@@ -23,7 +23,7 @@ command_id = "A_COLLAPSE"
 
 [verification]
 level = "implementation_verified"
-text = "Clipboard menu entries, alternate accelerators, and command branches were traced."
+text = "Verified from clipboard menu entries, alternate accelerators, and editing behavior."
 
 [behavior]
 summary = """
@@ -77,4 +77,3 @@ type = "implementation"
 file = "src/grid.h"
 lines = "444-480"
 label = "MultiCellDelete clears content, deletes rows/columns, or enters edit mode."
-

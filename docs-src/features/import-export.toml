@@ -17,7 +17,7 @@ command_id = "A_IMPXML/A_IMPXMLA/A_IMPTXTI/A_IMPTXTC/A_IMPTXTS/A_IMPTXTT"
 
 [verification]
 level = "implementation_verified"
-text = "Verified from File menu definitions, Document export dispatch, System import dispatch, and serialization helpers."
+text = "Verified from File menu definitions and the import/export code paths."
 
 [behavior]
 summary = """
@@ -71,4 +71,3 @@ type = "implementation"
 file = "src/grid.h"
 lines = "575-602"
 label = "Grid ConvertToText emits XML, HTML tables/lists, and CSV separators."
-

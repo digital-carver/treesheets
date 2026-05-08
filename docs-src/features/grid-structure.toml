@@ -42,10 +42,10 @@ effects = """
 Structural commands add undo, mutate grid ownership or layout, reset child layout caches, rewrite selection, and refresh the canvas.
 """
 edge_cases = """
-Root-grid deletion is guarded in Grid::DelSelf. Hierarchify refuses grids whose cells already contain subgrids.
+The root grid cannot be removed by grid deletion. Hierarchify refuses grids whose cells already contain subgrids.
 """
 quirks = """
-Fold stores a boolean on Grid and export serialization includes a folded attribute for XML output.
+Fold state is saved in TreeSheets XML, so folded grids remain folded when the structure is exported and reimported.
 """
 
 [[sources]]
@@ -70,7 +70,7 @@ label = "Insert/select subgrid implementation."
 type = "implementation"
 file = "src/selection.h"
 lines = "347-367"
-label = "Selection::Wrap creates a new hierarchy level."
+label = "Selection wrapping creates a new hierarchy level."
 
 [[sources]]
 type = "implementation"
@@ -89,4 +89,3 @@ type = "implementation"
 file = "src/grid.h"
 lines = "584-600"
 label = "Grid export includes folded and layout-related attributes."
-

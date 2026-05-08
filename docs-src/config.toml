@@ -1,6 +1,5 @@
 site_title = "TreeSheets Reference"
 source_repo = "https://github.com/digital-carver/treesheets"
-source_commit = "a6d64cacc924320496c37bd122041675574c7b06"
-updated_last_on = "2026-05-07"
+source_commit = "261add4e446c43cc6f580c0695d84a52a8f5f32e"
+updated_last_on = "2026-05-08"
 notice = "AI-generated reference docs. Reliability indicators and footnote citations are included with every section."
-

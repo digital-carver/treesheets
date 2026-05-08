@@ -19,6 +19,7 @@
       --teal: #486f7e;
       --amber: #7d6845;
       --violet: #68617d;
+      --note: #25303a;
     }
     * { box-sizing: border-box; }
     body {
@@ -90,6 +91,9 @@
       color: var(--muted);
     }
     .notice { margin-top: 5px; font-size: 14px; }
+    .description {
+      max-width: 78ch;
+    }
     .feature {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -118,6 +122,44 @@
     .badge-ui_verified { background: var(--teal); }
     .badge-docs_history_verified { background: var(--amber); }
     .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    .feature-body {
+      margin-top: 14px;
+      max-width: 82ch;
+    }
+    .lead p:first-child {
+      font-size: 17px;
+      color: #edf2f7;
+    }
+    .usage-notes {
+      margin: 14px 0;
+      padding-left: 22px;
+      color: #c9d3df;
+    }
+    .usage-notes li {
+      margin: 8px 0;
+    }
+    .callout {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-left: 3px solid var(--teal);
+      background: var(--note);
+      color: #d6dee8;
+      border-radius: 6px;
+    }
+    .callout p {
+      margin: 0;
+    }
+    .command-block {
+      margin-top: 20px;
+    }
+    .block-title {
+      color: #cbd4df;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -196,7 +238,7 @@
       <header class="page-header">
         <h1>Selection and Navigation</h1>
         <p class="description">Selection shapes, movement, expansion, parent/child traversal, and matching-cell jumps.</p>
-        <div class="meta">Updated last on 2026-05-07 · Source commit <code>a6d64cacc924</code></div>
+        <div class="meta">Updated last on 2026-05-08 · Source commit <code>261add4e446c</code></div>
         <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
       </header>
       <p>TreeSheets uses one selection model for cells, grid lines, and text cursors. Many commands first expand thin grid-line selections or single-cell selections before acting.</p><article class="feature" id="selection-movement">
@@ -204,48 +246,53 @@
     <h2>Move, extend, and move cells</h2>
     <span class="badge badge-implementation_verified">Implementation verified</span>
   </div>
-  <p class="verification">Menu entries, keyboard fallback, and selection cursor implementation were traced.</p>
-  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Move selection</td><td>Edit &gt; Selection</td><td>Arrow keys</td><td><code>A_LEFT/A_RIGHT/A_UP/A_DOWN</code></td></tr>
-<tr><td>Move cells</td><td>Edit &gt; Selection</td><td>Ctrl+Arrow</td><td><code>A_MLEFT/A_MRIGHT/A_MUP/A_MDOWN</code></td></tr>
-<tr><td>Extend selection</td><td>Edit &gt; Selection</td><td>Shift+Arrow, Ctrl+Shift+Arrow</td><td><code>A_SLEFT/A_SRIGHT/A_SUP/A_SDOWN/A_SC*</code></td></tr></tbody></table>
-  <h3>Behavior</h3><p>Arrow commands move the selection or text cursor. Ctrl+Arrow moves selected cells around the grid outside text edit mode; in text edit mode horizontal Ctrl movement jumps by word-like runs. Shift extends the rectangular grid selection or the text selection.</p>
-<h3>Context</h3><p>Movement acts on the active grid selection. Text edit mode changes the same command IDs into cursor and text-selection actions.</p>
-<h3>Effects</h3><p>Cell movement records undo, calls Grid::Move, wraps coordinates through grid bounds, resets affected children, and scrolls to the new selection. Shift expansion changes the selection rectangle while clamping to grid bounds.</p>
-<h3>Edge Cases</h3><p>On GTK, several accelerators are emulated in Document::Key because wxGTK does not support those keycodes as menu accelerators.</p>
-<h3>Quirks</h3><p>Ctrl+I can arrive as Ctrl+Tab on Linux, so Ctrl+Tab tab switching is intentionally ignored there and Ctrl+Shift+Tab remains the reliable previous-tab shortcut.</p>
+  <div class="feature-body">
+<div class="lead"><p>Arrow commands move the selection or text cursor. Ctrl+Arrow moves selected cells around the grid outside text edit mode; in text edit mode horizontal Ctrl movement jumps by word-like runs. Shift extends the rectangular grid selection or the text selection.</p></div>
+<ul class="usage-notes">
+<li>Movement acts on the active grid selection. In text edit mode, the same arrow shortcuts move the text cursor or extend the text selection.</li>
+<li>Moving cells records undo, wraps around grid edges when needed, refreshes affected layout, and scrolls to the new selection. Shift expansion changes the selection rectangle while staying inside the grid.</li>
+<li>On GTK, several arrow, tab, and page-key shortcuts are handled directly because the toolkit does not expose them as normal menu accelerators.</li>
+</ul>
+<aside class="callout"><p>Ctrl+I can arrive as Ctrl+Tab on Linux, so Ctrl+Tab tab switching is intentionally ignored there and Ctrl+Shift+Tab remains the reliable previous-tab shortcut.</p></aside>
+</div>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu</th><th>Shortcut</th></tr></thead><tbody><tr><td>Move selection</td><td>Edit &gt; Selection</td><td>Arrow keys</td></tr>
+<tr><td>Move cells</td><td>Edit &gt; Selection</td><td>Ctrl+Arrow</td></tr>
+<tr><td>Extend selection</td><td>Edit &gt; Selection</td><td>Shift+Arrow, Ctrl+Shift+Arrow</td></tr></tbody></table></div>
+  <p class="verification">Verified from menu entries, keyboard fallback handling, and selection movement code.</p>
   
   <div class="source-refs">Sources: <a href="#src-selection-movement-1">[1]</a> <a href="#src-selection-movement-2">[2]</a> <a href="#src-selection-movement-3">[3]</a> <a href="#src-selection-movement-4">[4]</a></div>
 </article>
-
 <article class="feature" id="select-all-and-parent">
   <div class="feature-head">
     <h2>Select all, parent, and first child</h2>
     <span class="badge badge-implementation_verified">Implementation verified</span>
   </div>
-  <p class="verification">Menu entries and command branches were traced to Selection and Document implementations.</p>
-  <table><thead><tr><th>Command</th><th>Menu Path</th><th>Shortcut</th><th>ID / Handler</th></tr></thead><tbody><tr><td>Select all in current grid/cell</td><td>Edit &gt; Selection &gt; Select all in current grid/cell</td><td>Ctrl+A</td><td><code>wxID_SELECTALL</code></td></tr>
-<tr><td>Select Parent / Cancel text edits</td><td>Edit &gt; Selection &gt; Select Parent; Edit &gt; Text Editing &gt; Cancel text edits</td><td>Esc</td><td><code>A_CANCELEDIT</code></td></tr>
-<tr><td>Select First Child / Insert New Grid</td><td>Edit &gt; Selection &gt; Select First Child; Edit &gt; Insert New Grid</td><td>Shift+Enter / Ins</td><td><code>A_ENTERGRID</code></td></tr></tbody></table>
-  <h3>Behavior</h3><p>Select all selects every cell in the current grid, or all text in the current cell when already in text edit mode. Esc exits text edit mode; outside text edit mode it selects the parent cell, or the entire root grid if there is no parent. Entering a child grid selects the first cell of an existing subgrid, or creates a new 1x1 subgrid when none exists.</p>
-<h3>Context</h3><p>Select all requires a current grid. Parent traversal needs a grid selection; child traversal requires a single expandable cell.</p>
-<h3>Effects</h3><p>Selection coordinates are rewritten to the target grid or parent cell. Creating a subgrid records undo, creates the grid, selects its first cell, and refreshes the canvas.</p>
-<h3>Edge Cases</h3><p>Esc in text edit mode may undo coalesced text entry before leaving edit mode. Creating an NxN grid prompts for size and can be cancelled.</p>
-<h3>Quirks</h3><p>A_ENTERGRID is exposed in two contexts: as child selection when a child grid exists, and as grid creation when the selected cell has none.</p>
+  <div class="feature-body">
+<div class="lead"><p>Select all selects every cell in the current grid, or all text in the current cell when already in text edit mode. Esc exits text edit mode; outside text edit mode it selects the parent cell, or the entire root grid if there is no parent. Entering a child grid selects the first cell of an existing subgrid, or creates a new 1x1 subgrid when none exists.</p></div>
+<ul class="usage-notes">
+<li>Select all requires a current grid. Parent traversal needs a grid selection; child traversal requires a single expandable cell.</li>
+<li>Selection coordinates are rewritten to the target grid or parent cell. Creating a subgrid records undo, creates the grid, selects its first cell, and refreshes the canvas.</li>
+<li>Esc in text edit mode may undo coalesced text entry before leaving edit mode. Creating an NxN grid prompts for size and can be cancelled.</li>
+</ul>
+<aside class="callout"><p>The same user action can either enter an existing child grid or create a new child grid, depending on whether the selected cell already contains one.</p></aside>
+</div>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu</th><th>Shortcut</th></tr></thead><tbody><tr><td>Select all in current grid/cell</td><td>Edit &gt; Selection &gt; Select all in current grid/cell</td><td>Ctrl+A</td></tr>
+<tr><td>Select Parent / Cancel text edits</td><td>Edit &gt; Selection &gt; Select Parent; Edit &gt; Text Editing &gt; Cancel text edits</td><td>Esc</td></tr>
+<tr><td>Select First Child / Insert New Grid</td><td>Edit &gt; Selection &gt; Select First Child; Edit &gt; Insert New Grid</td><td>Shift+Enter / Ins</td></tr></tbody></table></div>
+  <p class="verification">Verified from menu entries and the corresponding selection behavior.</p>
   
   <div class="source-refs">Sources: <a href="#src-select-all-and-parent-1">[1]</a> <a href="#src-select-all-and-parent-2">[2]</a> <a href="#src-select-all-and-parent-3">[3]</a> <a href="#src-select-all-and-parent-4">[4]</a> <a href="#src-select-all-and-parent-5">[5]</a></div>
 </article>
-
-<section class="footnotes"><h2>Sources</h2><ol><li id="src-selection-movement-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L225-L270">src/tsframe.h:L225-L270</a> - Selection movement, cell movement, and extension menu entries.</li>
-<li id="src-selection-movement-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L829-L872">src/document.h:L829-L872</a> - GTK keyboard fallback for arrows, tab, page up/down, and shortcut quirks.</li>
-<li id="src-selection-movement-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1428-L1471">src/document.h:L1428-L1471</a> - Document command dispatch for movement and full row/column extension.</li>
-<li id="src-selection-movement-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/selection.h#L125-L190">src/selection.h:L125-L190</a> - Selection::Dir handles moving cells, word movement, and shift extension.</li>
-<li id="src-select-all-and-parent-1"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/tsframe.h#L223-L273">src/tsframe.h:L223-L273</a> - Selection menu entries for select all, parent, and child traversal.</li>
-<li id="src-select-all-and-parent-2"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/selection.h#L18-L26">src/selection.h:L18-L26</a> - Select all switches between text and grid selection behavior.</li>
-<li id="src-select-all-and-parent-3"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1423-L1435">src/document.h:L1423-L1435</a> - Document command branch for wxID_SELECTALL and cursor movement.</li>
-<li id="src-select-all-and-parent-4"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L1510-L1543">src/document.h:L1510-L1543</a> - Parent selection and enter/create child grid behavior.</li>
-<li id="src-select-all-and-parent-5"><a href="https://github.com/digital-carver/treesheets/blob/a6d64cacc924320496c37bd122041675574c7b06/src/document.h#L2028-L2040">src/document.h:L2028-L2040</a> - Esc behavior while in text edit mode.</li></ol></section>
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-selection-movement-1"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L225-L270">src/tsframe.h:L225-L270</a> - Selection movement, cell movement, and extension menu entries.</li>
+<li id="src-selection-movement-2"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L829-L872">src/document.h:L829-L872</a> - GTK keyboard fallback for arrows, tab, page up/down, and shortcut quirks.</li>
+<li id="src-selection-movement-3"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L1428-L1471">src/document.h:L1428-L1471</a> - Document command dispatch for movement and full row/column extension.</li>
+<li id="src-selection-movement-4"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/selection.h#L125-L190">src/selection.h:L125-L190</a> - Selection movement helper handles cell movement, word movement, and shift extension.</li>
+<li id="src-select-all-and-parent-1"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L223-L273">src/tsframe.h:L223-L273</a> - Selection menu entries for select all, parent, and child traversal.</li>
+<li id="src-select-all-and-parent-2"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/selection.h#L18-L26">src/selection.h:L18-L26</a> - Select all switches between text and grid selection behavior.</li>
+<li id="src-select-all-and-parent-3"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L1423-L1435">src/document.h:L1423-L1435</a> - Document command branch for select-all and cursor movement.</li>
+<li id="src-select-all-and-parent-4"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L1510-L1543">src/document.h:L1510-L1543</a> - Parent selection and enter/create child grid behavior.</li>
+<li id="src-select-all-and-parent-5"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L2028-L2040">src/document.h:L2028-L2040</a> - Esc behavior while in text edit mode.</li></ol></section>
     </main>
   </div>
 </body>
 </html>
-
