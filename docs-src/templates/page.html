@@ -87,7 +87,7 @@
       color: #cbd4df;
       letter-spacing: 0;
     }
-    .meta, .notice, .description, .verification, .footnotes {
+    .meta, .notice, .description, .evidence, .footnotes {
       color: var(--muted);
     }
     .notice { margin-top: 5px; font-size: 14px; }
@@ -118,10 +118,10 @@
       white-space: nowrap;
       border: 1px solid rgba(255,255,255,.08);
     }
-    .badge-implementation_verified { background: var(--green); }
-    .badge-ui_verified { background: var(--teal); }
-    .badge-docs_history_verified { background: var(--amber); }
-    .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    .badge-code_verified { background: var(--green); }
+    .badge-menu_declared { background: var(--teal); }
+    .badge-docs_supported, .badge-example_supported { background: var(--amber); }
+    .badge-inferred_from_code, .badge-needs_human_check { background: var(--violet); }
     .feature-body {
       margin-top: 14px;
       max-width: 82ch;
@@ -231,7 +231,7 @@
       <header class="page-header">
         <h1>{{ page_title }}</h1>
         <p class="description">{{ page_description }}</p>
-        <div class="meta">Updated last on {{ updated_last_on }} · Source commit <code>{{ short_commit }}</code></div>
+        <div class="meta">Updated last on {{ updated_last_on }} &middot; Source commit <code>{{ short_commit }}</code></div>
         <div class="notice">{{ notice }}</div>
       </header>
       {{ content }}

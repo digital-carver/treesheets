@@ -1,0 +1,7 @@
+id = "menus"
+title = "Menu Reference"
+order = 80
+description = "Source-derived menu, option, and command declaration inventory."
+intro = """
+This page is generated from TreeSheets menu declarations in the current source tree. It is a compact reference and an audit aid; feature pages explain behavior in more detail.
+"""

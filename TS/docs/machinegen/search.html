@@ -87,7 +87,7 @@
       color: #cbd4df;
       letter-spacing: 0;
     }
-    .meta, .notice, .description, .verification, .footnotes {
+    .meta, .notice, .description, .evidence, .footnotes {
       color: var(--muted);
     }
     .notice { margin-top: 5px; font-size: 14px; }
@@ -118,10 +118,10 @@
       white-space: nowrap;
       border: 1px solid rgba(255,255,255,.08);
     }
-    .badge-implementation_verified { background: var(--green); }
-    .badge-ui_verified { background: var(--teal); }
-    .badge-docs_history_verified { background: var(--amber); }
-    .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    .badge-code_verified { background: var(--green); }
+    .badge-menu_declared { background: var(--teal); }
+    .badge-docs_supported, .badge-example_supported { background: var(--amber); }
+    .badge-inferred_from_code, .badge-needs_human_check { background: var(--violet); }
     .feature-body {
       margin-top: 14px;
       max-width: 82ch;
@@ -226,51 +226,58 @@
     <nav>
       <div class="brand">TreeSheets Reference</div>
       <a href="index.html">TreeSheets Reference</a>
+<a href="concepts.html">Core Concepts</a>
 <a href="selection.html">Selection and Navigation</a>
 <a href="editing.html">Editing Cells</a>
-<a href="grids.html">Grids and Layout</a>
+<a href="grids.html">Grids and Hierarchies</a>
+<a href="layout.html">Layout and View</a>
 <a href="import_export.html">Import and Export</a>
 <a class="active" href="search.html">Search and Filtering</a>
 <a href="scripting.html">Scripting and Evaluation</a>
-<a href="sources.html">Source Audit</a>
+<a href="options.html">Options</a>
+<a href="menus.html">Menu Reference</a>
+<a href="audit.html">Documentation Audit</a>
+<a href="sources.html">Source Index</a>
     </nav>
     <main>
       <header class="page-header">
         <h1>Search and Filtering</h1>
         <p class="description">Search toolbar behavior, replace actions, and document filters.</p>
-        <div class="meta">Updated last on 2026-05-08 · Source commit <code>261add4e446c</code></div>
-        <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
+        <div class="meta">Updated last on 2026-05-09 &middot; Source commit <code>84ef9b924c79</code></div>
+        <div class="notice">Machine-assisted reference docs. Reliability indicators and footnote citations are included with every section.</div>
       </header>
-      <p>Search state lives on the application system object and is consumed by document commands that jump, replace, or hide non-matching cells.</p><article class="feature" id="search-filter-replace">
+      <p>Search, replace, and filter commands help move through large sheets, change matching text, or visually reduce the document to cells that match a search, edit time, note, or color condition.</p><article class="feature" id="search-filter-replace">
   <div class="feature-head">
     <h2>Search, replace, and filters</h2>
-    <span class="badge badge-implementation_verified">Implementation verified</span>
+    <span class="badge badge-code_verified">Code verified</span>
   </div>
   <div class="feature-body">
-<div class="lead"><p>Search text is captured by the toolbar field, optionally lowercased for case-insensitive search, and used by next/previous commands. Replace can affect the current selection, replace and jump, or replace all. Filters hide cells that do not match current search, edit recency/date ranges, notes, or cell background.</p></div>
+<div class="lead"><p>Search uses the toolbar search field and can be case-sensitive or case-insensitive. Next and Previous jump through matching cells. Replace can change the current selection, replace and jump to the next match, or replace all matches. Filters visually reduce the sheet to cells that match current search text, edit time ranges, notes, or a selected background color.</p></div>
 <ul class="usage-notes">
-<li>Search and replace toolbar controls must exist and be enabled for focus commands. Replace requires a non-empty search string.</li>
-<li>Search jumps set selection to the matching cell and optionally focus the canvas. Replace adds undo, mutates text, refreshes the document, and may jump. Filters mutate each cell&#x27;s filtered flag, reset children, set paint-scroll state, and refresh.</li>
+<li>Replace requires a search string. Search and filter commands work across the document hierarchy, not only the currently visible cells.</li>
+<li>Search jumps select the matching cell and may zoom in if the match is too small to read. Replace is undoable. Filters keep matching cells readable while reducing non-matching cells visually.</li>
 <li>If no search string exists, next/previous can seed the search field from the currently selected cell text; otherwise they report that one cell must be selected or no text exists.</li>
 </ul>
 <aside class="callout"><p>On Windows, Enter in the search/replace text controls is emulated in OnMenu because EVT_TEXT_ENTER is not generated.</p></aside>
 </div>
-  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu</th><th>Shortcut</th></tr></thead><tbody><tr><td>Search / Next / Previous</td><td>Search</td><td>Ctrl+F, F3, Shift+F3</td></tr>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu or option</th><th>Shortcut</th></tr></thead><tbody><tr><td>Search / Next / Previous</td><td>Search</td><td>Ctrl+F, F3, Shift+F3</td></tr>
 <tr><td>Replace</td><td>Search</td><td>Ctrl+H, Ctrl+K, Ctrl+J</td></tr>
 <tr><td>Filter</td><td>View &gt; Filter</td><td>Ctrl+Shift+F, Ctrl+F3</td></tr></tbody></table></div>
-  <p class="verification">Verified from search/view menus, toolbar events, and search/filter behavior.</p>
+  <p class="evidence">Verified from search/view menus, toolbar events, search/filter implementation, and history notes.</p>
   
-  <div class="source-refs">Sources: <a href="#src-search-filter-replace-1">[1]</a> <a href="#src-search-filter-replace-2">[2]</a> <a href="#src-search-filter-replace-3">[3]</a> <a href="#src-search-filter-replace-4">[4]</a> <a href="#src-search-filter-replace-5">[5]</a> <a href="#src-search-filter-replace-6">[6]</a> <a href="#src-search-filter-replace-7">[7]</a> <a href="#src-search-filter-replace-8">[8]</a> <a href="#src-search-filter-replace-9">[9]</a></div>
+  <div class="source-refs">Sources: <a href="#src-search-filter-replace-1">[1]</a> <a href="#src-search-filter-replace-2">[2]</a> <a href="#src-search-filter-replace-3">[3]</a> <a href="#src-search-filter-replace-4">[4]</a> <a href="#src-search-filter-replace-5">[5]</a> <a href="#src-search-filter-replace-6">[6]</a> <a href="#src-search-filter-replace-7">[7]</a> <a href="#src-search-filter-replace-8">[8]</a> <a href="#src-search-filter-replace-9">[9]</a> <a href="#src-search-filter-replace-10">[10]</a> <a href="#src-search-filter-replace-11">[11]</a></div>
 </article>
-<section class="footnotes"><h2>Sources</h2><ol><li id="src-search-filter-replace-1"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L474-L516">src/tsframe.h:L474-L516</a> - Search and filter menu entries.</li>
-<li id="src-search-filter-replace-2"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L871-L893">src/tsframe.h:L871-L893</a> - Search and replace toolbar controls.</li>
-<li id="src-search-filter-replace-3"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L1084-L1102">src/tsframe.h:L1084-L1102</a> - Windows Enter-key emulation for search/replace text controls.</li>
-<li id="src-search-filter-replace-4"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L1223-L1237">src/tsframe.h:L1223-L1237</a> - Search/replace commands focus toolbar controls or show status messages.</li>
-<li id="src-search-filter-replace-5"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L1288-L1314">src/tsframe.h:L1288-L1314</a> - OnSearch and OnSearchReplaceEnter update search state and dispatch actions.</li>
-<li id="src-search-filter-replace-6"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L1155-L1221">src/document.h:L1155-L1221</a> - Search next/previous, case sensitivity, and replace branches.</li>
-<li id="src-search-filter-replace-7"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L1263-L1274">src/document.h:L1263-L1274</a> - Search and edit filter action dispatch.</li>
-<li id="src-search-filter-replace-8"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L2072-L2081">src/document.h:L2072-L2081</a> - SearchNext finds and selects matching cells.</li>
-<li id="src-search-filter-replace-9"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L2434-L2440">src/document.h:L2434-L2440</a> - SetSearchFilter toggles filtered flags for non-matching cells.</li></ol></section>
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-search-filter-replace-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L157-L160">TS/docs/history.txt:L157-L160</a> - History describes filters as a way to focus visually on important cells in large files.</li>
+<li id="src-search-filter-replace-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L191-L196">TS/docs/history.txt:L191-L196</a> - History notes search zoom behavior, text-selection matching, and full row/column selection extensions.</li>
+<li id="src-search-filter-replace-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L474-L516">src/tsframe.h:L474-L516</a> - Search and filter menu entries.</li>
+<li id="src-search-filter-replace-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L871-L893">src/tsframe.h:L871-L893</a> - Search and replace toolbar controls.</li>
+<li id="src-search-filter-replace-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L1084-L1102">src/tsframe.h:L1084-L1102</a> - Windows Enter-key emulation for search/replace text controls.</li>
+<li id="src-search-filter-replace-6"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L1223-L1237">src/tsframe.h:L1223-L1237</a> - Search/replace commands focus toolbar controls or show status messages.</li>
+<li id="src-search-filter-replace-7"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L1288-L1314">src/tsframe.h:L1288-L1314</a> - OnSearch and OnSearchReplaceEnter update search state and dispatch actions.</li>
+<li id="src-search-filter-replace-8"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1155-L1221">src/document.h:L1155-L1221</a> - Search next/previous, case sensitivity, and replace branches.</li>
+<li id="src-search-filter-replace-9"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1263-L1274">src/document.h:L1263-L1274</a> - Search and edit filter action dispatch.</li>
+<li id="src-search-filter-replace-10"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2072-L2081">src/document.h:L2072-L2081</a> - SearchNext finds and selects matching cells.</li>
+<li id="src-search-filter-replace-11"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2434-L2440">src/document.h:L2434-L2440</a> - SetSearchFilter toggles filtered flags for non-matching cells.</li></ol></section>
     </main>
   </div>
 </body>

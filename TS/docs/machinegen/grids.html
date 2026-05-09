@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Grids and Layout - TreeSheets Reference</title>
+  <title>Grids and Hierarchies - TreeSheets Reference</title>
   <style>
     :root {
       color-scheme: dark;
@@ -87,7 +87,7 @@
       color: #cbd4df;
       letter-spacing: 0;
     }
-    .meta, .notice, .description, .verification, .footnotes {
+    .meta, .notice, .description, .evidence, .footnotes {
       color: var(--muted);
     }
     .notice { margin-top: 5px; font-size: 14px; }
@@ -118,10 +118,10 @@
       white-space: nowrap;
       border: 1px solid rgba(255,255,255,.08);
     }
-    .badge-implementation_verified { background: var(--green); }
-    .badge-ui_verified { background: var(--teal); }
-    .badge-docs_history_verified { background: var(--amber); }
-    .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    .badge-code_verified { background: var(--green); }
+    .badge-menu_declared { background: var(--teal); }
+    .badge-docs_supported, .badge-example_supported { background: var(--amber); }
+    .badge-inferred_from_code, .badge-needs_human_check { background: var(--violet); }
     .feature-body {
       margin-top: 14px;
       max-width: 82ch;
@@ -226,76 +226,82 @@
     <nav>
       <div class="brand">TreeSheets Reference</div>
       <a href="index.html">TreeSheets Reference</a>
+<a href="concepts.html">Core Concepts</a>
 <a href="selection.html">Selection and Navigation</a>
 <a href="editing.html">Editing Cells</a>
-<a class="active" href="grids.html">Grids and Layout</a>
+<a class="active" href="grids.html">Grids and Hierarchies</a>
+<a href="layout.html">Layout and View</a>
 <a href="import_export.html">Import and Export</a>
 <a href="search.html">Search and Filtering</a>
 <a href="scripting.html">Scripting and Evaluation</a>
-<a href="sources.html">Source Audit</a>
+<a href="options.html">Options</a>
+<a href="menus.html">Menu Reference</a>
+<a href="audit.html">Documentation Audit</a>
+<a href="sources.html">Source Index</a>
     </nav>
     <main>
       <header class="page-header">
-        <h1>Grids and Layout</h1>
-        <p class="description">Subgrid creation, folding, hierarchy operations, layout direction, render styles, and flattening.</p>
-        <div class="meta">Updated last on 2026-05-08 · Source commit <code>261add4e446c</code></div>
-        <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
+        <h1>Grids and Hierarchies</h1>
+        <p class="description">Subgrid creation, folding, hierarchy operations, sorting, transposition, hierarchify, and flattening.</p>
+        <div class="meta">Updated last on 2026-05-09 &middot; Source commit <code>84ef9b924c79</code></div>
+        <div class="notice">Machine-assisted reference docs. Reliability indicators and footnote citations are included with every section.</div>
       </header>
       <p>Grids are nested inside cells. Many structural commands either operate on the selected grid or on subgrids inside the selected cells.</p><article class="feature" id="grid-structure">
   <div class="feature-head">
     <h2>Create, fold, wrap, transpose, flatten, and hierarchify grids</h2>
-    <span class="badge badge-implementation_verified">Implementation verified</span>
+    <span class="badge badge-code_verified">Code verified</span>
   </div>
   <div class="feature-body">
-<div class="lead"><p>Grid creation adds a subgrid to one selected cell or enters an existing one. Wrap creates a new parent hierarchy around the selection. Folding toggles whether selected subgrids are displayed. Transpose changes grid orientation, Hierarchify converts a table-like grid into hierarchy, and Flatten converts nested hierarchy into a flat grid sized by depth and leaves.</p></div>
+<div class="lead"><p>Grid creation adds a subgrid to one selected cell or enters an existing subgrid. Wrap creates a new parent hierarchy around the current selection. Folding hides or shows subgrids inside selected cells. Transpose changes grid orientation, Hierarchify converts repeated table values into hierarchy, and Flatten converts nested hierarchy into a flat grid for export or spreadsheet-style work.</p></div>
 <ul class="usage-notes">
 <li>Creation needs one expandable cell. Transpose rejects thin selections. Hierarchify requires a selected cell or whole grid with a table-like grid. Flatten requires a grid and can operate on the selected cell or all selected grid.</li>
-<li>Structural commands add undo, mutate grid ownership or layout, reset child layout caches, rewrite selection, and refresh the canvas.</li>
+<li>Structural changes are undoable. TreeSheets refreshes layout and updates the selection to the affected grid or cell where appropriate.</li>
 <li>The root grid cannot be removed by grid deletion. Hierarchify refuses grids whose cells already contain subgrids.</li>
 </ul>
 <aside class="callout"><p>Fold state is saved in TreeSheets XML, so folded grids remain folded when the structure is exported and reimported.</p></aside>
 </div>
-  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu</th><th>Shortcut</th></tr></thead><tbody><tr><td>Insert New Grid / NxN Grid</td><td>Edit</td><td>Ins or Ctrl+G; Ctrl+Shift+Enter</td></tr>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu or option</th><th>Shortcut</th></tr></thead><tbody><tr><td>Insert New Grid / NxN Grid</td><td>Edit</td><td>Ins or Ctrl+G; Ctrl+Shift+Enter</td></tr>
 <tr><td>Wrap in new parent</td><td>Edit</td><td>F9</td></tr>
 <tr><td>Fold / Fold All / Unfold All</td><td>Edit</td><td>F10 or Ctrl+F10; Ctrl+Shift+F10; Ctrl+Alt+F10</td></tr>
 <tr><td>Transpose / Hierarchify / Flatten</td><td>Edit &gt; Grid Reorganization</td><td>Ctrl+Shift+T for transpose</td></tr></tbody></table></div>
-  <p class="verification">Verified from menu entries and grid-structure command branches.</p>
+  <p class="evidence">Verified from menu entries, grid-structure command branches, the official tutorial, and history notes.</p>
   
-  <div class="source-refs">Sources: <a href="#src-grid-structure-1">[1]</a> <a href="#src-grid-structure-2">[2]</a> <a href="#src-grid-structure-3">[3]</a> <a href="#src-grid-structure-4">[4]</a> <a href="#src-grid-structure-5">[5]</a> <a href="#src-grid-structure-6">[6]</a> <a href="#src-grid-structure-7">[7]</a></div>
+  <div class="source-refs">Sources: <a href="#src-grid-structure-1">[1]</a> <a href="#src-grid-structure-2">[2]</a> <a href="#src-grid-structure-3">[3]</a> <a href="#src-grid-structure-4">[4]</a> <a href="#src-grid-structure-5">[5]</a> <a href="#src-grid-structure-6">[6]</a> <a href="#src-grid-structure-7">[7]</a> <a href="#src-grid-structure-8">[8]</a> <a href="#src-grid-structure-9">[9]</a> <a href="#src-grid-structure-10">[10]</a></div>
 </article>
-<article class="feature" id="layout-rendering">
+<article class="feature" id="hierarchy-swap">
   <div class="feature-head">
-    <h2>Layout direction and render styles</h2>
-    <span class="badge badge-implementation_verified">Implementation verified</span>
+    <h2>Hierarchy Swap</h2>
+    <span class="badge badge-code_verified">Code verified</span>
   </div>
   <div class="feature-body">
-<div class="lead"><p>Layout commands set selected cells or selected grids to vertical/horizontal text-and-grid layout and grid, bubble-hierarchy, or line render styles. Render-style-only commands preserve orientation while changing draw style.</p></div>
+<div class="lead"><p>Hierarchy Swap promotes cells with the same text as the selected cell upward within the selected cell&#x27;s grandparent scope. It is useful when a hierarchy has the right information but is organized around the wrong level, such as wanting people grouped above projects instead of inside projects.</p></div>
 <ul class="usage-notes">
-<li>The selected grid must not be a thin selection. Render-style-only commands set the containing grid draw style when the whole grid is selected.</li>
-<li>Commands add undo, apply the chosen layout or render style, refresh layout, and redraw the canvas.</li>
-<li>Thin selections are rejected with the normal no-thin-selection message.</li>
+<li>The selected cell must have both a parent and a grandparent, and both the parent and grandparent grids must be one-dimensional: either 1xN or Nx1.</li>
+<li>Matching cells are promoted, their ancestor chain is nested under the promoted cell, duplicate promoted tags are merged, empty one-cell shells are pruned, and the command remains undoable as one operation.</li>
+<li>Matching is exact and case-sensitive. A very deep match may need repeated swaps because each keypress works from the selected cell&#x27;s grandparent grid.</li>
 </ul>
-<aside class="callout"><p>Shortcut labels deliberately use Ctrl on macOS and Alt elsewhere.</p></aside>
+<aside class="callout"><p>Hierarchy Swap can restructure multiple matching branches in one keypress. Preview the structure mentally or keep undo close when using it on large sheets.</p></aside>
 </div>
-  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu</th><th>Shortcut</th></tr></thead><tbody><tr><td>Vertical/horizontal layout with render style</td><td>Edit &gt; Layout &amp; Render Style</td><td>Alt+1..6 on non-macOS, Ctrl+1..6 on macOS</td></tr>
-<tr><td>Render style only</td><td>Edit &gt; Layout &amp; Render Style</td><td>Alt+7..9 on non-macOS, Ctrl+7..9 on macOS</td></tr>
-<tr><td>Toggle vertical layout</td><td>Edit &gt; Layout &amp; Render Style</td><td>Alt+0 on non-macOS, Ctrl+0 on macOS</td></tr></tbody></table></div>
-  <p class="verification">Verified from platform-specific menu labels and layout/render command behavior.</p>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu or option</th><th>Shortcut</th></tr></thead><tbody><tr><td>Hierarchy Swap</td><td>Edit &gt; Grid Reorganization</td><td>F8</td></tr></tbody></table></div>
+  <p class="evidence">Verified from the dedicated in-repository Hierarchy Swap reference and the current implementation.</p>
   
-  <div class="source-refs">Sources: <a href="#src-layout-rendering-1">[1]</a> <a href="#src-layout-rendering-2">[2]</a> <a href="#src-layout-rendering-3">[3]</a> <a href="#src-layout-rendering-4">[4]</a> <a href="#src-layout-rendering-5">[5]</a></div>
+  <div class="source-refs">Sources: <a href="#src-hierarchy-swap-1">[1]</a> <a href="#src-hierarchy-swap-2">[2]</a> <a href="#src-hierarchy-swap-3">[3]</a> <a href="#src-hierarchy-swap-4">[4]</a> <a href="#src-hierarchy-swap-5">[5]</a></div>
 </article>
-<section class="footnotes"><h2>Sources</h2><ol><li id="src-grid-structure-1"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L333-L345">src/tsframe.h:L333-L345</a> - Grid reorganization menu entries.</li>
-<li id="src-grid-structure-2"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L434-L457">src/tsframe.h:L434-L457</a> - Grid insertion, wrap, and fold menu entries.</li>
-<li id="src-grid-structure-3"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L1522-L1543">src/document.h:L1522-L1543</a> - Insert/select subgrid implementation.</li>
-<li id="src-grid-structure-4"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/selection.h#L347-L367">src/selection.h:L347-L367</a> - Selection wrapping creates a new hierarchy level.</li>
-<li id="src-grid-structure-5"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L1742-L1752">src/document.h:L1742-L1752</a> - Fold, fold all, and unfold all behavior.</li>
-<li id="src-grid-structure-6"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L1912-L1966">src/document.h:L1912-L1966</a> - Transpose, hierarchify, and flatten behavior.</li>
-<li id="src-grid-structure-7"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/grid.h#L584-L600">src/grid.h:L584-L600</a> - Grid export includes folded and layout-related attributes.</li>
-<li id="src-layout-rendering-1"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L103-L119">src/tsframe.h:L103-L119</a> - Platform-specific CTRLORALT and ALTORCTRL macros.</li>
-<li id="src-layout-rendering-2"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L380-L399">src/tsframe.h:L380-L399</a> - Layout and render-style menu entries.</li>
-<li id="src-layout-rendering-3"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L1674-L1684">src/document.h:L1674-L1684</a> - Layout command dispatch.</li>
-<li id="src-layout-rendering-4"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L2083-L2092">src/document.h:L2083-L2092</a> - layrender validates selection and applies layout/render style.</li>
-<li id="src-layout-rendering-5"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/cell.h#L9-L14">src/cell.h:L9-L14</a> - Cell and draw-style enum values.</li></ol></section>
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-grid-structure-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L91-L98">TS/docs/tutorial.html:L91-L98</a> - Tutorial introduces subgrid creation, nested editing, multi-cell selection, deletion, and cell movement.</li>
+<li id="src-grid-structure-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L51-L53">TS/docs/history.txt:L51-L53</a> - History describes folding grids and zooming into folded contents.</li>
+<li id="src-grid-structure-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L154-L157">TS/docs/history.txt:L154-L157</a> - History documents CSV export, Hierarchy Swap, Wrap in new parent, and filters.</li>
+<li id="src-grid-structure-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L333-L345">src/tsframe.h:L333-L345</a> - Grid reorganization menu entries.</li>
+<li id="src-grid-structure-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L434-L457">src/tsframe.h:L434-L457</a> - Grid insertion, wrap, and fold menu entries.</li>
+<li id="src-grid-structure-6"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1522-L1543">src/document.h:L1522-L1543</a> - Insert/select subgrid implementation.</li>
+<li id="src-grid-structure-7"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/selection.h#L347-L367">src/selection.h:L347-L367</a> - Selection wrapping creates a new hierarchy level.</li>
+<li id="src-grid-structure-8"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1742-L1752">src/document.h:L1742-L1752</a> - Fold, fold all, and unfold all behavior.</li>
+<li id="src-grid-structure-9"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1912-L1966">src/document.h:L1912-L1966</a> - Transpose, hierarchify, and flatten behavior.</li>
+<li id="src-grid-structure-10"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L584-L600">src/grid.h:L584-L600</a> - Grid export includes folded and layout-related attributes.</li>
+<li id="src-hierarchy-swap-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/HIERARCHY_SWAP.md#L2-L15">TS/docs/HIERARCHY_SWAP.md:L2-L15</a> - Dedicated reference summarizes menu location, preconditions, errors, selection behavior, and undo.</li>
+<li id="src-hierarchy-swap-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/HIERARCHY_SWAP.md#L49-L59">TS/docs/HIERARCHY_SWAP.md:L49-L59</a> - Dedicated reference explains exact matching, shape constraints, merge behavior, repeated hops, and cleanup.</li>
+<li id="src-hierarchy-swap-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L333-L345">src/tsframe.h:L333-L345</a> - Grid reorganization menu includes Hierarchy Swap.</li>
+<li id="src-hierarchy-swap-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1991-L2002">src/document.h:L1991-L2002</a> - Command handler validates shape and calls the hierarchy swap algorithm.</li>
+<li id="src-hierarchy-swap-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L893-L984">src/grid.h:L893-L984</a> - Hierarchy swap promotion, deletion, and merge algorithm.</li></ol></section>
     </main>
   </div>
 </body>

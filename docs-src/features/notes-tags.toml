@@ -1,0 +1,85 @@
+id = "notes-tags"
+title = "Notes and tags"
+category = "editing"
+page = "editing"
+
+[[commands]]
+name = "Edit Note"
+menu_path = "Edit"
+shortcut = "Ctrl+E"
+command_id = "A_EDITNOTE"
+
+[[commands]]
+name = "Add/remove/set tags"
+menu_path = "Edit > Tag"
+shortcut = "Ctrl+right-click for tag popup"
+command_id = "A_TAGADD/A_TAGREMOVE/A_TAGSET"
+
+[[commands]]
+name = "Show cells with notes"
+menu_path = "View > Filter"
+shortcut = ""
+command_id = "A_FILTERNOTE"
+
+[evidence]
+level = "code_verified"
+text = "Verified from menu declarations, note dialog behavior, tag menu behavior, filtering behavior, and saved cell data."
+
+[behavior]
+summary = """
+Notes are extra text attached to a cell and edited through a dialog. Tags are reusable cell-text labels with associated colors; TreeSheets can add the selected cell text as a tag, remove it from the tag list, or apply an existing tag from a popup/menu path. The note filter shows cells that have notes.
+"""
+context = """
+Editing a note requires one selected cell. Tag operations act on selected cell text and the document's tag list. The note filter scans the document for cells with non-empty notes.
+"""
+effects = """
+Note and tag changes are undoable where they change document content. Notes are saved with cells, copied with cells when appropriate, and can be used as a filter criterion.
+"""
+edge_cases = """
+The tag popup can be reached from Ctrl+right-click according to the menu tooltip; exact pointer behavior is not covered by this generated documentation.
+"""
+quirks = """
+Notes are not the same as visible cell text. A sheet can filter to note-bearing cells even when the note itself is not part of the cell's main visible text.
+"""
+
+[[sources]]
+type = "menu"
+file = "src/tsframe.h"
+lines = "327-331"
+label = "Tag menu declarations and Ctrl+right-click tooltip."
+
+[[sources]]
+type = "menu"
+file = "src/tsframe.h"
+lines = "416-417"
+label = "Edit Note menu declaration."
+
+[[sources]]
+type = "menu"
+file = "src/tsframe.h"
+lines = "514-515"
+label = "Filter menu includes note and background-color filters."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1570-1593"
+label = "Edit Note dialog behavior and saved dialog size."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1899-1911"
+label = "Add and remove tag behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "2013-2016"
+label = "Note filter marks cells without notes as filtered."
+
+[[sources]]
+type = "implementation"
+file = "src/cell.h"
+lines = "355-360"
+label = "Cell save path writes note text."

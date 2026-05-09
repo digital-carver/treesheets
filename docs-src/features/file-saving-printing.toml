@@ -1,0 +1,79 @@
+id = "file-saving-printing"
+title = "Files, saving, backups, printing, and auto HTML export"
+category = "import/export"
+page = "import_export"
+
+[[commands]]
+name = "New, open, save, save as, save all"
+menu_path = "File"
+shortcut = "Ctrl+N, Ctrl+O, Ctrl+S"
+command_id = "wxID_NEW/wxID_OPEN/wxID_SAVE/wxID_SAVEAS/A_SAVEALL"
+
+[[commands]]
+name = "Page setup, print scale, preview, print"
+menu_path = "File"
+shortcut = "Ctrl+P for Print"
+command_id = "A_PAGESETUP/A_PRINTSCALE/wxID_PREVIEW/wxID_PRINT"
+
+[[commands]]
+name = "Autoexport to HTML"
+menu_path = "Options > Autoexport to HTML"
+shortcut = ""
+command_id = "A_AUTOEXPORT_HTML_NONE/A_AUTOEXPORT_HTML_WITH_IMAGES/A_AUTOEXPORT_HTML_WITHOUT_IMAGES"
+
+[evidence]
+level = "code_verified"
+text = "Verified from File and Options menu declarations, save/print handlers, autoexport behavior, and tutorial save/load guidance."
+
+[behavior]
+summary = """
+TreeSheets uses normal document commands for creating, opening, saving, saving under a new name, and printing. Saving writes the native `.cts` document. If HTML autoexport is enabled, saving also writes an HTML version beside the TreeSheets file, either with companion images or without images depending on the option.
+"""
+context = """
+Save As prompts for a filename; ordinary Save uses the current filename when one exists. Print and print preview operate on the current document view with the configured print scale.
+"""
+effects = """
+Saving records the file as clean, updates window/tab titles, can create a backup file when backups are enabled, removes stale temporary autosave files after a successful full save, and updates recent-file history.
+"""
+edge_cases = """
+If the document has no filename, Save behaves like Save As. If writing or renaming the temporary output fails, TreeSheets reports a save error.
+"""
+quirks = """
+HTML autoexport is an option-driven side effect of saving the native file; it is not a replacement for the `.cts` save.
+"""
+
+[[sources]]
+type = "docs"
+file = "TS/docs/tutorial.html"
+lines = "90-90"
+label = "Tutorial summarizes Save, Save As, Open, startup loading, and export choices."
+
+[[sources]]
+type = "menu"
+file = "src/tsframe.h"
+lines = "158-176"
+label = "File menu declarations."
+
+[[sources]]
+type = "menu"
+file = "src/tsframe.h"
+lines = "561-570"
+label = "HTML autoexport option declarations."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "138-221"
+label = "Native save and HTML autoexport behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "790-805"
+label = "Save, Save As, and temporary autosave behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1093-1127"
+label = "Print, print scale, preview, and page setup handlers."

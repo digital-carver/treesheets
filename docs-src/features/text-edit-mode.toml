@@ -21,29 +21,41 @@ menu_path = "Edit > Text Editing"
 shortcut = "Alt+Enter or Ctrl+Enter depending on platform"
 command_id = "A_PROGRESSCELL"
 
-[verification]
-level = "implementation_verified"
-text = "Verified from text-editing menu definitions, key handling, and command behavior."
+[evidence]
+level = "code_verified"
+text = "Verified from text-editing menu definitions, key handling, command behavior, and tutorial/history descriptions."
 
 [behavior]
 summary = """
-Text edit mode turns a single cell selection into an insertion cursor or text range. Enter opens edit mode with all text selected by default, F2 opens at the end, and progress variants leave edit mode by moving to a neighboring cell when already editing.
+Text edit mode lets you change the text inside one cell. Press `Enter` to enter or leave text editing, or press `F2` to start editing at the end of the cell text. Typing into a selected cell also begins editing.
 """
 context = """
-The command requires a single selected cell, or a thin selection that can be expanded into a cell. Typing printable characters also enters or creates text content after expanding/wrapping a selection as needed.
+The command needs one selected cell, or a grid-line selection that can expand into a new neighboring cell. In text edit mode, cursor keys and text-selection shortcuts act inside the cell text instead of moving the grid selection.
 """
 effects = """
-Entering text edit mode sets the I-beam cursor, cursor positions, paint-scroll flag, and refreshes the canvas. Text keystrokes add undo and insert into the cell text.
+TreeSheets shows an edit cursor and keeps edits undoable. The progress variants leave the current cell and move to a nearby cell, making spreadsheet-like data entry possible.
 """
 edge_cases = """
 If the selection cannot be expanded to one cell, the command reports that one cell must be selected.
 """
 quirks = """
-The labels for Ctrl/Alt Enter are platform-dependent: macOS uses Ctrl for layout/render shortcuts and non-macOS uses Alt in several menu strings.
+The labels for Ctrl/Alt Enter are platform-dependent: macOS uses Ctrl for several layout/render shortcuts where other platforms use Alt.
 """
 
 [[sources]]
-type = "ui"
+type = "docs"
+file = "TS/docs/tutorial.html"
+lines = "78-84"
+label = "Tutorial explains selecting a cell, typing, and typing into a grid-line insertion point."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "295-311"
+label = "History notes text cursor behavior and F2 as an alternative to Enter."
+
+[[sources]]
+type = "menu"
 file = "src/tsframe.h"
 lines = "281-307"
 label = "Text editing menu entries."

@@ -21,19 +21,19 @@ menu_path = "Edit > Selection"
 shortcut = "Shift+Arrow, Ctrl+Shift+Arrow"
 command_id = "A_SLEFT/A_SRIGHT/A_SUP/A_SDOWN/A_SC*"
 
-[verification]
-level = "implementation_verified"
-text = "Verified from menu entries, keyboard fallback handling, and selection movement code."
+[evidence]
+level = "code_verified"
+text = "Verified from menu entries, keyboard fallback handling, selection movement code, tutorial notes, and history notes."
 
 [behavior]
 summary = """
-Arrow commands move the selection or text cursor. Ctrl+Arrow moves selected cells around the grid outside text edit mode; in text edit mode horizontal Ctrl movement jumps by word-like runs. Shift extends the rectangular grid selection or the text selection.
+Arrow keys move the current selection, or the text cursor when you are editing a cell. `Ctrl+Arrow` moves selected cells around inside the grid. `Shift+Arrow` extends the current cell or text selection.
 """
 context = """
-Movement acts on the active grid selection. In text edit mode, the same arrow shortcuts move the text cursor or extend the text selection.
+Movement acts on the active grid selection. In text edit mode, the same arrow shortcuts move or extend the text cursor selection.
 """
 effects = """
-Moving cells records undo, wraps around grid edges when needed, refreshes affected layout, and scrolls to the new selection. Shift expansion changes the selection rectangle while staying inside the grid.
+Moving cells is undoable and TreeSheets scrolls or zooms enough to keep the selection visible. Shift expansion changes the selection rectangle while staying inside the grid.
 """
 edge_cases = """
 On GTK, several arrow, tab, and page-key shortcuts are handled directly because the toolkit does not expose them as normal menu accelerators.
@@ -43,7 +43,19 @@ Ctrl+I can arrive as Ctrl+Tab on Linux, so Ctrl+Tab tab switching is intentional
 """
 
 [[sources]]
-type = "ui"
+type = "docs"
+file = "TS/docs/tutorial.html"
+lines = "95-98"
+label = "Tutorial describes dragging multi-cell selections and moving selections with Ctrl+Arrow."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "239-260"
+label = "History notes word selection, Linux cursor handling, and selection visibility behavior."
+
+[[sources]]
+type = "menu"
 file = "src/tsframe.h"
 lines = "225-270"
 label = "Selection movement, cell movement, and extension menu entries."

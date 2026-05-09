@@ -87,7 +87,7 @@
       color: #cbd4df;
       letter-spacing: 0;
     }
-    .meta, .notice, .description, .verification, .footnotes {
+    .meta, .notice, .description, .evidence, .footnotes {
       color: var(--muted);
     }
     .notice { margin-top: 5px; font-size: 14px; }
@@ -118,10 +118,10 @@
       white-space: nowrap;
       border: 1px solid rgba(255,255,255,.08);
     }
-    .badge-implementation_verified { background: var(--green); }
-    .badge-ui_verified { background: var(--teal); }
-    .badge-docs_history_verified { background: var(--amber); }
-    .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    .badge-code_verified { background: var(--green); }
+    .badge-menu_declared { background: var(--teal); }
+    .badge-docs_supported, .badge-example_supported { background: var(--amber); }
+    .badge-inferred_from_code, .badge-needs_human_check { background: var(--violet); }
     .feature-body {
       margin-top: 14px;
       max-width: 82ch;
@@ -226,47 +226,106 @@
     <nav>
       <div class="brand">TreeSheets Reference</div>
       <a href="index.html">TreeSheets Reference</a>
+<a href="concepts.html">Core Concepts</a>
 <a href="selection.html">Selection and Navigation</a>
 <a href="editing.html">Editing Cells</a>
-<a href="grids.html">Grids and Layout</a>
+<a href="grids.html">Grids and Hierarchies</a>
+<a href="layout.html">Layout and View</a>
 <a class="active" href="import_export.html">Import and Export</a>
 <a href="search.html">Search and Filtering</a>
 <a href="scripting.html">Scripting and Evaluation</a>
-<a href="sources.html">Source Audit</a>
+<a href="options.html">Options</a>
+<a href="menus.html">Menu Reference</a>
+<a href="audit.html">Documentation Audit</a>
+<a href="sources.html">Source Index</a>
     </nav>
     <main>
       <header class="page-header">
         <h1>Import and Export</h1>
         <p class="description">File import, export formats, clipboard serialization, and image export behavior.</p>
-        <div class="meta">Updated last on 2026-05-08 · Source commit <code>261add4e446c</code></div>
-        <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
+        <div class="meta">Updated last on 2026-05-09 &middot; Source commit <code>84ef9b924c79</code></div>
+        <div class="notice">Machine-assisted reference docs. Reliability indicators and footnote citations are included with every section.</div>
       </header>
-      <p>TreeSheets converts the current view or selected content into XML, HTML, text, CSV, bitmap, SVG, and clipboard formats. CSV export has extra flat-grid requirements.</p><article class="feature" id="import-export">
+      <p>TreeSheets converts the current view or selected content into XML, HTML, text, CSV, bitmap, SVG, and clipboard formats. CSV export has extra flat-grid requirements.</p><article class="feature" id="file-saving-printing">
   <div class="feature-head">
-    <h2>Import and export current views</h2>
-    <span class="badge badge-implementation_verified">Implementation verified</span>
+    <h2>Files, saving, backups, printing, and auto HTML export</h2>
+    <span class="badge badge-code_verified">Code verified</span>
   </div>
   <div class="feature-body">
-<div class="lead"><p>Export writes the current view as XML, HTML tables, HTML with images, bullet-list HTML, outline HTML, indented text, CSV, PNG, or SVG. Import can load XML, XML with attributes, indented text, comma/semicolon CSV, and tab-delimited text.</p></div>
+<div class="lead"><p>TreeSheets uses normal document commands for creating, opening, saving, saving under a new name, and printing. Saving writes the native `.cts` document. If HTML autoexport is enabled, saving also writes an HTML version beside the TreeSheets file, either with companion images or without images depending on the option.</p></div>
 <ul class="usage-notes">
-<li>Export uses currentdrawroot as the export root and selected view state. Import opens one or more files and initializes a new document from parsed content.</li>
-<li>Successful import creates or replaces the active document contents, marks it modified, clears selection/drag state, and refreshes. HTML with images writes companion image files.</li>
+<li>Save As prompts for a filename; ordinary Save uses the current filename when one exists. Print and print preview operate on the current document view with the configured print scale.</li>
+<li>Saving records the file as clean, updates window/tab titles, can create a backup file when backups are enabled, removes stale temporary autosave files after a successful full save, and updates recent-file history.</li>
+<li>If the document has no filename, Save behaves like Save As. If writing or renaming the temporary output fails, TreeSheets reports a save error.</li>
+</ul>
+<aside class="callout"><p>HTML autoexport is an option-driven side effect of saving the native file; it is not a replacement for the `.cts` save.</p></aside>
+</div>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu or option</th><th>Shortcut</th></tr></thead><tbody><tr><td>New, open, save, save as, save all</td><td>File</td><td>Ctrl+N, Ctrl+O, Ctrl+S</td></tr>
+<tr><td>Page setup, print scale, preview, print</td><td>File</td><td>Ctrl+P for Print</td></tr>
+<tr><td>Autoexport to HTML</td><td>Options &gt; Autoexport to HTML</td><td></td></tr></tbody></table></div>
+  <p class="evidence">Verified from File and Options menu declarations, save/print handlers, autoexport behavior, and tutorial save/load guidance.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-file-saving-printing-1">[1]</a> <a href="#src-file-saving-printing-2">[2]</a> <a href="#src-file-saving-printing-3">[3]</a> <a href="#src-file-saving-printing-4">[4]</a> <a href="#src-file-saving-printing-5">[5]</a> <a href="#src-file-saving-printing-6">[6]</a></div>
+</article>
+<article class="feature" id="import-export">
+  <div class="feature-head">
+    <h2>Import and export current views</h2>
+    <span class="badge badge-code_verified">Code verified</span>
+  </div>
+  <div class="feature-body">
+<div class="lead"><p>Export writes the current view as XML, styled HTML tables, HTML with images, bullet-list HTML, outline HTML, indented text, CSV, PNG, or SVG. Import can load XML, XML with attributes, indented text, comma CSV, semicolon CSV, and tab-delimited text.</p></div>
+<ul class="usage-notes">
+<li>Export uses the view you are currently looking at, so zooming into a grid changes what is exported. Import opens files and builds a new document from parsed content.</li>
+<li>Successful import opens parsed content as a document. HTML with images writes companion image files beside the exported HTML.</li>
 <li>CSV export refuses non-flat grids and suggests zooming to the desired grid or using Flatten. Import failure shows an error message.</li>
 </ul>
 <aside class="callout"><p>XML export can round-trip TreeSheets structure, while CSV export is intentionally limited to flat grids.</p></aside>
 </div>
-  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu</th><th>Shortcut</th></tr></thead><tbody><tr><td>Export view as</td><td>File &gt; Export view as</td><td></td></tr>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu or option</th><th>Shortcut</th></tr></thead><tbody><tr><td>Export view as</td><td>File &gt; Export view as</td><td></td></tr>
 <tr><td>Import from</td><td>File &gt; Import from</td><td></td></tr></tbody></table></div>
-  <p class="verification">Verified from File menu definitions and the import/export code paths.</p>
+  <p class="evidence">Verified from File menu definitions, import/export code paths, tutorial guidance, history notes, and the file-format reference.</p>
   
-  <div class="source-refs">Sources: <a href="#src-import-export-1">[1]</a> <a href="#src-import-export-2">[2]</a> <a href="#src-import-export-3">[3]</a> <a href="#src-import-export-4">[4]</a> <a href="#src-import-export-5">[5]</a> <a href="#src-import-export-6">[6]</a></div>
+  <div class="source-refs">Sources: <a href="#src-import-export-1">[1]</a> <a href="#src-import-export-2">[2]</a> <a href="#src-import-export-3">[3]</a> <a href="#src-import-export-4">[4]</a> <a href="#src-import-export-5">[5]</a> <a href="#src-import-export-6">[6]</a> <a href="#src-import-export-7">[7]</a> <a href="#src-import-export-8">[8]</a> <a href="#src-import-export-9">[9]</a></div>
 </article>
-<section class="footnotes"><h2>Sources</h2><ol><li id="src-import-export-1"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L121-L152">src/tsframe.h:L121-L152</a> - Export and import menu entries.</li>
-<li id="src-import-export-2"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L731-L786">src/document.h:L731-L786</a> - Export writes image/SVG/text formats and companion images.</li>
-<li id="src-import-export-3"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L926-L950">src/document.h:L926-L950</a> - Document command dispatch for export and import.</li>
-<li id="src-import-export-4"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L935-L942">src/document.h:L935-L942</a> - CSV export flat-grid guard.</li>
-<li id="src-import-export-5"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/system.h#L397-L451">src/system.h:L397-L451</a> - System import parsing for XML and text/CSV/tab-delimited files.</li>
-<li id="src-import-export-6"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/grid.h#L575-L602">src/grid.h:L575-L602</a> - Grid ConvertToText emits XML, HTML tables/lists, and CSV separators.</li></ol></section>
+<article class="feature" id="native-file-format">
+  <div class="feature-head">
+    <h2>Native .cts file contents</h2>
+    <span class="badge badge-docs_supported">Docs supported</span>
+  </div>
+  <div class="feature-body">
+<div class="lead"><p>The native `.cts` file stores the TreeSheets document structure, selection size, zoom level, embedded images, root cell, cell text state, notes, optional nested grids, grid dimensions, column widths, layout direction, and folded state.</p></div>
+<ul class="usage-notes">
+<li>This is mainly useful for users who care about portability, backups, or external import/export tools. Normal editing should use TreeSheets&#x27; Save, Open, Import, and Export commands.</li>
+<li>Because images and nested grids are stored in the native file, a saved `.cts` can preserve much more TreeSheets-specific structure than CSV or plain text exports.</li>
+<li>The checked-in file-format note describes version 23, while the implementation may have evolved. Treat it as a helpful compatibility reference rather than a complete current reverse-engineering manual.</li>
+</ul>
+<aside class="callout"><p>The file-format page is intentionally technical; this user reference translates it only into the visible things a saved file preserves.</p></aside>
+</div>
+  
+  <p class="evidence">Supported by the bundled file-format specification and save/load implementation references.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-native-file-format-1">[1]</a> <a href="#src-native-file-format-2">[2]</a> <a href="#src-native-file-format-3">[3]</a> <a href="#src-native-file-format-4">[4]</a> <a href="#src-native-file-format-5">[5]</a></div>
+</article>
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-file-saving-printing-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L90-L90">TS/docs/tutorial.html:L90-L90</a> - Tutorial summarizes Save, Save As, Open, startup loading, and export choices.</li>
+<li id="src-file-saving-printing-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L158-L176">src/tsframe.h:L158-L176</a> - File menu declarations.</li>
+<li id="src-file-saving-printing-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L561-L570">src/tsframe.h:L561-L570</a> - HTML autoexport option declarations.</li>
+<li id="src-file-saving-printing-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L138-L221">src/document.h:L138-L221</a> - Native save and HTML autoexport behavior.</li>
+<li id="src-file-saving-printing-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L790-L805">src/document.h:L790-L805</a> - Save, Save As, and temporary autosave behavior.</li>
+<li id="src-file-saving-printing-6"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1093-L1127">src/document.h:L1093-L1127</a> - Print, print scale, preview, and page setup handlers.</li>
+<li id="src-import-export-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L90-L90">TS/docs/tutorial.html:L90-L90</a> - Tutorial tells users to use XML, HTML, or text export for data outside TreeSheets.</li>
+<li id="src-import-export-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L281-L304">TS/docs/history.txt:L281-L304</a> - History documents XML round-tripping, CSV/tab/indented imports, and outline HTML export.</li>
+<li id="src-import-export-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/file_format_spec.txt#L1-L17">TS/docs/file_format_spec.txt:L1-L17</a> - File format reference describes TreeSheets file structure and saved view state.</li>
+<li id="src-import-export-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L121-L152">src/tsframe.h:L121-L152</a> - Export and import menu entries.</li>
+<li id="src-import-export-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L731-L786">src/document.h:L731-L786</a> - Export writes image/SVG/text formats and companion images.</li>
+<li id="src-import-export-6"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L926-L950">src/document.h:L926-L950</a> - Document command dispatch for export and import.</li>
+<li id="src-import-export-7"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L935-L942">src/document.h:L935-L942</a> - CSV export flat-grid guard.</li>
+<li id="src-import-export-8"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/system.h#L397-L451">src/system.h:L397-L451</a> - System import parsing for XML and text/CSV/tab-delimited files.</li>
+<li id="src-import-export-9"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L575-L602">src/grid.h:L575-L602</a> - Grid ConvertToText emits XML, HTML tables/lists, and CSV separators.</li>
+<li id="src-native-file-format-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/file_format_spec.txt#L1-L17">TS/docs/file_format_spec.txt:L1-L17</a> - Native file header, selection, zoom, images, document marker, and root cell.</li>
+<li id="src-native-file-format-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/file_format_spec.txt#L25-L58">TS/docs/file_format_spec.txt:L25-L58</a> - Image, cell, text, and grid fields saved by the native format.</li>
+<li id="src-native-file-format-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L138-L186">src/document.h:L138-L186</a> - Current save path writes TSFF header, selection, zoom level, images, root cell, and tags.</li>
+<li id="src-native-file-format-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/cell.h#L355-L415">src/cell.h:L355-L415</a> - Cell save/load behavior for text, notes, images, and grids.</li>
+<li id="src-native-file-format-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L518-L538">src/grid.h:L518-L538</a> - Grid save/load behavior for dimensions, widths, layout direction, and folded state.</li></ol></section>
     </main>
   </div>
 </body>

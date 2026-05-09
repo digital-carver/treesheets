@@ -1,0 +1,85 @@
+id = "view-zoom-presentation"
+title = "Zoom, scroll, tabs, fullscreen, and scaled presentation view"
+category = "layout"
+page = "layout"
+
+[[commands]]
+name = "Zoom in / out"
+menu_path = "View"
+shortcut = "Ctrl+MouseWheel, Ctrl+PgUp/PgDn"
+command_id = "A_ZOOMIN/A_ZOOMOUT"
+
+[[commands]]
+name = "Scroll sheet"
+menu_path = "View > Scroll Sheet"
+shortcut = "MouseWheel, PgUp/PgDn, Alt+Arrow"
+command_id = "A_AUP/A_ADOWN/A_ALEFT/A_ARIGHT"
+
+[[commands]]
+name = "Next/previous tab"
+menu_path = "View"
+shortcut = "Ctrl+Tab, Ctrl+Shift+Tab"
+command_id = "A_NEXTFILE/A_PREVFILE"
+
+[[commands]]
+name = "Fullscreen / scaled presentation view"
+menu_path = "View"
+shortcut = "F11, F12"
+command_id = "A_FULLSCREEN/A_SCALED"
+
+[evidence]
+level = "code_verified"
+text = "Verified from View menu declarations, view command handlers, rendering scale behavior, tutorial zoom guidance, and history notes."
+
+[behavior]
+summary = """
+Zoom moves the view into or out of nested grids, making deeply nested or tiny text readable without permanently changing the sheet. Scrolling moves the canvas when the current layout is larger than the window. Fullscreen hides normal window chrome; scaled presentation view fits the sheet to the available screen area for presentation-style viewing.
+"""
+context = """
+Zooming in needs a selected cell or grid context. Zooming out can return toward the root view. Tab commands cycle between open TreeSheets documents.
+"""
+effects = """
+TreeSheets keeps a view path for the zoomed-in cell and redraws the current view. Scaled presentation view computes a screen-fitting scale between normal size and a capped enlarged view, then restores normal rendering when toggled off.
+"""
+edge_cases = """
+When a command jumps to a cell inside a folded grid, TreeSheets may unfold ancestors or zoom out enough to make the selection visible.
+"""
+quirks = """
+F12 is described historically as useful for presentations. It changes how the current view is drawn; it is not a slide deck mode.
+"""
+
+[[sources]]
+type = "docs"
+file = "TS/docs/tutorial.html"
+lines = "99-107"
+label = "Tutorial explains shrinking content, zooming into nested grids, and zooming back out."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "183-186"
+label = "History notes fullscreen and scaled presentation view."
+
+[[sources]]
+type = "menu"
+file = "src/tsframe.h"
+lines = "491-549"
+label = "View menu entries for scrolling, zooming, tabs, fullscreen, scaled view, and filters."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "437-458"
+label = "Zoom view-path behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "567-579"
+label = "Scaled view computes and applies screen-fitting scale."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1236-1241"
+label = "Scaled presentation view command toggles state and reports status."

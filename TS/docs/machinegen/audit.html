@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation Audit - TreeSheets Reference</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111318;
+      --panel: #171b22;
+      --panel-2: #1d232d;
+      --text: #e5e9f0;
+      --muted: #9ba7b6;
+      --faint: #6f7a89;
+      --border: #2b3440;
+      --link: #91c9ff;
+      --green: #587d64;
+      --teal: #486f7e;
+      --amber: #7d6845;
+      --violet: #68617d;
+      --note: #25303a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(210px, 260px) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    nav {
+      border-right: 1px solid var(--border);
+      background: #0f1116;
+      padding: 28px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    nav .brand {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    nav a {
+      display: block;
+      padding: 7px 9px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    nav a.active {
+      background: var(--panel-2);
+      color: var(--text);
+    }
+    main {
+      max-width: 1120px;
+      width: 100%;
+      padding: 42px 48px 72px;
+    }
+    header.page-header {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 22px;
+    }
+    h1 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: 23px;
+      line-height: 1.3;
+      margin: 0;
+      letter-spacing: 0;
+    }
+    h3 {
+      font-size: 16px;
+      margin: 22px 0 8px;
+      color: #cbd4df;
+      letter-spacing: 0;
+    }
+    .meta, .notice, .description, .evidence, .footnotes {
+      color: var(--muted);
+    }
+    .notice { margin-top: 5px; font-size: 14px; }
+    .description {
+      max-width: 78ch;
+    }
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 22px 0;
+    }
+    .feature-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      color: #f1f5f9;
+      font-size: 12px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .badge-code_verified { background: var(--green); }
+    .badge-menu_declared { background: var(--teal); }
+    .badge-docs_supported, .badge-example_supported { background: var(--amber); }
+    .badge-inferred_from_code, .badge-needs_human_check { background: var(--violet); }
+    .feature-body {
+      margin-top: 14px;
+      max-width: 82ch;
+    }
+    .lead p:first-child {
+      font-size: 17px;
+      color: #edf2f7;
+    }
+    .usage-notes {
+      margin: 14px 0;
+      padding-left: 22px;
+      color: #c9d3df;
+    }
+    .usage-notes li {
+      margin: 8px 0;
+    }
+    .callout {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-left: 3px solid var(--teal);
+      background: var(--note);
+      color: #d6dee8;
+      border-radius: 6px;
+    }
+    .callout p {
+      margin: 0;
+    }
+    .command-block {
+      margin-top: 20px;
+    }
+    .block-title {
+      color: #cbd4df;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      color: #cbd4df;
+      font-weight: 650;
+    }
+    code {
+      background: #0d1015;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: #dbeafe;
+    }
+    .source-refs {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footnotes {
+      border-top: 1px solid var(--border);
+      margin-top: 34px;
+      padding-top: 16px;
+      font-size: 14px;
+    }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .audit-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    ul { padding-left: 22px; }
+    @media (max-width: 760px) {
+      .layout { display: block; }
+      nav {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      main { padding: 28px 20px 56px; }
+      .feature-head { display: block; }
+      .badge { margin-top: 8px; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="brand">TreeSheets Reference</div>
+      <a href="index.html">TreeSheets Reference</a>
+<a href="concepts.html">Core Concepts</a>
+<a href="selection.html">Selection and Navigation</a>
+<a href="editing.html">Editing Cells</a>
+<a href="grids.html">Grids and Hierarchies</a>
+<a href="layout.html">Layout and View</a>
+<a href="import_export.html">Import and Export</a>
+<a href="search.html">Search and Filtering</a>
+<a href="scripting.html">Scripting and Evaluation</a>
+<a href="options.html">Options</a>
+<a href="menus.html">Menu Reference</a>
+<a class="active" href="audit.html">Documentation Audit</a>
+<a href="sources.html">Source Index</a>
+    </nav>
+    <main>
+      <header class="page-header">
+        <h1>Documentation Audit</h1>
+        <p class="description">Coverage, evidence quality, and missing source-declared behavior.</p>
+        <div class="meta">Updated last on 2026-05-09 &middot; Source commit <code>84ef9b924c79</code></div>
+        <div class="notice">Machine-assisted reference docs. Reliability indicators and footnote citations are included with every section.</div>
+      </header>
+      <div class="audit-grid"><div class="audit-box"><strong>20</strong><br>documented features</div><div class="audit-box"><strong>225</strong><br>menu declarations found</div><div class="audit-box"><strong>164</strong><br>documented menu declarations</div><div class="audit-box"><strong>61</strong><br>undocumented menu declarations</div><div class="audit-box"><strong>0</strong><br>without implementation citation</div><div class="audit-box"><strong>1</strong><br>without docs/history/example citation</div></div><h2>Coverage by Category</h2><table><thead><tr><th>Category</th><th>Features</th></tr></thead><tbody><tr><td>core concepts</td><td>1</td></tr>
+<tr><td>editing</td><td>5</td></tr>
+<tr><td>grids</td><td>3</td></tr>
+<tr><td>import/export</td><td>3</td></tr>
+<tr><td>layout</td><td>1</td></tr>
+<tr><td>options</td><td>1</td></tr>
+<tr><td>scripting</td><td>2</td></tr>
+<tr><td>search</td><td>1</td></tr>
+<tr><td>selection</td><td>3</td></tr></tbody></table><h2>Documented Features by Evidence Level</h2><h3>Code verified</h3><p><a href="concepts.html#core-model">Cells, grids, and selections</a>, <a href="editing.html#clipboard-delete">Clipboard, delete, and collapse</a>, <a href="editing.html#images-links">Images, links, and file launching</a>, <a href="editing.html#notes-tags">Notes and tags</a>, <a href="editing.html#text-edit-mode">Text edit mode</a>, <a href="layout.html#styles-sizing-color">Text style, sizing, colors, and borders</a>, <a href="grids.html#grid-structure">Create, fold, wrap, transpose, flatten, and hierarchify grids</a>, <a href="grids.html#hierarchy-swap">Hierarchy Swap</a>, <a href="layout.html#layout-rendering">Layout direction and render styles</a>, <a href="import_export.html#file-saving-printing">Files, saving, backups, printing, and auto HTML export</a>, <a href="import_export.html#import-export">Import and export current views</a>, <a href="layout.html#view-zoom-presentation">Zoom, scroll, tabs, fullscreen, and scaled presentation view</a>, <a href="scripting.html#scripting-evaluation">Program evaluation and Lobster scripts</a>, <a href="search.html#search-filter-replace">Search, replace, and filters</a>, <a href="selection.html#selection-movement">Move, extend, and move cells</a>, <a href="selection.html#select-all-and-parent">Select all, parent, and first child</a>, <a href="selection.html#sort-and-matching">Sort rows and jump to matching cells</a></p>
+<h3>Menu declared</h3><p><a href="options.html#options-preferences">Application options and persistent preferences</a></p>
+<h3>Docs supported</h3><p><a href="import_export.html#native-file-format">Native .cts file contents</a>, <a href="scripting.html#lobster-scripting-api">TreeSheets functions available to Lobster scripts</a></p>
+<h3>Example supported</h3><p>None</p>
+<h3>Inferred from code</h3><p>None</p>
+<h3>Needs human check</h3><p>None</p><h2>Menu Items, Options, and Commands Not Yet Documented</h2><table><thead><tr><th>Menu</th><th>Declaration</th><th>Source</th></tr></thead><tbody><tr><td>File</td><td>Close (CTRL+W)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L161">L161</a></td></tr>
+<tr><td>File</td><td>Exit (CTRL+Q)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L176">L176</a></td></tr>
+<tr><td>Edit &gt; Text Sizing</td><td>Reset text sizes (CTRL+SHIFT+S)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L185">L185</a></td></tr>
+<tr><td>Edit &gt; Text Sizing</td><td>Shrink text of all sub-grids (CTRL+SHIFT+M)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L186">L186</a></td></tr>
+<tr><td>Edit &gt; Text Sizing</td><td>Increase column width (no sub grids) (CTRL+ALT+PGUP)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L192">L192</a></td></tr>
+<tr><td>Edit &gt; Text Sizing</td><td>Decrease column width (no sub grids) (CTRL+ALT+PGDN)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L194">L194</a></td></tr>
+<tr><td>Edit &gt; Set Grid Border Width</td><td>Border 1 (CTRL+SHIFT+1)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L201">L201</a></td></tr>
+<tr><td>Edit &gt; Set Grid Border Width</td><td>Border 2 (CTRL+SHIFT+2)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L202">L202</a></td></tr>
+<tr><td>Edit &gt; Set Grid Border Width</td><td>Border 3 (CTRL+SHIFT+3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L203">L203</a></td></tr>
+<tr><td>Edit &gt; Set Grid Border Width</td><td>Border 4 (CTRL+SHIFT+4)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L204">L204</a></td></tr>
+<tr><td>Edit &gt; Selection</td><td>Extend Selection Full Rows (CTRL+SHIFT+B)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L264">L264</a></td></tr>
+<tr><td>Edit &gt; Selection</td><td>Extend Selection Rows Left (CTRL+SHIFT+LEFT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L265">L265</a></td></tr>
+<tr><td>Edit &gt; Selection</td><td>Extend Selection Rows Right (CTRL+SHIFT+RIGHT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L266">L266</a></td></tr>
+<tr><td>Edit &gt; Selection</td><td>Extend Selection Full Columns (CTRL+SHIFT+A)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L268">L268</a></td></tr>
+<tr><td>Edit &gt; Selection</td><td>Extend Selection Columns Up (CTRL+SHIFT+UP)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L269">L269</a></td></tr>
+<tr><td>Edit &gt; Selection</td><td>Extend Selection Columns Down (CTRL+SHIFT+DOWN)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L270">L270</a></td></tr>
+<tr><td>Edit &gt; Text Editing</td><td>Extend Selection Word Left (CTRL+SHIFT+LEFT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L289">L289</a></td></tr>
+<tr><td>Edit &gt; Text Editing</td><td>Extend Selection Word Right (CTRL+SHIFT+RIGHT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L290">L290</a></td></tr>
+<tr><td>Edit &gt; Text Editing</td><td>Extend Selection to Start (SHIFT+HOME)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L291">L291</a></td></tr>
+<tr><td>Edit &gt; Text Editing</td><td>Extend Selection to End (SHIFT+END)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L292">L292</a></td></tr>
+<tr><td>Edit &gt; Text Editing</td><td>Start of line of text (HOME)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L294">L294</a></td></tr>
+<tr><td>Edit &gt; Text Editing</td><td>End of line of text (END)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L295">L295</a></td></tr>
+<tr><td>Edit &gt; Text Editing</td><td>Start of text (CTRL+HOME)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L296">L296</a></td></tr>
+<tr><td>Edit &gt; Text Editing</td><td>End of text (CTRL+END)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L297">L297</a></td></tr>
+<tr><td>Edit &gt; Text Style</td><td>Reset text styles (CTRL+SHIFT+R)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L316">L316</a></td></tr>
+<tr><td>Edit &gt; Text Style</td><td>Reset colors (CTRL+SHIFT+C)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L317">L317</a></td></tr>
+<tr><td>Edit &gt; Text Style</td><td>Apply last cell color (SHIFT+ALT+C)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L319">L319</a></td></tr>
+<tr><td>Edit &gt; Text Style</td><td>Apply last text color (SHIFT+ALT+T)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L320">L320</a></td></tr>
+<tr><td>Edit &gt; Text Style</td><td>Apply last border color (SHIFT+ALT+B)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L321">L321</a></td></tr>
+<tr><td>Edit &gt; Text Style</td><td>Open cell colors (SHIFT+ALT+F9)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L322">L322</a></td></tr>
+<tr><td>Edit &gt; Text Style</td><td>Open text colors (SHIFT+ALT+F10)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L323">L323</a></td></tr>
+<tr><td>Edit &gt; Text Style</td><td>Open border colors (SHIFT+ALT+F11)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L324">L324</a></td></tr>
+<tr><td>Edit &gt; Text Style</td><td>Open image dropdown (SHIFT+ALT+F12)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L325">L325</a></td></tr>
+<tr><td>Edit &gt; Tag</td><td>Set Cell Text to tag (use CTRL+RMB) (CTRL+SHIFT+T)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L330">L330</a></td></tr>
+<tr><td>Edit</td><td>Copy with Images (CTRL+ALT+C)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L406">L406</a></td></tr>
+<tr><td>Edit</td><td>Copy as Bitmap (CTRL+V)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L407">L407</a></td></tr>
+<tr><td>Edit</td><td>Copy As Continuous Text (CTRL+V)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L408">L408</a></td></tr>
+<tr><td>Edit</td><td>Paste Style Only (CTRL+SHIFT+V)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L411">L411</a></td></tr>
+<tr><td>Edit</td><td>Undo (CTRL+Z)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L418">L418</a></td></tr>
+<tr><td>Edit</td><td>Redo (CTRL+Y)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L420">L420</a></td></tr>
+<tr><td>Edit</td><td>Delete Word After (CTRL+DEL)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L429">L429</a></td></tr>
+<tr><td>Edit</td><td>Delete Word Before (CTRL+BACK)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L431">L431</a></td></tr>
+<tr><td>Menu</td><td>Case-sensitive search (F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L476">L476</a></td></tr>
+<tr><td>View &gt; Filter</td><td>Turn filter off (CTRL+SHIFT+F)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L499">L499</a></td></tr>
+<tr><td>View &gt; Filter</td><td>Show only cells in current search</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L500">L500</a></td></tr>
+<tr><td>View &gt; Filter</td><td>Show last edits in specific date range</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L501">L501</a></td></tr>
+<tr><td>View &gt; Filter</td><td>Show 5% of last edits</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L503">L503</a></td></tr>
+<tr><td>View &gt; Filter</td><td>Show 10% of last edits</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L505">L505</a></td></tr>
+<tr><td>View &gt; Filter</td><td>Show 20% of last edits</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L507">L507</a></td></tr>
+<tr><td>View &gt; Filter</td><td>Show 50% of last edits</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L509">L509</a></td></tr>
+<tr><td>View &gt; Filter</td><td>Show 1% more than the last filter (CTRL+F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L511">L511</a></td></tr>
+<tr><td>View &gt; Filter</td><td>Show 1% less than the last filter (CTRL+F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L513">L513</a></td></tr>
+<tr><td>View &gt; Filter</td><td>Filter by the same cell color (CTRL+F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L515">L515</a></td></tr>
+<tr><td>View &gt; Filter</td><td>Go to next filter match (CTRL+F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L516">L516</a></td></tr>
+<tr><td>Options</td><td>Reset toolbar</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L593">L593</a></td></tr>
+<tr><td>Program</td><td>Clear Views (F1)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L682">L682</a></td></tr>
+<tr><td>Help</td><td>About... (F1)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L685">L685</a></td></tr>
+<tr><td>Help</td><td>Interactive tutorial (F1)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L687">L687</a></td></tr>
+<tr><td>Help</td><td>Operation reference (CTRL+ALT+F1)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L689">L689</a></td></tr>
+<tr><td>Help</td><td>Tutorial web page</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L692">L692</a></td></tr>
+<tr><td>Help</td><td>Script reference</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L695">L695</a></td></tr></tbody></table><h2>Cited Files and Ranges</h2><table><thead><tr><th>Feature</th><th>Type</th><th>Range</th><th>Label</th></tr></thead><tbody><tr><td><a href="concepts.html#core-model">Cells, grids, and selections</a></td><td>docs</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L76-L103">TS/docs/tutorial.html:L76-L103</a></td><td>Official tutorial introduces cells, grid lines, subgrids, selections, resizing, and zooming.</td></tr>
+<tr><td><a href="concepts.html#core-model">Cells, grids, and selections</a></td><td>file_format</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/file_format_spec.txt#L1-L17">TS/docs/file_format_spec.txt:L1-L17</a></td><td>File format overview describes saved selection, zoom level, images, and root cell.</td></tr>
+<tr><td><a href="concepts.html#core-model">Cells, grids, and selections</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/selection.h#L1-L31">src/selection.h:L1-L31</a></td><td>Selection state stores grid location, size, cursor fields, and select-all behavior.</td></tr>
+<tr><td><a href="concepts.html#core-model">Cells, grids, and selections</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L491-L520">src/grid.h:L491-L520</a></td><td>Grid insertion updates dimensions, cells, orientation, and column widths.</td></tr>
+<tr><td><a href="concepts.html#core-model">Cells, grids, and selections</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/cell.h#L377-L383">src/cell.h:L377-L383</a></td><td>Cells create nested grids.</td></tr>
+<tr><td><a href="editing.html#clipboard-delete">Clipboard, delete, and collapse</a></td><td>docs</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L111-L115">TS/docs/tutorial.html:L111-L115</a></td><td>Tutorial describes cut/copy/paste and indentation-based structure import from pasted text.</td></tr>
+<tr><td><a href="editing.html#clipboard-delete">Clipboard, delete, and collapse</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L11-L12">TS/docs/history.txt:L11-L12</a></td><td>History documents Copy As Continuous Text.</td></tr>
+<tr><td><a href="editing.html#clipboard-delete">Clipboard, delete, and collapse</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L143-L143">TS/docs/history.txt:L143-L143</a></td><td>History documents Paste Style Only.</td></tr>
+<tr><td><a href="editing.html#clipboard-delete">Clipboard, delete, and collapse</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L402-L432">src/tsframe.h:L402-L432</a></td><td>Edit menu entries for clipboard, collapse, and delete.</td></tr>
+<tr><td><a href="editing.html#clipboard-delete">Clipboard, delete, and collapse</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L700-L702">src/tsframe.h:L700-L702</a></td><td>Alternate clipboard accelerators.</td></tr>
+<tr><td><a href="editing.html#clipboard-delete">Clipboard, delete, and collapse</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1324-L1422">src/document.h:L1324-L1422</a></td><td>Backspace, delete, cut/copy, bitmap copy, and collapse implementation.</td></tr>
+<tr><td><a href="editing.html#clipboard-delete">Clipboard, delete, and collapse</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1545-L1567">src/document.h:L1545-L1567</a></td><td>Paste command dispatch for bitmap, file, text, and internal clipboard data.</td></tr>
+<tr><td><a href="editing.html#clipboard-delete">Clipboard, delete, and collapse</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2112-L2169">src/document.h:L2112-L2169</a></td><td>Paste/drop helpers for files, text, and bitmaps.</td></tr>
+<tr><td><a href="editing.html#clipboard-delete">Clipboard, delete, and collapse</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L444-L480">src/grid.h:L444-L480</a></td><td>MultiCellDelete clears content, deletes rows/columns, or enters edit mode.</td></tr>
+<tr><td><a href="editing.html#images-links">Images, links, and file launching</a></td><td>docs</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L118-L118">TS/docs/tutorial.html:L118-L118</a></td><td>Tutorial describes adding images to cells and storing them inside the file.</td></tr>
+<tr><td><a href="editing.html#images-links">Images, links, and file launching</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L56-L73">TS/docs/history.txt:L56-L73</a></td><td>History describes the image dropdown, image rendering, scaling, and tiny-cell behavior.</td></tr>
+<tr><td><a href="editing.html#images-links">Images, links, and file launching</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L347-L377">src/tsframe.h:L347-L377</a></td><td>Image and browsing menu entries.</td></tr>
+<tr><td><a href="editing.html#images-links">Images, links, and file launching</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1626-L1640">src/document.h:L1626-L1640</a></td><td>Add and remove image behavior.</td></tr>
+<tr><td><a href="editing.html#images-links">Images, links, and file launching</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1762-L1864">src/document.h:L1762-L1864</a></td><td>Image scaling, saving, and conversion commands.</td></tr>
+<tr><td><a href="editing.html#images-links">Images, links, and file launching</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1866-L1902">src/document.h:L1866-L1902</a></td><td>Open selected text as URL or file.</td></tr>
+<tr><td><a href="editing.html#images-links">Images, links, and file launching</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2330-L2363">src/document.h:L2330-L2363</a></td><td>Image loading and applying image dropdown choices.</td></tr>
+<tr><td><a href="editing.html#notes-tags">Notes and tags</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L327-L331">src/tsframe.h:L327-L331</a></td><td>Tag menu declarations and Ctrl+right-click tooltip.</td></tr>
+<tr><td><a href="editing.html#notes-tags">Notes and tags</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L416-L417">src/tsframe.h:L416-L417</a></td><td>Edit Note menu declaration.</td></tr>
+<tr><td><a href="editing.html#notes-tags">Notes and tags</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L514-L515">src/tsframe.h:L514-L515</a></td><td>Filter menu includes note and background-color filters.</td></tr>
+<tr><td><a href="editing.html#notes-tags">Notes and tags</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1570-L1593">src/document.h:L1570-L1593</a></td><td>Edit Note dialog behavior and saved dialog size.</td></tr>
+<tr><td><a href="editing.html#notes-tags">Notes and tags</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1899-L1911">src/document.h:L1899-L1911</a></td><td>Add and remove tag behavior.</td></tr>
+<tr><td><a href="editing.html#notes-tags">Notes and tags</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2013-L2016">src/document.h:L2013-L2016</a></td><td>Note filter marks cells without notes as filtered.</td></tr>
+<tr><td><a href="editing.html#notes-tags">Notes and tags</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/cell.h#L355-L360">src/cell.h:L355-L360</a></td><td>Cell save path writes note text.</td></tr>
+<tr><td><a href="editing.html#text-edit-mode">Text edit mode</a></td><td>docs</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L78-L84">TS/docs/tutorial.html:L78-L84</a></td><td>Tutorial explains selecting a cell, typing, and typing into a grid-line insertion point.</td></tr>
+<tr><td><a href="editing.html#text-edit-mode">Text edit mode</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L295-L311">TS/docs/history.txt:L295-L311</a></td><td>History notes text cursor behavior and F2 as an alternative to Enter.</td></tr>
+<tr><td><a href="editing.html#text-edit-mode">Text edit mode</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L281-L307">src/tsframe.h:L281-L307</a></td><td>Text editing menu entries.</td></tr>
+<tr><td><a href="editing.html#text-edit-mode">Text edit mode</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L810-L819">src/document.h:L810-L819</a></td><td>Return key dispatch to text edit or grid creation commands.</td></tr>
+<tr><td><a href="editing.html#text-edit-mode">Text edit mode</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L874-L889">src/document.h:L874-L889</a></td><td>Printable character handling expands selections and inserts text.</td></tr>
+<tr><td><a href="editing.html#text-edit-mode">Text edit mode</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1606-L1624">src/document.h:L1606-L1624</a></td><td>Enter-cell command behavior.</td></tr>
+<tr><td><a href="editing.html#text-edit-mode">Text edit mode</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/selection.h#L51-L63">src/selection.h:L51-L63</a></td><td>Selection text edit state and cursor setup.</td></tr>
+<tr><td><a href="layout.html#styles-sizing-color">Text style, sizing, colors, and borders</a></td><td>docs</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L99-L110">TS/docs/tutorial.html:L99-L110</a></td><td>Tutorial explains relative text size, zoom readability, and column-width wrapping.</td></tr>
+<tr><td><a href="layout.html#styles-sizing-color">Text style, sizing, colors, and borders</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L161-L184">TS/docs/history.txt:L161-L184</a></td><td>History describes column sizing, mouse wheel modifiers, and grid border color/width.</td></tr>
+<tr><td><a href="layout.html#styles-sizing-color">Text style, sizing, colors, and borders</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L180-L205">src/tsframe.h:L180-L205</a></td><td>Text sizing and border-width menu entries.</td></tr>
+<tr><td><a href="layout.html#styles-sizing-color">Text style, sizing, colors, and borders</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L309-L325">src/tsframe.h:L309-L325</a></td><td>Text style and last-color menu entries.</td></tr>
+<tr><td><a href="layout.html#styles-sizing-color">Text style, sizing, colors, and borders</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1474-L1485">src/document.h:L1474-L1485</a></td><td>Style command dispatch.</td></tr>
+<tr><td><a href="layout.html#styles-sizing-color">Text style, sizing, colors, and borders</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1051-L1059">src/document.h:L1051-L1059</a></td><td>Zoom/text-size/column-width action routing.</td></tr>
+<tr><td><a href="layout.html#styles-sizing-color">Text style, sizing, colors, and borders</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1660-L1740">src/document.h:L1660-L1740</a></td><td>Border, reset, last-color, and mini-size behavior.</td></tr>
+<tr><td><a href="layout.html#styles-sizing-color">Text style, sizing, colors, and borders</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L664-L669">src/grid.h:L664-L669</a></td><td>Grid style helper toggles text style flags on selected cells.</td></tr>
+<tr><td><a href="layout.html#styles-sizing-color">Text style, sizing, colors, and borders</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2317-L2325">src/document.h:L2317-L2325</a></td><td>Color dropdown handler applies selected color to cells.</td></tr>
+<tr><td><a href="grids.html#grid-structure">Create, fold, wrap, transpose, flatten, and hierarchify grids</a></td><td>docs</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L91-L98">TS/docs/tutorial.html:L91-L98</a></td><td>Tutorial introduces subgrid creation, nested editing, multi-cell selection, deletion, and cell movement.</td></tr>
+<tr><td><a href="grids.html#grid-structure">Create, fold, wrap, transpose, flatten, and hierarchify grids</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L51-L53">TS/docs/history.txt:L51-L53</a></td><td>History describes folding grids and zooming into folded contents.</td></tr>
+<tr><td><a href="grids.html#grid-structure">Create, fold, wrap, transpose, flatten, and hierarchify grids</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L154-L157">TS/docs/history.txt:L154-L157</a></td><td>History documents CSV export, Hierarchy Swap, Wrap in new parent, and filters.</td></tr>
+<tr><td><a href="grids.html#grid-structure">Create, fold, wrap, transpose, flatten, and hierarchify grids</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L333-L345">src/tsframe.h:L333-L345</a></td><td>Grid reorganization menu entries.</td></tr>
+<tr><td><a href="grids.html#grid-structure">Create, fold, wrap, transpose, flatten, and hierarchify grids</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L434-L457">src/tsframe.h:L434-L457</a></td><td>Grid insertion, wrap, and fold menu entries.</td></tr>
+<tr><td><a href="grids.html#grid-structure">Create, fold, wrap, transpose, flatten, and hierarchify grids</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1522-L1543">src/document.h:L1522-L1543</a></td><td>Insert/select subgrid implementation.</td></tr>
+<tr><td><a href="grids.html#grid-structure">Create, fold, wrap, transpose, flatten, and hierarchify grids</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/selection.h#L347-L367">src/selection.h:L347-L367</a></td><td>Selection wrapping creates a new hierarchy level.</td></tr>
+<tr><td><a href="grids.html#grid-structure">Create, fold, wrap, transpose, flatten, and hierarchify grids</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1742-L1752">src/document.h:L1742-L1752</a></td><td>Fold, fold all, and unfold all behavior.</td></tr>
+<tr><td><a href="grids.html#grid-structure">Create, fold, wrap, transpose, flatten, and hierarchify grids</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1912-L1966">src/document.h:L1912-L1966</a></td><td>Transpose, hierarchify, and flatten behavior.</td></tr>
+<tr><td><a href="grids.html#grid-structure">Create, fold, wrap, transpose, flatten, and hierarchify grids</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L584-L600">src/grid.h:L584-L600</a></td><td>Grid export includes folded and layout-related attributes.</td></tr>
+<tr><td><a href="grids.html#hierarchy-swap">Hierarchy Swap</a></td><td>docs</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/HIERARCHY_SWAP.md#L2-L15">TS/docs/HIERARCHY_SWAP.md:L2-L15</a></td><td>Dedicated reference summarizes menu location, preconditions, errors, selection behavior, and undo.</td></tr>
+<tr><td><a href="grids.html#hierarchy-swap">Hierarchy Swap</a></td><td>docs</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/HIERARCHY_SWAP.md#L49-L59">TS/docs/HIERARCHY_SWAP.md:L49-L59</a></td><td>Dedicated reference explains exact matching, shape constraints, merge behavior, repeated hops, and cleanup.</td></tr>
+<tr><td><a href="grids.html#hierarchy-swap">Hierarchy Swap</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L333-L345">src/tsframe.h:L333-L345</a></td><td>Grid reorganization menu includes Hierarchy Swap.</td></tr>
+<tr><td><a href="grids.html#hierarchy-swap">Hierarchy Swap</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1991-L2002">src/document.h:L1991-L2002</a></td><td>Command handler validates shape and calls the hierarchy swap algorithm.</td></tr>
+<tr><td><a href="grids.html#hierarchy-swap">Hierarchy Swap</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L893-L984">src/grid.h:L893-L984</a></td><td>Hierarchy swap promotion, deletion, and merge algorithm.</td></tr>
+<tr><td><a href="layout.html#layout-rendering">Layout direction and render styles</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L108-L118">TS/docs/history.txt:L108-L118</a></td><td>History notes added rendering options and broader support for operations on selected grids.</td></tr>
+<tr><td><a href="layout.html#layout-rendering">Layout direction and render styles</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L103-L119">src/tsframe.h:L103-L119</a></td><td>Platform-specific CTRLORALT and ALTORCTRL macros.</td></tr>
+<tr><td><a href="layout.html#layout-rendering">Layout direction and render styles</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L380-L399">src/tsframe.h:L380-L399</a></td><td>Layout and render-style menu entries.</td></tr>
+<tr><td><a href="layout.html#layout-rendering">Layout direction and render styles</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1674-L1684">src/document.h:L1674-L1684</a></td><td>Layout command dispatch.</td></tr>
+<tr><td><a href="layout.html#layout-rendering">Layout direction and render styles</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2083-L2092">src/document.h:L2083-L2092</a></td><td>layrender validates selection and applies layout/render style.</td></tr>
+<tr><td><a href="layout.html#layout-rendering">Layout direction and render styles</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/cell.h#L9-L14">src/cell.h:L9-L14</a></td><td>Cell and draw-style enum values.</td></tr>
+<tr><td><a href="import_export.html#file-saving-printing">Files, saving, backups, printing, and auto HTML export</a></td><td>docs</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L90-L90">TS/docs/tutorial.html:L90-L90</a></td><td>Tutorial summarizes Save, Save As, Open, startup loading, and export choices.</td></tr>
+<tr><td><a href="import_export.html#file-saving-printing">Files, saving, backups, printing, and auto HTML export</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L158-L176">src/tsframe.h:L158-L176</a></td><td>File menu declarations.</td></tr>
+<tr><td><a href="import_export.html#file-saving-printing">Files, saving, backups, printing, and auto HTML export</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L561-L570">src/tsframe.h:L561-L570</a></td><td>HTML autoexport option declarations.</td></tr>
+<tr><td><a href="import_export.html#file-saving-printing">Files, saving, backups, printing, and auto HTML export</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L138-L221">src/document.h:L138-L221</a></td><td>Native save and HTML autoexport behavior.</td></tr>
+<tr><td><a href="import_export.html#file-saving-printing">Files, saving, backups, printing, and auto HTML export</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L790-L805">src/document.h:L790-L805</a></td><td>Save, Save As, and temporary autosave behavior.</td></tr>
+<tr><td><a href="import_export.html#file-saving-printing">Files, saving, backups, printing, and auto HTML export</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1093-L1127">src/document.h:L1093-L1127</a></td><td>Print, print scale, preview, and page setup handlers.</td></tr>
+<tr><td><a href="import_export.html#import-export">Import and export current views</a></td><td>docs</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L90-L90">TS/docs/tutorial.html:L90-L90</a></td><td>Tutorial tells users to use XML, HTML, or text export for data outside TreeSheets.</td></tr>
+<tr><td><a href="import_export.html#import-export">Import and export current views</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L281-L304">TS/docs/history.txt:L281-L304</a></td><td>History documents XML round-tripping, CSV/tab/indented imports, and outline HTML export.</td></tr>
+<tr><td><a href="import_export.html#import-export">Import and export current views</a></td><td>file_format</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/file_format_spec.txt#L1-L17">TS/docs/file_format_spec.txt:L1-L17</a></td><td>File format reference describes TreeSheets file structure and saved view state.</td></tr>
+<tr><td><a href="import_export.html#import-export">Import and export current views</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L121-L152">src/tsframe.h:L121-L152</a></td><td>Export and import menu entries.</td></tr>
+<tr><td><a href="import_export.html#import-export">Import and export current views</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L731-L786">src/document.h:L731-L786</a></td><td>Export writes image/SVG/text formats and companion images.</td></tr>
+<tr><td><a href="import_export.html#import-export">Import and export current views</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L926-L950">src/document.h:L926-L950</a></td><td>Document command dispatch for export and import.</td></tr>
+<tr><td><a href="import_export.html#import-export">Import and export current views</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L935-L942">src/document.h:L935-L942</a></td><td>CSV export flat-grid guard.</td></tr>
+<tr><td><a href="import_export.html#import-export">Import and export current views</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/system.h#L397-L451">src/system.h:L397-L451</a></td><td>System import parsing for XML and text/CSV/tab-delimited files.</td></tr>
+<tr><td><a href="import_export.html#import-export">Import and export current views</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L575-L602">src/grid.h:L575-L602</a></td><td>Grid ConvertToText emits XML, HTML tables/lists, and CSV separators.</td></tr>
+<tr><td><a href="import_export.html#native-file-format">Native .cts file contents</a></td><td>file_format</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/file_format_spec.txt#L1-L17">TS/docs/file_format_spec.txt:L1-L17</a></td><td>Native file header, selection, zoom, images, document marker, and root cell.</td></tr>
+<tr><td><a href="import_export.html#native-file-format">Native .cts file contents</a></td><td>file_format</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/file_format_spec.txt#L25-L58">TS/docs/file_format_spec.txt:L25-L58</a></td><td>Image, cell, text, and grid fields saved by the native format.</td></tr>
+<tr><td><a href="import_export.html#native-file-format">Native .cts file contents</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L138-L186">src/document.h:L138-L186</a></td><td>Current save path writes TSFF header, selection, zoom level, images, root cell, and tags.</td></tr>
+<tr><td><a href="import_export.html#native-file-format">Native .cts file contents</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/cell.h#L355-L415">src/cell.h:L355-L415</a></td><td>Cell save/load behavior for text, notes, images, and grids.</td></tr>
+<tr><td><a href="import_export.html#native-file-format">Native .cts file contents</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L518-L538">src/grid.h:L518-L538</a></td><td>Grid save/load behavior for dimensions, widths, layout direction, and folded state.</td></tr>
+<tr><td><a href="layout.html#view-zoom-presentation">Zoom, scroll, tabs, fullscreen, and scaled presentation view</a></td><td>docs</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L99-L107">TS/docs/tutorial.html:L99-L107</a></td><td>Tutorial explains shrinking content, zooming into nested grids, and zooming back out.</td></tr>
+<tr><td><a href="layout.html#view-zoom-presentation">Zoom, scroll, tabs, fullscreen, and scaled presentation view</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L183-L186">TS/docs/history.txt:L183-L186</a></td><td>History notes fullscreen and scaled presentation view.</td></tr>
+<tr><td><a href="layout.html#view-zoom-presentation">Zoom, scroll, tabs, fullscreen, and scaled presentation view</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L491-L549">src/tsframe.h:L491-L549</a></td><td>View menu entries for scrolling, zooming, tabs, fullscreen, scaled view, and filters.</td></tr>
+<tr><td><a href="layout.html#view-zoom-presentation">Zoom, scroll, tabs, fullscreen, and scaled presentation view</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L437-L458">src/document.h:L437-L458</a></td><td>Zoom view-path behavior.</td></tr>
+<tr><td><a href="layout.html#view-zoom-presentation">Zoom, scroll, tabs, fullscreen, and scaled presentation view</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L567-L579">src/document.h:L567-L579</a></td><td>Scaled view computes and applies screen-fitting scale.</td></tr>
+<tr><td><a href="layout.html#view-zoom-presentation">Zoom, scroll, tabs, fullscreen, and scaled presentation view</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1236-L1241">src/document.h:L1236-L1241</a></td><td>Scaled presentation view command toggles state and reports status.</td></tr>
+<tr><td><a href="options.html#options-preferences">Application options and persistent preferences</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L573-L649">src/tsframe.h:L573-L649</a></td><td>Options menu declarations.</td></tr>
+<tr><td><a href="options.html#options-preferences">Application options and persistent preferences</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L1174-L1219">src/tsframe.h:L1174-L1219</a></td><td>Option handlers write persistent configuration and refresh UI state.</td></tr>
+<tr><td><a href="options.html#options-preferences">Application options and persistent preferences</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/system.h#L26-L44">src/system.h:L26-L44</a></td><td>Default option values.</td></tr>
+<tr><td><a href="options.html#options-preferences">Application options and persistent preferences</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/system.h#L74-L105">src/system.h:L74-L105</a></td><td>Configuration loading for options and dark-mode color mask.</td></tr>
+<tr><td><a href="options.html#options-preferences">Application options and persistent preferences</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L8-L8">TS/docs/history.txt:L8-L8</a></td><td>History notes the cursor-key navigation option.</td></tr>
+<tr><td><a href="options.html#options-preferences">Application options and persistent preferences</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L120-L120">TS/docs/history.txt:L120-L120</a></td><td>History notes the mouse-wheel scrolling and zooming swap option.</td></tr>
+<tr><td><a href="scripting.html#scripting-evaluation">Program evaluation and Lobster scripts</a></td><td>script</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/script_reference.html#L9-L130">TS/docs/script_reference.html:L9-L130</a></td><td>Scripting reference lists TreeSheets-specific Lobster functions for navigation, text, grids, styles, images, and status.</td></tr>
+<tr><td><a href="scripting.html#scripting-evaluation">Program evaluation and Lobster scripts</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L652-L681">src/tsframe.h:L652-L681</a></td><td>Conditional Script menu and Program menu entries.</td></tr>
+<tr><td><a href="scripting.html#scripting-evaluation">Program evaluation and Lobster scripts</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L1161-L1178">src/tsframe.h:L1161-L1178</a></td><td>Add/remove Lobster script menu behavior.</td></tr>
+<tr><td><a href="scripting.html#scripting-evaluation">Program evaluation and Lobster scripts</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L1258-L1266">src/tsframe.h:L1258-L1266</a></td><td>Script history command dispatch.</td></tr>
+<tr><td><a href="scripting.html#scripting-evaluation">Program evaluation and Lobster scripts</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L897-L904">src/document.h:L897-L904</a></td><td>Run command evaluates the document root and refreshes.</td></tr>
+<tr><td><a href="scripting.html#scripting-evaluation">Program evaluation and Lobster scripts</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1488-L1508">src/document.h:L1488-L1508</a></td><td>Mark commands assign evaluator cell types.</td></tr>
+<tr><td><a href="scripting.html#scripting-evaluation">Program evaluation and Lobster scripts</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/evaluator.h#L207-L208">src/evaluator.h:L207-L208</a></td><td>Evaluator entry point evaluates the root cell.</td></tr>
+<tr><td><a href="scripting.html#scripting-evaluation">Program evaluation and Lobster scripts</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/cell.h#L9-L9">src/cell.h:L9-L9</a></td><td>Cell type enum used by program/evaluator markers.</td></tr>
+<tr><td><a href="scripting.html#lobster-scripting-api">TreeSheets functions available to Lobster scripts</a></td><td>script</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/script_reference.html#L9-L130">TS/docs/script_reference.html:L9-L130</a></td><td>TreeSheets-specific Lobster function reference.</td></tr>
+<tr><td><a href="scripting.html#lobster-scripting-api">TreeSheets functions available to Lobster scripts</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/script_interface.h#L19-L46">src/script_interface.h:L19-L46</a></td><td>Script interface methods exposed to Lobster integration.</td></tr>
+<tr><td><a href="scripting.html#lobster-scripting-api">TreeSheets functions available to Lobster scripts</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/treesheets_impl.h#L63-L130">src/treesheets_impl.h:L63-L130</a></td><td>Document navigation, text, note, grid, and delete implementation for scripts.</td></tr>
+<tr><td><a href="scripting.html#lobster-scripting-api">TreeSheets functions available to Lobster scripts</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/treesheets_impl.h#L152-L224">src/treesheets_impl.h:L152-L224</a></td><td>Color, filtering, style, filename, image, and status operations for scripts.</td></tr>
+<tr><td><a href="scripting.html#lobster-scripting-api">TreeSheets functions available to Lobster scripts</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/lobster_impl.cpp#L15-L247">src/lobster_impl.cpp:L15-L247</a></td><td>Lobster registration of TreeSheets builtins.</td></tr>
+<tr><td><a href="search.html#search-filter-replace">Search, replace, and filters</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L157-L160">TS/docs/history.txt:L157-L160</a></td><td>History describes filters as a way to focus visually on important cells in large files.</td></tr>
+<tr><td><a href="search.html#search-filter-replace">Search, replace, and filters</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L191-L196">TS/docs/history.txt:L191-L196</a></td><td>History notes search zoom behavior, text-selection matching, and full row/column selection extensions.</td></tr>
+<tr><td><a href="search.html#search-filter-replace">Search, replace, and filters</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L474-L516">src/tsframe.h:L474-L516</a></td><td>Search and filter menu entries.</td></tr>
+<tr><td><a href="search.html#search-filter-replace">Search, replace, and filters</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L871-L893">src/tsframe.h:L871-L893</a></td><td>Search and replace toolbar controls.</td></tr>
+<tr><td><a href="search.html#search-filter-replace">Search, replace, and filters</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L1084-L1102">src/tsframe.h:L1084-L1102</a></td><td>Windows Enter-key emulation for search/replace text controls.</td></tr>
+<tr><td><a href="search.html#search-filter-replace">Search, replace, and filters</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L1223-L1237">src/tsframe.h:L1223-L1237</a></td><td>Search/replace commands focus toolbar controls or show status messages.</td></tr>
+<tr><td><a href="search.html#search-filter-replace">Search, replace, and filters</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L1288-L1314">src/tsframe.h:L1288-L1314</a></td><td>OnSearch and OnSearchReplaceEnter update search state and dispatch actions.</td></tr>
+<tr><td><a href="search.html#search-filter-replace">Search, replace, and filters</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1155-L1221">src/document.h:L1155-L1221</a></td><td>Search next/previous, case sensitivity, and replace branches.</td></tr>
+<tr><td><a href="search.html#search-filter-replace">Search, replace, and filters</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1263-L1274">src/document.h:L1263-L1274</a></td><td>Search and edit filter action dispatch.</td></tr>
+<tr><td><a href="search.html#search-filter-replace">Search, replace, and filters</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2072-L2081">src/document.h:L2072-L2081</a></td><td>SearchNext finds and selects matching cells.</td></tr>
+<tr><td><a href="search.html#search-filter-replace">Search, replace, and filters</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2434-L2440">src/document.h:L2434-L2440</a></td><td>SetSearchFilter toggles filtered flags for non-matching cells.</td></tr>
+<tr><td><a href="selection.html#selection-movement">Move, extend, and move cells</a></td><td>docs</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L95-L98">TS/docs/tutorial.html:L95-L98</a></td><td>Tutorial describes dragging multi-cell selections and moving selections with Ctrl+Arrow.</td></tr>
+<tr><td><a href="selection.html#selection-movement">Move, extend, and move cells</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L239-L260">TS/docs/history.txt:L239-L260</a></td><td>History notes word selection, Linux cursor handling, and selection visibility behavior.</td></tr>
+<tr><td><a href="selection.html#selection-movement">Move, extend, and move cells</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L225-L270">src/tsframe.h:L225-L270</a></td><td>Selection movement, cell movement, and extension menu entries.</td></tr>
+<tr><td><a href="selection.html#selection-movement">Move, extend, and move cells</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L829-L872">src/document.h:L829-L872</a></td><td>GTK keyboard fallback for arrows, tab, page up/down, and shortcut quirks.</td></tr>
+<tr><td><a href="selection.html#selection-movement">Move, extend, and move cells</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1428-L1471">src/document.h:L1428-L1471</a></td><td>Document command dispatch for movement and full row/column extension.</td></tr>
+<tr><td><a href="selection.html#selection-movement">Move, extend, and move cells</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/selection.h#L125-L190">src/selection.h:L125-L190</a></td><td>Selection movement helper handles cell movement, word movement, and shift extension.</td></tr>
+<tr><td><a href="selection.html#select-all-and-parent">Select all, parent, and first child</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L286-L308">TS/docs/history.txt:L286-L308</a></td><td>History notes Esc selecting parent, Shift+Enter selecting first child, and Ctrl+A selecting the current grid.</td></tr>
+<tr><td><a href="selection.html#select-all-and-parent">Select all, parent, and first child</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L223-L273">src/tsframe.h:L223-L273</a></td><td>Selection menu entries for select all, parent, and child traversal.</td></tr>
+<tr><td><a href="selection.html#select-all-and-parent">Select all, parent, and first child</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/selection.h#L18-L26">src/selection.h:L18-L26</a></td><td>Select all switches between text and grid selection behavior.</td></tr>
+<tr><td><a href="selection.html#select-all-and-parent">Select all, parent, and first child</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1423-L1435">src/document.h:L1423-L1435</a></td><td>Document command branch for select-all and cursor movement.</td></tr>
+<tr><td><a href="selection.html#select-all-and-parent">Select all, parent, and first child</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1510-L1543">src/document.h:L1510-L1543</a></td><td>Parent selection and enter/create child grid behavior.</td></tr>
+<tr><td><a href="selection.html#select-all-and-parent">Select all, parent, and first child</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2028-L2040">src/document.h:L2028-L2040</a></td><td>Esc behavior while in text edit mode.</td></tr>
+<tr><td><a href="selection.html#sort-and-matching">Sort rows and jump to matching cells</a></td><td>history</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L266-L267">TS/docs/history.txt:L266-L267</a></td><td>History describes Go To Matching Cell behavior.</td></tr>
+<tr><td><a href="selection.html#sort-and-matching">Sort rows and jump to matching cells</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L275-L279">src/tsframe.h:L275-L279</a></td><td>Matching-cell menu entries.</td></tr>
+<tr><td><a href="selection.html#sort-and-matching">Sort rows and jump to matching cells</a></td><td>menu</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L333-L345">src/tsframe.h:L333-L345</a></td><td>Sort menu entries and tooltip describe the selection rule.</td></tr>
+<tr><td><a href="selection.html#sort-and-matching">Sort rows and jump to matching cells</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1645-L1646">src/document.h:L1645-L1646</a></td><td>Sort command dispatch.</td></tr>
+<tr><td><a href="selection.html#sort-and-matching">Sort rows and jump to matching cells</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1971-L1986">src/document.h:L1971-L1986</a></td><td>Matching-cell command behavior.</td></tr>
+<tr><td><a href="selection.html#sort-and-matching">Sort rows and jump to matching cells</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2173-L2179">src/document.h:L2173-L2179</a></td><td>Sort precondition and execution behavior.</td></tr>
+<tr><td><a href="selection.html#sort-and-matching">Sort rows and jump to matching cells</a></td><td>implementation</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L305-L317">src/grid.h:L305-L317</a></td><td>Grid-level matching search.</td></tr></tbody></table><h2>Non-default Commit Overrides</h2><ul><li>None</li></ul><h2>Likely Gaps</h2>
+    <ul>
+      <li>Many File, Options, View, Help, toolbar, and platform-specific commands are inventoried but still need fuller behavior writeups.</li>
+      <li>Mouse gestures, drag/drop details, and toolbar dropdown workflows are only partially represented.</li>
+      <li>Program evaluator semantics beyond menu markers need deeper user-facing examples.</li>
+      <li>Some generated menu labels use platform conditionals, so the audit lists declaration coverage rather than a single guaranteed runtime menu text.</li>
+    </ul>
+    <h2>Thin Pages</h2><ul><li>TreeSheets Reference</li>
+<li>Core Concepts</li>
+<li>Search and Filtering</li>
+<li>Options</li></ul>
+    </main>
+  </div>
+</body>
+</html>

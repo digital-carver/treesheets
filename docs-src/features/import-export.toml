@@ -15,19 +15,19 @@ menu_path = "File > Import from"
 shortcut = ""
 command_id = "A_IMPXML/A_IMPXMLA/A_IMPTXTI/A_IMPTXTC/A_IMPTXTS/A_IMPTXTT"
 
-[verification]
-level = "implementation_verified"
-text = "Verified from File menu definitions and the import/export code paths."
+[evidence]
+level = "code_verified"
+text = "Verified from File menu definitions, import/export code paths, tutorial guidance, history notes, and the file-format reference."
 
 [behavior]
 summary = """
-Export writes the current view as XML, HTML tables, HTML with images, bullet-list HTML, outline HTML, indented text, CSV, PNG, or SVG. Import can load XML, XML with attributes, indented text, comma/semicolon CSV, and tab-delimited text.
+Export writes the current view as XML, styled HTML tables, HTML with images, bullet-list HTML, outline HTML, indented text, CSV, PNG, or SVG. Import can load XML, XML with attributes, indented text, comma CSV, semicolon CSV, and tab-delimited text.
 """
 context = """
-Export uses currentdrawroot as the export root and selected view state. Import opens one or more files and initializes a new document from parsed content.
+Export uses the view you are currently looking at, so zooming into a grid changes what is exported. Import opens files and builds a new document from parsed content.
 """
 effects = """
-Successful import creates or replaces the active document contents, marks it modified, clears selection/drag state, and refreshes. HTML with images writes companion image files.
+Successful import opens parsed content as a document. HTML with images writes companion image files beside the exported HTML.
 """
 edge_cases = """
 CSV export refuses non-flat grids and suggests zooming to the desired grid or using Flatten. Import failure shows an error message.
@@ -37,7 +37,25 @@ XML export can round-trip TreeSheets structure, while CSV export is intentionall
 """
 
 [[sources]]
-type = "ui"
+type = "docs"
+file = "TS/docs/tutorial.html"
+lines = "90-90"
+label = "Tutorial tells users to use XML, HTML, or text export for data outside TreeSheets."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "281-304"
+label = "History documents XML round-tripping, CSV/tab/indented imports, and outline HTML export."
+
+[[sources]]
+type = "file_format"
+file = "TS/docs/file_format_spec.txt"
+lines = "1-17"
+label = "File format reference describes TreeSheets file structure and saved view state."
+
+[[sources]]
+type = "menu"
 file = "src/tsframe.h"
 lines = "121-152"
 label = "Export and import menu entries."

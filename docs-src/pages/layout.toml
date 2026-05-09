@@ -1,0 +1,7 @@
+id = "layout"
+title = "Layout and View"
+order = 35
+description = "Zooming, text size, column width, render styles, presentation scaling, scrolling, and view-related options."
+intro = """
+TreeSheets layout is meant to keep large nested sheets compact while letting you zoom into the part you want to read or edit. Layout commands change how selected cells and grids occupy screen space; view commands change what portion of the sheet you are looking at.
+"""

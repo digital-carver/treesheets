@@ -1,0 +1,7 @@
+id = "concepts"
+title = "Core Concepts"
+order = 5
+description = "Cells, grids, subgrids, selections, zoomed views, notes, images, and saved document state."
+intro = """
+TreeSheets combines spreadsheet-like cells with nested grids. The same document can be read as a table, outline, mind map, small database, or free-form organizer depending on how those grids are arranged.
+"""

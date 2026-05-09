@@ -1,0 +1,79 @@
+id = "options-preferences"
+title = "Application options and persistent preferences"
+category = "options"
+page = "options"
+
+[[commands]]
+name = "Fonts, key bindings, language, default column width, colors"
+menu_path = "Options"
+shortcut = ""
+command_id = "wxID_SELECT_FONT/A_SET_FIXED_FONT/A_CUSTKEY/A_SETLANG/A_DEFAULTMAXCOLWIDTH/A_CUSTCOL/A_COLCELL/A_DEFBGCOL/A_DEFCURCOL"
+
+[[commands]]
+name = "Toolbar, statusbar, tabs, tray, startup, wheel, cursor navigation, file safety"
+menu_path = "Options"
+shortcut = ""
+command_id = "A_SHOWTBAR/A_SHOWSBAR/A_LEFTTABS/A_TOTRAY/A_MINCLOSE/A_SINGLETRAY/A_STARTMINIMIZED/A_ZOOMSCR/A_THINSELC/A_MAKEBAKS/A_AUTOSAVE/A_FSWATCH"
+
+[[commands]]
+name = "Centered rendering, faster line rendering, dark-mode inversion, border roundness"
+menu_path = "Options"
+shortcut = ""
+command_id = "A_CENTERED/A_FASTRENDER/A_INVERTRENDER/A_ROUND0/A_ROUND1/A_ROUND2/A_ROUND3/A_ROUND4/A_ROUND5/A_ROUND6"
+
+[evidence]
+level = "menu_declared"
+text = "Broad option coverage is based on menu declarations and preference persistence code. Individual visual effects need more focused user testing."
+
+[behavior]
+summary = """
+Options let you customize fonts, language, key bindings, default column width, background and cursor colors, toolbar/statusbar visibility, tab placement, tray behavior, startup minimization, mouse-wheel behavior, cursor navigation between cells, backup/autosave/autoreload behavior, document centering, line rendering, dark-mode inversion, and grid-border roundness.
+"""
+context = """
+Most checkable options are persistent preferences. Dialog-based options, such as font selection, language, key bindings, and default column width, prompt before changing the stored value.
+"""
+effects = """
+Changing an option usually writes to the application configuration and refreshes the current UI or document view. Some options, such as file watching and autosave, affect later background behavior rather than the current sheet immediately.
+"""
+edge_cases = """
+The option labeled "File Tabs on the bottom" writes the tab-placement preference; the menu text and internal historical name disagree about top/bottom orientation, so the live UI should be checked if this detail matters.
+"""
+quirks = """
+This section deliberately uses a weaker evidence level because it covers many options from declarations and persistence paths without tracing every resulting UI effect.
+"""
+
+[[sources]]
+type = "menu"
+file = "src/tsframe.h"
+lines = "573-649"
+label = "Options menu declarations."
+
+[[sources]]
+type = "implementation"
+file = "src/tsframe.h"
+lines = "1174-1219"
+label = "Option handlers write persistent configuration and refresh UI state."
+
+[[sources]]
+type = "implementation"
+file = "src/system.h"
+lines = "26-44"
+label = "Default option values."
+
+[[sources]]
+type = "implementation"
+file = "src/system.h"
+lines = "74-105"
+label = "Configuration loading for options and dark-mode color mask."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "8-8"
+label = "History notes the cursor-key navigation option."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "120-120"
+label = "History notes the mouse-wheel scrolling and zooming swap option."

@@ -21,19 +21,19 @@ menu_path = "View > Filter"
 shortcut = "Ctrl+Shift+F, Ctrl+F3"
 command_id = "A_FILTER*"
 
-[verification]
-level = "implementation_verified"
-text = "Verified from search/view menus, toolbar events, and search/filter behavior."
+[evidence]
+level = "code_verified"
+text = "Verified from search/view menus, toolbar events, search/filter implementation, and history notes."
 
 [behavior]
 summary = """
-Search text is captured by the toolbar field, optionally lowercased for case-insensitive search, and used by next/previous commands. Replace can affect the current selection, replace and jump, or replace all. Filters hide cells that do not match current search, edit recency/date ranges, notes, or cell background.
+Search uses the toolbar search field and can be case-sensitive or case-insensitive. Next and Previous jump through matching cells. Replace can change the current selection, replace and jump to the next match, or replace all matches. Filters visually reduce the sheet to cells that match current search text, edit time ranges, notes, or a selected background color.
 """
 context = """
-Search and replace toolbar controls must exist and be enabled for focus commands. Replace requires a non-empty search string.
+Replace requires a search string. Search and filter commands work across the document hierarchy, not only the currently visible cells.
 """
 effects = """
-Search jumps set selection to the matching cell and optionally focus the canvas. Replace adds undo, mutates text, refreshes the document, and may jump. Filters mutate each cell's filtered flag, reset children, set paint-scroll state, and refresh.
+Search jumps select the matching cell and may zoom in if the match is too small to read. Replace is undoable. Filters keep matching cells readable while reducing non-matching cells visually.
 """
 edge_cases = """
 If no search string exists, next/previous can seed the search field from the currently selected cell text; otherwise they report that one cell must be selected or no text exists.
@@ -43,13 +43,25 @@ On Windows, Enter in the search/replace text controls is emulated in OnMenu beca
 """
 
 [[sources]]
-type = "ui"
+type = "history"
+file = "TS/docs/history.txt"
+lines = "157-160"
+label = "History describes filters as a way to focus visually on important cells in large files."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "191-196"
+label = "History notes search zoom behavior, text-selection matching, and full row/column selection extensions."
+
+[[sources]]
+type = "menu"
 file = "src/tsframe.h"
 lines = "474-516"
 label = "Search and filter menu entries."
 
 [[sources]]
-type = "ui"
+type = "menu"
 file = "src/tsframe.h"
 lines = "871-893"
 label = "Search and replace toolbar controls."

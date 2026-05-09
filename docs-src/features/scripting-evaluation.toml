@@ -21,19 +21,19 @@ menu_path = "Script"
 shortcut = "Ctrl+Alt+L, Ctrl+Shift+Alt+L"
 command_id = "A_ADDSCRIPT/A_DETSCRIPT"
 
-[verification]
-level = "implementation_verified"
-text = "Verified from Program menu definitions, Lobster menu setup, and evaluation behavior."
+[evidence]
+level = "code_verified"
+text = "Verified from Program menu definitions, Lobster menu setup, evaluator dispatch, script interface code, and the generated scripting reference."
 
 [behavior]
 summary = """
-Program > Run evaluates the root cell through the evaluator, resets children, clears selection, and refreshes. Mark commands assign cell types used by the evaluator; operation cells infer their precise operation type from text. When Lobster is enabled, scripts are loaded into a Script menu and executed from history entries.
+Program > Run evaluates the root cell as a TreeSheets program. Mark commands label selected cells as data, operation, variable assign/read, or horizontal/vertical views for the evaluator. When Lobster support is enabled, TreeSheets adds a Script menu that can run bundled or user-added `.lobster` scripts.
 """
 context = """
 Run acts on the document root. Mark commands require an active grid selection. Script menu commands are available only in builds compiled with Lobster support.
 """
 effects = """
-Run records undo on the root, evaluates, resets layouts, clears selection and drag state, and refreshes. Mark commands add undo and change celltype for every selected cell.
+Run is undoable and refreshes the sheet after evaluation. Mark commands are also undoable and change how the evaluator interprets the selected cells.
 """
 edge_cases = """
 Script menu entries and tag popup entries share the same menu dispatch path, so script commands are handled before ordinary document-editing commands.
@@ -43,7 +43,13 @@ Script menu behavior is source-verified, but it appears in the application only 
 """
 
 [[sources]]
-type = "ui"
+type = "script"
+file = "TS/docs/script_reference.html"
+lines = "9-130"
+label = "Scripting reference lists TreeSheets-specific Lobster functions for navigation, text, grids, styles, images, and status."
+
+[[sources]]
+type = "menu"
 file = "src/tsframe.h"
 lines = "652-681"
 label = "Conditional Script menu and Program menu entries."

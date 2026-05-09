@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TreeSheets Reference - TreeSheets Reference</title>
+  <title>Core Concepts - TreeSheets Reference</title>
   <style>
     :root {
       color-scheme: dark;
@@ -225,8 +225,8 @@
   <div class="layout">
     <nav>
       <div class="brand">TreeSheets Reference</div>
-      <a class="active" href="index.html">TreeSheets Reference</a>
-<a href="concepts.html">Core Concepts</a>
+      <a href="index.html">TreeSheets Reference</a>
+<a class="active" href="concepts.html">Core Concepts</a>
 <a href="selection.html">Selection and Navigation</a>
 <a href="editing.html">Editing Cells</a>
 <a href="grids.html">Grids and Hierarchies</a>
@@ -241,21 +241,35 @@
     </nav>
     <main>
       <header class="page-header">
-        <h1>TreeSheets Reference</h1>
-        <p class="description">Source-cited reference documentation for TreeSheets users.</p>
+        <h1>Core Concepts</h1>
+        <p class="description">Cells, grids, subgrids, selections, zoomed views, notes, images, and saved document state.</p>
         <div class="meta">Updated last on 2026-05-09 &middot; Source commit <code>84ef9b924c79</code></div>
         <div class="notice">Machine-assisted reference docs. Reliability indicators and footnote citations are included with every section.</div>
       </header>
-      <p>TreeSheets is organized around cells that can contain text, images, notes, and nested grids. These pages describe how the application behaves from a user&#x27;s point of view, using implementation code, menu declarations, existing docs, history notes, scripting references, and in-repository examples as cited evidence.</p><div class="audit-grid"><div class="audit-box"><strong>20</strong><br>feature sections</div><div class="audit-box"><strong>17</strong><br>code verified</div><div class="audit-box"><strong>84ef9b924c79</strong><br>source commit</div></div><h2>Pages</h2><ul><li><a href="concepts.html">Core Concepts</a> - Cells, grids, subgrids, selections, zoomed views, notes, images, and saved document state.</li>
-<li><a href="selection.html">Selection and Navigation</a> - Selection shapes, movement, expansion, parent/child traversal, and matching-cell jumps.</li>
-<li><a href="editing.html">Editing Cells</a> - Text editing, clipboard operations, deletion, notes, images, styles, and sizing.</li>
-<li><a href="grids.html">Grids and Hierarchies</a> - Subgrid creation, folding, hierarchy operations, sorting, transposition, hierarchify, and flattening.</li>
-<li><a href="layout.html">Layout and View</a> - Zooming, text size, column width, render styles, presentation scaling, scrolling, and view-related options.</li>
-<li><a href="import_export.html">Import and Export</a> - File import, export formats, clipboard serialization, and image export behavior.</li>
-<li><a href="search.html">Search and Filtering</a> - Search toolbar behavior, replace actions, and document filters.</li>
-<li><a href="scripting.html">Scripting and Evaluation</a> - Lobster script menu integration, program evaluation, and operation cell markers.</li>
-<li><a href="options.html">Options</a> - Application preferences, rendering toggles, document safety options, and HTML autoexport.</li>
-<li><a href="menus.html">Menu Reference</a> - Source-derived menu, option, and command declaration inventory.</li><li><a href="audit.html">Documentation Audit</a> - coverage, evidence strength, and missing menu declarations.</li><li><a href="sources.html">Source Index</a> - cited files and line ranges.</li></ul>
+      <p>TreeSheets combines spreadsheet-like cells with nested grids. The same document can be read as a table, outline, mind map, small database, or free-form organizer depending on how those grids are arranged.</p><article class="feature" id="core-model">
+  <div class="feature-head">
+    <h2>Cells, grids, and selections</h2>
+    <span class="badge badge-code_verified">Code verified</span>
+  </div>
+  <div class="feature-body">
+<div class="lead"><p>A TreeSheets document is a root cell containing a grid. Cells can hold text, images, notes, and nested grids, so a sheet can behave like a spreadsheet, an outline, a mind map, or a compact personal database depending on how you nest those grids.</p></div>
+<ul class="usage-notes">
+<li>Most commands act on the current selection. The selection may be a rectangle of cells, a grid line used for insertion or deletion, or a text cursor inside one cell.</li>
+<li>Selection state determines whether TreeSheets edits text, inserts or deletes rows and columns, enters a child grid, or applies commands to a larger rectangular group.</li>
+<li>If a command needs a selected grid, a non-thin selection, or exactly one cell and the current selection cannot provide it, TreeSheets reports that requirement instead of changing the document.</li>
+</ul>
+<aside class="callout"><p>The same visible selection system covers rectangular cell selections, grid-line positions, and text cursors. That makes many shortcuts context-sensitive.</p></aside>
+</div>
+  
+  <p class="evidence">Verified from the document model, selection model, file-format notes, and the official tutorial.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-core-model-1">[1]</a> <a href="#src-core-model-2">[2]</a> <a href="#src-core-model-3">[3]</a> <a href="#src-core-model-4">[4]</a> <a href="#src-core-model-5">[5]</a></div>
+</article>
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-core-model-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L76-L103">TS/docs/tutorial.html:L76-L103</a> - Official tutorial introduces cells, grid lines, subgrids, selections, resizing, and zooming.</li>
+<li id="src-core-model-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/file_format_spec.txt#L1-L17">TS/docs/file_format_spec.txt:L1-L17</a> - File format overview describes saved selection, zoom level, images, and root cell.</li>
+<li id="src-core-model-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/selection.h#L1-L31">src/selection.h:L1-L31</a> - Selection state stores grid location, size, cursor fields, and select-all behavior.</li>
+<li id="src-core-model-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L491-L520">src/grid.h:L491-L520</a> - Grid insertion updates dimensions, cells, orientation, and column widths.</li>
+<li id="src-core-model-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/cell.h#L377-L383">src/cell.h:L377-L383</a> - Cells create nested grids.</li></ol></section>
     </main>
   </div>
 </body>

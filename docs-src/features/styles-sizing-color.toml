@@ -1,7 +1,7 @@
 id = "styles-sizing-color"
 title = "Text style, sizing, colors, and borders"
 category = "editing"
-page = "editing"
+page = "layout"
 
 [[commands]]
 name = "Toggle text styles"
@@ -21,19 +21,19 @@ menu_path = "Edit > Set Grid Border Width"
 shortcut = "Ctrl+Shift+1..5, Ctrl+Shift+9"
 command_id = "A_BORD0..A_BORD5"
 
-[verification]
-level = "implementation_verified"
-text = "Verified from style menus, style behavior, and color/dropdown behavior."
+[evidence]
+level = "code_verified"
+text = "Verified from style menus, style behavior, color/dropdown behavior, tutorial layout examples, and history notes."
 
 [behavior]
 summary = """
-Style commands toggle bold, italic, typewriter, underline, and strikethrough styling on the selected cells. Text size and column width commands adjust the selected content or reset it to defaults. Border width commands change the selected grid's border spacing. Last-color commands apply the most recently used cell, text, or border color to the selection.
+Style commands toggle bold, italic, typewriter, underline, and strikethrough styling on selected cells. Text-size commands make selected content more or less prominent. Column-width commands change wrapping width, which is useful for long text. Border-width and color commands change how selected grids and cells are drawn.
 """
 context = """
 These commands require a selected grid. Style and reset commands iterate selected cells, while border width acts on the selected grid itself.
 """
 effects = """
-Commands add undo, change style, size, width, or color data, refresh layout, redraw the canvas, and update status where appropriate.
+These changes are undoable and TreeSheets recalculates layout after they are applied.
 """
 edge_cases = """
 Reset colors treats tag cells specially by resetting the stored tag color, while normal cells reset text, cell, and nested-grid border colors.
@@ -43,13 +43,25 @@ The border menu labels are numbered 0 through 5, but the visible result is a set
 """
 
 [[sources]]
-type = "ui"
+type = "docs"
+file = "TS/docs/tutorial.html"
+lines = "99-110"
+label = "Tutorial explains relative text size, zoom readability, and column-width wrapping."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "161-184"
+label = "History describes column sizing, mouse wheel modifiers, and grid border color/width."
+
+[[sources]]
+type = "menu"
 file = "src/tsframe.h"
 lines = "180-205"
 label = "Text sizing and border-width menu entries."
 
 [[sources]]
-type = "ui"
+type = "menu"
 file = "src/tsframe.h"
 lines = "309-325"
 label = "Text style and last-color menu entries."

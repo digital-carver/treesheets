@@ -21,19 +21,19 @@ menu_path = "Edit > Collapse Cells"
 shortcut = "Ctrl+L"
 command_id = "A_COLLAPSE"
 
-[verification]
-level = "implementation_verified"
-text = "Verified from clipboard menu entries, alternate accelerators, and editing behavior."
+[evidence]
+level = "code_verified"
+text = "Verified from clipboard menu entries, alternate accelerators, implementation behavior, tutorial text, and history notes."
 
 [behavior]
 summary = """
-Cut and copy serialize the current selection unless it is a thin grid-line selection; in text edit mode they require a non-empty text range. Paste accepts TreeSheets internal cell clipboard, text, file drops, images, and multi-line text that can create a subgrid. Delete and Backspace either remove rows/columns from thin selections, edit text, or delete selected cell content and potentially compact the grid. Collapse merges selected cell text into the first selected cell and deletes the remaining selected cells.
+Cut and copy place the current text, image, or cell selection on the clipboard. Paste can restore TreeSheets cell data, insert plain text, create grids from multi-line text, accept image data, or paste a dropped file path or image. Delete and Backspace either edit text, remove cells, or remove rows/columns when a grid line is selected. Collapse combines selected cell text into the first selected cell.
 """
 context = """
 Clipboard and delete behavior is highly selection-dependent: text edit, thin grid line, one cell, or rectangular grid selection all route differently.
 """
 effects = """
-Mutating operations add undo, clear or modify cells, call MultiCellDelete or text deletion helpers, refresh the canvas, and may zoom out if the current grid disappeared.
+Mutating operations are undoable. TreeSheets refreshes the layout after deleting or pasting, and may zoom out if the selected grid disappeared.
 """
 edge_cases = """
 Delete at the end of text and Backspace at the beginning of text are no-ops. Collapse requires more than one selected cell and some content to collapse.
@@ -43,13 +43,31 @@ Pasting a TreeSheets file path asks whether to open the file, paste the path, or
 """
 
 [[sources]]
-type = "ui"
+type = "docs"
+file = "TS/docs/tutorial.html"
+lines = "111-115"
+label = "Tutorial describes cut/copy/paste and indentation-based structure import from pasted text."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "11-12"
+label = "History documents Copy As Continuous Text."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "143-143"
+label = "History documents Paste Style Only."
+
+[[sources]]
+type = "menu"
 file = "src/tsframe.h"
 lines = "402-432"
 label = "Edit menu entries for clipboard, collapse, and delete."
 
 [[sources]]
-type = "ui"
+type = "menu"
 file = "src/tsframe.h"
 lines = "700-702"
 label = "Alternate clipboard accelerators."

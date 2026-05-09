@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Menu Reference - TreeSheets Reference</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111318;
+      --panel: #171b22;
+      --panel-2: #1d232d;
+      --text: #e5e9f0;
+      --muted: #9ba7b6;
+      --faint: #6f7a89;
+      --border: #2b3440;
+      --link: #91c9ff;
+      --green: #587d64;
+      --teal: #486f7e;
+      --amber: #7d6845;
+      --violet: #68617d;
+      --note: #25303a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(210px, 260px) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    nav {
+      border-right: 1px solid var(--border);
+      background: #0f1116;
+      padding: 28px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    nav .brand {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    nav a {
+      display: block;
+      padding: 7px 9px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    nav a.active {
+      background: var(--panel-2);
+      color: var(--text);
+    }
+    main {
+      max-width: 1120px;
+      width: 100%;
+      padding: 42px 48px 72px;
+    }
+    header.page-header {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 22px;
+    }
+    h1 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: 23px;
+      line-height: 1.3;
+      margin: 0;
+      letter-spacing: 0;
+    }
+    h3 {
+      font-size: 16px;
+      margin: 22px 0 8px;
+      color: #cbd4df;
+      letter-spacing: 0;
+    }
+    .meta, .notice, .description, .evidence, .footnotes {
+      color: var(--muted);
+    }
+    .notice { margin-top: 5px; font-size: 14px; }
+    .description {
+      max-width: 78ch;
+    }
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 22px 0;
+    }
+    .feature-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      color: #f1f5f9;
+      font-size: 12px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .badge-code_verified { background: var(--green); }
+    .badge-menu_declared { background: var(--teal); }
+    .badge-docs_supported, .badge-example_supported { background: var(--amber); }
+    .badge-inferred_from_code, .badge-needs_human_check { background: var(--violet); }
+    .feature-body {
+      margin-top: 14px;
+      max-width: 82ch;
+    }
+    .lead p:first-child {
+      font-size: 17px;
+      color: #edf2f7;
+    }
+    .usage-notes {
+      margin: 14px 0;
+      padding-left: 22px;
+      color: #c9d3df;
+    }
+    .usage-notes li {
+      margin: 8px 0;
+    }
+    .callout {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-left: 3px solid var(--teal);
+      background: var(--note);
+      color: #d6dee8;
+      border-radius: 6px;
+    }
+    .callout p {
+      margin: 0;
+    }
+    .command-block {
+      margin-top: 20px;
+    }
+    .block-title {
+      color: #cbd4df;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      color: #cbd4df;
+      font-weight: 650;
+    }
+    code {
+      background: #0d1015;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: #dbeafe;
+    }
+    .source-refs {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footnotes {
+      border-top: 1px solid var(--border);
+      margin-top: 34px;
+      padding-top: 16px;
+      font-size: 14px;
+    }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .audit-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    ul { padding-left: 22px; }
+    @media (max-width: 760px) {
+      .layout { display: block; }
+      nav {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      main { padding: 28px 20px 56px; }
+      .feature-head { display: block; }
+      .badge { margin-top: 8px; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="brand">TreeSheets Reference</div>
+      <a href="index.html">TreeSheets Reference</a>
+<a href="concepts.html">Core Concepts</a>
+<a href="selection.html">Selection and Navigation</a>
+<a href="editing.html">Editing Cells</a>
+<a href="grids.html">Grids and Hierarchies</a>
+<a href="layout.html">Layout and View</a>
+<a href="import_export.html">Import and Export</a>
+<a href="search.html">Search and Filtering</a>
+<a href="scripting.html">Scripting and Evaluation</a>
+<a href="options.html">Options</a>
+<a class="active" href="menus.html">Menu Reference</a>
+<a href="audit.html">Documentation Audit</a>
+<a href="sources.html">Source Index</a>
+    </nav>
+    <main>
+      <header class="page-header">
+        <h1>Menu Reference</h1>
+        <p class="description">Source-derived menu, option, and command declaration inventory.</p>
+        <div class="meta">Updated last on 2026-05-09 &middot; Source commit <code>84ef9b924c79</code></div>
+        <div class="notice">Machine-assisted reference docs. Reliability indicators and footnote citations are included with every section.</div>
+      </header>
+      <p>This page is generated from TreeSheets menu declarations in the current source tree. It is a compact reference and an audit aid; feature pages explain behavior in more detail.</p><p>This source-derived menu index is generated from TreeSheets menu declarations and is used by the documentation audit to spot missing coverage.</p><h2>Edit</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Cut (CTRL+X)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L403">src/tsframe.h:L403</a></td><td>documented</td></tr>
+<tr><td>Copy (CTRL+C)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L404">src/tsframe.h:L404</a></td><td>documented</td></tr>
+<tr><td>Copy with Images (CTRL+ALT+C)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L406">src/tsframe.h:L406</a></td><td>gap</td></tr>
+<tr><td>Copy as Bitmap (CTRL+V)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L407">src/tsframe.h:L407</a></td><td>gap</td></tr>
+<tr><td>Copy As Continuous Text (CTRL+V)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L408">src/tsframe.h:L408</a></td><td>gap</td></tr>
+<tr><td>Paste (CTRL+V)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L410">src/tsframe.h:L410</a></td><td>documented</td></tr>
+<tr><td>Paste Style Only (CTRL+SHIFT+V)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L411">src/tsframe.h:L411</a></td><td>gap</td></tr>
+<tr><td>Collapse Cells (CTRL+L)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L413">src/tsframe.h:L413</a></td><td>documented</td></tr>
+<tr><td>Edit Note (CTRL+E)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L416">src/tsframe.h:L416</a></td><td>documented</td></tr>
+<tr><td>Undo (CTRL+Z)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L418">src/tsframe.h:L418</a></td><td>gap</td></tr>
+<tr><td>Redo (CTRL+Y)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L420">src/tsframe.h:L420</a></td><td>gap</td></tr>
+<tr><td>Delete After (DEL)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L423">src/tsframe.h:L423</a></td><td>documented</td></tr>
+<tr><td>Delete Before (BACK)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L426">src/tsframe.h:L426</a></td><td>documented</td></tr>
+<tr><td>Delete Word After (CTRL+DEL)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L429">src/tsframe.h:L429</a></td><td>gap</td></tr>
+<tr><td>Delete Word Before (CTRL+BACK)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L431">src/tsframe.h:L431</a></td><td>gap</td></tr>
+<tr><td>Insert New NxN Grid (CTRL+SHIFT+ENTER)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L441">src/tsframe.h:L441</a></td><td>documented</td></tr>
+<tr><td>Wrap in new parent (F9)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L443">src/tsframe.h:L443</a></td><td>documented</td></tr>
+<tr><td>Fold All (CTRL+SHIFT+F10)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L455">src/tsframe.h:L455</a></td><td>documented</td></tr>
+<tr><td>Unfold All (CTRL+ALT+F10)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L457">src/tsframe.h:L457</a></td><td>documented</td></tr></tbody></table>
+<h2>Edit &gt; Browsing</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Open link in browser (F5)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L375">src/tsframe.h:L375</a></td><td>documented</td></tr>
+<tr><td>Open file (F4)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L377">src/tsframe.h:L377</a></td><td>documented</td></tr></tbody></table>
+<h2>Edit &gt; Grid Reorganization</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Transpose (CTRL+SHIFT+T)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L334">src/tsframe.h:L334</a></td><td>documented</td></tr>
+<tr><td>Sort Ascending (F8)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L336">src/tsframe.h:L336</a></td><td>documented</td></tr>
+<tr><td>Sort Descending (F8)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L338">src/tsframe.h:L338</a></td><td>documented</td></tr>
+<tr><td>Hierarchy Swap (F8)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L340">src/tsframe.h:L340</a></td><td>documented</td></tr>
+<tr><td>Hierarchify</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L342">src/tsframe.h:L342</a></td><td>documented</td></tr>
+<tr><td>Flatten</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L344">src/tsframe.h:L344</a></td><td>documented</td></tr></tbody></table>
+<h2>Edit &gt; Images</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Add...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L348">src/tsframe.h:L348</a></td><td>documented</td></tr>
+<tr><td>Save as...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L349">src/tsframe.h:L349</a></td><td>documented</td></tr>
+<tr><td>Scale (re-sample pixels, by %)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L352">src/tsframe.h:L352</a></td><td>documented</td></tr>
+<tr><td>Scale (re-sample pixels, by width)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L355">src/tsframe.h:L355</a></td><td>documented</td></tr>
+<tr><td>Scale (display only)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L358">src/tsframe.h:L358</a></td><td>documented</td></tr>
+<tr><td>Reset Scale (display only)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L360">src/tsframe.h:L360</a></td><td>documented</td></tr>
+<tr><td>Embed as JPEG (SHIFT+ALT+i)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L363">src/tsframe.h:L363</a></td><td>documented</td></tr>
+<tr><td>Embed as PNG (SHIFT+ALT+i)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L366">src/tsframe.h:L366</a></td><td>documented</td></tr>
+<tr><td>Insert last image (SHIFT+ALT+i)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L369">src/tsframe.h:L369</a></td><td>documented</td></tr>
+<tr><td>Remove (F5)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L371">src/tsframe.h:L371</a></td><td>documented</td></tr></tbody></table>
+<h2>Edit &gt; Layout &amp; Render Style</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Vertical Layout with Grid Style Rendering</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L381">src/tsframe.h:L381</a></td><td>documented</td></tr>
+<tr><td>Vertical Layout with Bubble Style Rendering</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L383">src/tsframe.h:L383</a></td><td>documented</td></tr>
+<tr><td>Vertical Layout with Line Style Rendering</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L385">src/tsframe.h:L385</a></td><td>documented</td></tr>
+<tr><td>Horizontal Layout with Grid Style Rendering</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L388">src/tsframe.h:L388</a></td><td>documented</td></tr>
+<tr><td>Horizontal Layout with Bubble Style Rendering</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L390">src/tsframe.h:L390</a></td><td>documented</td></tr>
+<tr><td>Horizontal Layout with Line Style Rendering</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L392">src/tsframe.h:L392</a></td><td>documented</td></tr>
+<tr><td>Grid Style Rendering</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L395">src/tsframe.h:L395</a></td><td>documented</td></tr>
+<tr><td>Bubble Style Rendering</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L396">src/tsframe.h:L396</a></td><td>documented</td></tr>
+<tr><td>Line Style Rendering (CTRL+X)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L397">src/tsframe.h:L397</a></td><td>documented</td></tr>
+<tr><td>Toggle Vertical Layout (CTRL+X)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L399">src/tsframe.h:L399</a></td><td>documented</td></tr></tbody></table>
+<h2>Edit &gt; Selection</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Select all in current grid/cell (CTRL+A)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L223">src/tsframe.h:L223</a></td><td>documented</td></tr>
+<tr><td>Move Cells Left (CTRL+LEFT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L254">src/tsframe.h:L254</a></td><td>documented</td></tr>
+<tr><td>Move Cells Right (CTRL+RIGHT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L255">src/tsframe.h:L255</a></td><td>documented</td></tr>
+<tr><td>Move Cells Up (CTRL+UP)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L256">src/tsframe.h:L256</a></td><td>documented</td></tr>
+<tr><td>Move Cells Down (CTRL+DOWN)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L257">src/tsframe.h:L257</a></td><td>documented</td></tr>
+<tr><td>Extend Selection Left (SHIFT+LEFT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L259">src/tsframe.h:L259</a></td><td>documented</td></tr>
+<tr><td>Extend Selection Right (SHIFT+RIGHT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L260">src/tsframe.h:L260</a></td><td>documented</td></tr>
+<tr><td>Extend Selection Up (SHIFT+UP)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L261">src/tsframe.h:L261</a></td><td>documented</td></tr>
+<tr><td>Extend Selection Down (SHIFT+DOWN)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L262">src/tsframe.h:L262</a></td><td>documented</td></tr>
+<tr><td>Extend Selection Full Rows (CTRL+SHIFT+B)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L264">src/tsframe.h:L264</a></td><td>gap</td></tr>
+<tr><td>Extend Selection Rows Left (CTRL+SHIFT+LEFT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L265">src/tsframe.h:L265</a></td><td>gap</td></tr>
+<tr><td>Extend Selection Rows Right (CTRL+SHIFT+RIGHT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L266">src/tsframe.h:L266</a></td><td>gap</td></tr>
+<tr><td>Extend Selection Full Columns (CTRL+SHIFT+A)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L268">src/tsframe.h:L268</a></td><td>gap</td></tr>
+<tr><td>Extend Selection Columns Up (CTRL+SHIFT+UP)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L269">src/tsframe.h:L269</a></td><td>gap</td></tr>
+<tr><td>Extend Selection Columns Down (CTRL+SHIFT+DOWN)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L270">src/tsframe.h:L270</a></td><td>gap</td></tr>
+<tr><td>Select Parent (ESC)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L272">src/tsframe.h:L272</a></td><td>documented</td></tr>
+<tr><td>Select First Child (SHIFT+ENTER)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L273">src/tsframe.h:L273</a></td><td>documented</td></tr>
+<tr><td>Go To Matching Cell (Text) (F6)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L275">src/tsframe.h:L275</a></td><td>documented</td></tr>
+<tr><td>Go To Matching Cell (Text, Reverse) (SHIFT+F6)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L276">src/tsframe.h:L276</a></td><td>documented</td></tr>
+<tr><td>Go To Matching Cell (Image) (F7)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L277">src/tsframe.h:L277</a></td><td>documented</td></tr>
+<tr><td>Go To Matching Cell (Image, Reverse) (SHIFT+F7)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L278">src/tsframe.h:L278</a></td><td>documented</td></tr></tbody></table>
+<h2>Edit &gt; Set Grid Border Width</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Border 0 (CTRL+SHIFT+9)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L200">src/tsframe.h:L200</a></td><td>documented</td></tr>
+<tr><td>Border 1 (CTRL+SHIFT+1)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L201">src/tsframe.h:L201</a></td><td>gap</td></tr>
+<tr><td>Border 2 (CTRL+SHIFT+2)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L202">src/tsframe.h:L202</a></td><td>gap</td></tr>
+<tr><td>Border 3 (CTRL+SHIFT+3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L203">src/tsframe.h:L203</a></td><td>gap</td></tr>
+<tr><td>Border 4 (CTRL+SHIFT+4)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L204">src/tsframe.h:L204</a></td><td>gap</td></tr>
+<tr><td>Border 5 (CTRL+SHIFT+5)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L205">src/tsframe.h:L205</a></td><td>documented</td></tr></tbody></table>
+<h2>Edit &gt; Tag</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Add Cell Text as Tag (CTRL+SHIFT+T)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L328">src/tsframe.h:L328</a></td><td>documented</td></tr>
+<tr><td>Remove Cell Text from Tags (CTRL+SHIFT+T)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L329">src/tsframe.h:L329</a></td><td>documented</td></tr>
+<tr><td>Set Cell Text to tag (use CTRL+RMB) (CTRL+SHIFT+T)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L330">src/tsframe.h:L330</a></td><td>gap</td></tr></tbody></table>
+<h2>Edit &gt; Text Editing</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Cursor Left (LEFT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L282">src/tsframe.h:L282</a></td><td>documented</td></tr>
+<tr><td>Cursor Right (RIGHT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L283">src/tsframe.h:L283</a></td><td>documented</td></tr>
+<tr><td>Word Left (CTRL+LEFT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L284">src/tsframe.h:L284</a></td><td>documented</td></tr>
+<tr><td>Word Right (CTRL+RIGHT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L285">src/tsframe.h:L285</a></td><td>documented</td></tr>
+<tr><td>Extend Selection Left (SHIFT+LEFT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L287">src/tsframe.h:L287</a></td><td>documented</td></tr>
+<tr><td>Extend Selection Right (SHIFT+RIGHT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L288">src/tsframe.h:L288</a></td><td>documented</td></tr>
+<tr><td>Extend Selection Word Left (CTRL+SHIFT+LEFT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L289">src/tsframe.h:L289</a></td><td>gap</td></tr>
+<tr><td>Extend Selection Word Right (CTRL+SHIFT+RIGHT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L290">src/tsframe.h:L290</a></td><td>gap</td></tr>
+<tr><td>Extend Selection to Start (SHIFT+HOME)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L291">src/tsframe.h:L291</a></td><td>gap</td></tr>
+<tr><td>Extend Selection to End (SHIFT+END)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L292">src/tsframe.h:L292</a></td><td>gap</td></tr>
+<tr><td>Start of line of text (HOME)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L294">src/tsframe.h:L294</a></td><td>gap</td></tr>
+<tr><td>End of line of text (END)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L295">src/tsframe.h:L295</a></td><td>gap</td></tr>
+<tr><td>Start of text (CTRL+HOME)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L296">src/tsframe.h:L296</a></td><td>gap</td></tr>
+<tr><td>End of text (CTRL+END)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L297">src/tsframe.h:L297</a></td><td>gap</td></tr>
+<tr><td>Enter/exit text edit mode (ENTER)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L299">src/tsframe.h:L299</a></td><td>documented</td></tr>
+<tr><td>...and jump to the end of the text (F2)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L300">src/tsframe.h:L300</a></td><td>documented</td></tr>
+<tr><td>...and progress to the first cell in the new row (ESC)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L302">src/tsframe.h:L302</a></td><td>documented</td></tr>
+<tr><td>...and progress to the next cell on the right (ESC)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L305">src/tsframe.h:L305</a></td><td>documented</td></tr>
+<tr><td>Cancel text edits (ESC)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L307">src/tsframe.h:L307</a></td><td>documented</td></tr></tbody></table>
+<h2>Edit &gt; Text Sizing</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Increase text size (SHIFT+mousewheel) (SHIFT+PGUP)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L181">src/tsframe.h:L181</a></td><td>documented</td></tr>
+<tr><td>Decrease text size (SHIFT+mousewheel) (SHIFT+PGDN)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L183">src/tsframe.h:L183</a></td><td>documented</td></tr>
+<tr><td>Reset text sizes (CTRL+SHIFT+S)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L185">src/tsframe.h:L185</a></td><td>gap</td></tr>
+<tr><td>Shrink text of all sub-grids (CTRL+SHIFT+M)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L186">src/tsframe.h:L186</a></td><td>gap</td></tr>
+<tr><td>Increase column width (ALT+mousewheel) (ALT+PGUP)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L188">src/tsframe.h:L188</a></td><td>documented</td></tr>
+<tr><td>Decrease column width (ALT+mousewheel) (ALT+PGDN)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L190">src/tsframe.h:L190</a></td><td>documented</td></tr>
+<tr><td>Increase column width (no sub grids) (CTRL+ALT+PGUP)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L192">src/tsframe.h:L192</a></td><td>gap</td></tr>
+<tr><td>Decrease column width (no sub grids) (CTRL+ALT+PGDN)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L194">src/tsframe.h:L194</a></td><td>gap</td></tr>
+<tr><td>Reset column widths (CTRL+R)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L196">src/tsframe.h:L196</a></td><td>documented</td></tr></tbody></table>
+<h2>Edit &gt; Text Style</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Toggle cell BOLD (CTRL+B)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L310">src/tsframe.h:L310</a></td><td>documented</td></tr>
+<tr><td>Toggle cell ITALIC (CTRL+I)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L311">src/tsframe.h:L311</a></td><td>documented</td></tr>
+<tr><td>Toggle cell typewriter (CTRL+ALT+T)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L312">src/tsframe.h:L312</a></td><td>documented</td></tr>
+<tr><td>Toggle cell underlined (CTRL+U)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L313">src/tsframe.h:L313</a></td><td>documented</td></tr>
+<tr><td>Toggle cell strikethrough (CTRL+T)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L314">src/tsframe.h:L314</a></td><td>documented</td></tr>
+<tr><td>Reset text styles (CTRL+SHIFT+R)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L316">src/tsframe.h:L316</a></td><td>gap</td></tr>
+<tr><td>Reset colors (CTRL+SHIFT+C)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L317">src/tsframe.h:L317</a></td><td>gap</td></tr>
+<tr><td>Apply last cell color (SHIFT+ALT+C)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L319">src/tsframe.h:L319</a></td><td>gap</td></tr>
+<tr><td>Apply last text color (SHIFT+ALT+T)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L320">src/tsframe.h:L320</a></td><td>gap</td></tr>
+<tr><td>Apply last border color (SHIFT+ALT+B)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L321">src/tsframe.h:L321</a></td><td>gap</td></tr>
+<tr><td>Open cell colors (SHIFT+ALT+F9)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L322">src/tsframe.h:L322</a></td><td>gap</td></tr>
+<tr><td>Open text colors (SHIFT+ALT+F10)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L323">src/tsframe.h:L323</a></td><td>gap</td></tr>
+<tr><td>Open border colors (SHIFT+ALT+F11)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L324">src/tsframe.h:L324</a></td><td>gap</td></tr>
+<tr><td>Open image dropdown (SHIFT+ALT+F12)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L325">src/tsframe.h:L325</a></td><td>gap</td></tr></tbody></table>
+<h2>File</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>New (CTRL+N)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L159">src/tsframe.h:L159</a></td><td>documented</td></tr>
+<tr><td>Open... (CTRL+O)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L160">src/tsframe.h:L160</a></td><td>documented</td></tr>
+<tr><td>Close (CTRL+W)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L161">src/tsframe.h:L161</a></td><td>gap</td></tr>
+<tr><td>Save (CTRL+S)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L163">src/tsframe.h:L163</a></td><td>documented</td></tr>
+<tr><td>Save As...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L164">src/tsframe.h:L164</a></td><td>documented</td></tr>
+<tr><td>Save All (CTRL+P)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L166">src/tsframe.h:L166</a></td><td>documented</td></tr>
+<tr><td>Page Setup... (CTRL+P)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L168">src/tsframe.h:L168</a></td><td>documented</td></tr>
+<tr><td>Set Print Scale... (CTRL+P)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L169">src/tsframe.h:L169</a></td><td>documented</td></tr>
+<tr><td>Print preview... (CTRL+P)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L170">src/tsframe.h:L170</a></td><td>documented</td></tr>
+<tr><td>Print... (CTRL+P)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L171">src/tsframe.h:L171</a></td><td>documented</td></tr>
+<tr><td>Exit (CTRL+Q)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L176">src/tsframe.h:L176</a></td><td>gap</td></tr></tbody></table>
+<h2>File &gt; Export view as</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>XML...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L122">src/tsframe.h:L122</a></td><td>documented</td></tr>
+<tr><td>HTML (Tables+Styling)...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L125">src/tsframe.h:L125</a></td><td>documented</td></tr>
+<tr><td>HTML (Tables+Styling+Images)...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L127">src/tsframe.h:L127</a></td><td>documented</td></tr>
+<tr><td>HTML (Bullet points)...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L129">src/tsframe.h:L129</a></td><td>documented</td></tr>
+<tr><td>HTML (Outline)...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L131">src/tsframe.h:L131</a></td><td>documented</td></tr>
+<tr><td>Indented Text...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L134">src/tsframe.h:L134</a></td><td>documented</td></tr>
+<tr><td>Comma delimited text (CSV)...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L137">src/tsframe.h:L137</a></td><td>documented</td></tr>
+<tr><td>Image...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L141">src/tsframe.h:L141</a></td><td>documented</td></tr>
+<tr><td>Vector graphics...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L143">src/tsframe.h:L143</a></td><td>documented</td></tr></tbody></table>
+<h2>File &gt; Import from</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>XML...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L147">src/tsframe.h:L147</a></td><td>documented</td></tr>
+<tr><td>XML (attributes too, for OPML etc)...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L148">src/tsframe.h:L148</a></td><td>documented</td></tr>
+<tr><td>Indented text...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L149">src/tsframe.h:L149</a></td><td>documented</td></tr>
+<tr><td>Comma delimited text (CSV)...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L150">src/tsframe.h:L150</a></td><td>documented</td></tr>
+<tr><td>Semi-Colon delimited text (CSV)...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L151">src/tsframe.h:L151</a></td><td>documented</td></tr>
+<tr><td>Tab delimited text...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L152">src/tsframe.h:L152</a></td><td>documented</td></tr></tbody></table>
+<h2>Help</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>About... (F1)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L685">src/tsframe.h:L685</a></td><td>gap</td></tr>
+<tr><td>Interactive tutorial (F1)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L687">src/tsframe.h:L687</a></td><td>gap</td></tr>
+<tr><td>Operation reference (CTRL+ALT+F1)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L689">src/tsframe.h:L689</a></td><td>gap</td></tr>
+<tr><td>Tutorial web page</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L692">src/tsframe.h:L692</a></td><td>gap</td></tr>
+<tr><td>Script reference</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L695">src/tsframe.h:L695</a></td><td>gap</td></tr></tbody></table>
+<h2>Menu</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Case-sensitive search (F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L476">src/tsframe.h:L476</a></td><td>gap</td></tr>
+<tr><td>Radius 0</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L552">src/tsframe.h:L552</a></td><td>documented</td></tr>
+<tr><td>Radius 1</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L553">src/tsframe.h:L553</a></td><td>documented</td></tr>
+<tr><td>Radius 2</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L554">src/tsframe.h:L554</a></td><td>documented</td></tr>
+<tr><td>Radius 3</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L555">src/tsframe.h:L555</a></td><td>documented</td></tr>
+<tr><td>Radius 4</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L556">src/tsframe.h:L556</a></td><td>documented</td></tr>
+<tr><td>Radius 5</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L557">src/tsframe.h:L557</a></td><td>documented</td></tr>
+<tr><td>Radius 6</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L558">src/tsframe.h:L558</a></td><td>documented</td></tr>
+<tr><td>No autoexport</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L562">src/tsframe.h:L562</a></td><td>documented</td></tr>
+<tr><td>Export with images</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L563">src/tsframe.h:L563</a></td><td>documented</td></tr>
+<tr><td>Export without images</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L566">src/tsframe.h:L566</a></td><td>documented</td></tr>
+<tr><td>Toolbar</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L595">src/tsframe.h:L595</a></td><td>documented</td></tr>
+<tr><td>Statusbar</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L599">src/tsframe.h:L599</a></td><td>documented</td></tr>
+<tr><td>File Tabs on the bottom</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L602">src/tsframe.h:L602</a></td><td>documented</td></tr>
+<tr><td>Minimize to tray</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L606">src/tsframe.h:L606</a></td><td>documented</td></tr>
+<tr><td>Minimize on close</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L609">src/tsframe.h:L609</a></td><td>documented</td></tr>
+<tr><td>Single click maximize from tray</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L612">src/tsframe.h:L612</a></td><td>documented</td></tr>
+<tr><td>Start minimized</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L616">src/tsframe.h:L616</a></td><td>documented</td></tr>
+<tr><td>Swap mousewheel scrolling and zooming</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L620">src/tsframe.h:L620</a></td><td>documented</td></tr>
+<tr><td>Navigate in between cells with cursor keys</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L622">src/tsframe.h:L622</a></td><td>documented</td></tr>
+<tr><td>Backup files</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L626">src/tsframe.h:L626</a></td><td>documented</td></tr>
+<tr><td>Autosave</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L629">src/tsframe.h:L629</a></td><td>documented</td></tr>
+<tr><td>Autoreload documents</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L632">src/tsframe.h:L632</a></td><td>documented</td></tr>
+<tr><td>Render document centered</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L638">src/tsframe.h:L638</a></td><td>documented</td></tr>
+<tr><td>Faster line rendering</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L642">src/tsframe.h:L642</a></td><td>documented</td></tr>
+<tr><td>Invert in dark mode</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L646">src/tsframe.h:L646</a></td><td>documented</td></tr></tbody></table>
+<h2>Options</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Font...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L573">src/tsframe.h:L573</a></td><td>documented</td></tr>
+<tr><td>Typewriter font...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L575">src/tsframe.h:L575</a></td><td>documented</td></tr>
+<tr><td>Key bindings...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L577">src/tsframe.h:L577</a></td><td>documented</td></tr>
+<tr><td>Change language...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L579">src/tsframe.h:L579</a></td><td>documented</td></tr>
+<tr><td>Default column width...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L580">src/tsframe.h:L580</a></td><td>documented</td></tr>
+<tr><td>Custom color...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L583">src/tsframe.h:L583</a></td><td>documented</td></tr>
+<tr><td>Set custom color from cell background</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L585">src/tsframe.h:L585</a></td><td>documented</td></tr>
+<tr><td>Background color...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L588">src/tsframe.h:L588</a></td><td>documented</td></tr>
+<tr><td>Cursor color...</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L590">src/tsframe.h:L590</a></td><td>documented</td></tr>
+<tr><td>Reset toolbar</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L593">src/tsframe.h:L593</a></td><td>gap</td></tr></tbody></table>
+<h2>Program</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Run (CTRL+ALT+F5)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L680">src/tsframe.h:L680</a></td><td>documented</td></tr>
+<tr><td>Clear Views (F1)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L682">src/tsframe.h:L682</a></td><td>gap</td></tr></tbody></table>
+<h2>Program &gt; Mark as</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Data (CTRL+ALT+D)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L672">src/tsframe.h:L672</a></td><td>documented</td></tr>
+<tr><td>Operation (CTRL+ALT+O)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L673">src/tsframe.h:L673</a></td><td>documented</td></tr>
+<tr><td>Variable Assign (CTRL+ALT+A)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L674">src/tsframe.h:L674</a></td><td>documented</td></tr>
+<tr><td>Variable Read (CTRL+ALT+R)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L675">src/tsframe.h:L675</a></td><td>documented</td></tr>
+<tr><td>Horizontal View (CTRL+ALT+.)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L676">src/tsframe.h:L676</a></td><td>documented</td></tr>
+<tr><td>Vertical View (CTRL+ALT+,)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L677">src/tsframe.h:L677</a></td><td>documented</td></tr></tbody></table>
+<h2>Script</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Add... (CTRL+ALT+L)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L653">src/tsframe.h:L653</a></td><td>documented</td></tr>
+<tr><td>Remove... (CTRL+SHIFT+ALT+L)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L655">src/tsframe.h:L655</a></td><td>documented</td></tr></tbody></table>
+<h2>Search</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Search (CTRL+F)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L475">src/tsframe.h:L475</a></td><td>documented</td></tr>
+<tr><td>Next Match (F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L479">src/tsframe.h:L479</a></td><td>documented</td></tr>
+<tr><td>Previous Match (SHIFT+F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L480">src/tsframe.h:L480</a></td><td>documented</td></tr>
+<tr><td>Replace (CTRL+H)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L483">src/tsframe.h:L483</a></td><td>documented</td></tr>
+<tr><td>Replace in Current Selection (CTRL+K)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L485">src/tsframe.h:L485</a></td><td>documented</td></tr>
+<tr><td>Replace in Current Selection  Jump Next (CTRL+J)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L486">src/tsframe.h:L486</a></td><td>documented</td></tr>
+<tr><td>Replace All (PGUP)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L488">src/tsframe.h:L488</a></td><td>documented</td></tr></tbody></table>
+<h2>View</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Zoom In (CTRL+mousewheel) (CTRL+PGUP)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L519">src/tsframe.h:L519</a></td><td>documented</td></tr>
+<tr><td>Zoom Out (CTRL+mousewheel) (CTRL+PGDN)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L520">src/tsframe.h:L520</a></td><td>documented</td></tr>
+<tr><td>Next tab (CTRL+TAB)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L522">src/tsframe.h:L522</a></td><td>documented</td></tr>
+<tr><td>Previous tab (CTRL+SHIFT+TAB)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L532">src/tsframe.h:L532</a></td><td>documented</td></tr></tbody></table>
+<h2>View &gt; Filter</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Turn filter off (CTRL+SHIFT+F)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L499">src/tsframe.h:L499</a></td><td>gap</td></tr>
+<tr><td>Show only cells in current search</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L500">src/tsframe.h:L500</a></td><td>gap</td></tr>
+<tr><td>Show last edits in specific date range</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L501">src/tsframe.h:L501</a></td><td>gap</td></tr>
+<tr><td>Show 5% of last edits</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L503">src/tsframe.h:L503</a></td><td>gap</td></tr>
+<tr><td>Show 10% of last edits</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L505">src/tsframe.h:L505</a></td><td>gap</td></tr>
+<tr><td>Show 20% of last edits</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L507">src/tsframe.h:L507</a></td><td>gap</td></tr>
+<tr><td>Show 50% of last edits</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L509">src/tsframe.h:L509</a></td><td>gap</td></tr>
+<tr><td>Show 1% more than the last filter (CTRL+F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L511">src/tsframe.h:L511</a></td><td>gap</td></tr>
+<tr><td>Show 1% less than the last filter (CTRL+F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L513">src/tsframe.h:L513</a></td><td>gap</td></tr>
+<tr><td>Show cells with notes (CTRL+F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L514">src/tsframe.h:L514</a></td><td>documented</td></tr>
+<tr><td>Filter by the same cell color (CTRL+F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L515">src/tsframe.h:L515</a></td><td>gap</td></tr>
+<tr><td>Go to next filter match (CTRL+F3)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L516">src/tsframe.h:L516</a></td><td>gap</td></tr></tbody></table>
+<h2>View &gt; Scroll Sheet</h2><table><thead><tr><th>Menu item</th><th>Declaration</th><th>Status</th></tr></thead><tbody><tr><td>Scroll Up (mousewheel) (PGUP)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L491">src/tsframe.h:L491</a></td><td>documented</td></tr>
+<tr><td>Scroll Up (mousewheel) (ALT+UP)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L492">src/tsframe.h:L492</a></td><td>documented</td></tr>
+<tr><td>Scroll Down (mousewheel) (PGDN)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L493">src/tsframe.h:L493</a></td><td>documented</td></tr>
+<tr><td>Scroll Down (mousewheel) (ALT+DOWN)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L494">src/tsframe.h:L494</a></td><td>documented</td></tr>
+<tr><td>Scroll Left (ALT+LEFT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L495">src/tsframe.h:L495</a></td><td>documented</td></tr>
+<tr><td>Scroll Right (ALT+RIGHT)</td><td><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L496">src/tsframe.h:L496</a></td><td>documented</td></tr></tbody></table>
+    </main>
+  </div>
+</body>
+</html>

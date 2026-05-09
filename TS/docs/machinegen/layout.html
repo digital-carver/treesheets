@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Layout and View - TreeSheets Reference</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111318;
+      --panel: #171b22;
+      --panel-2: #1d232d;
+      --text: #e5e9f0;
+      --muted: #9ba7b6;
+      --faint: #6f7a89;
+      --border: #2b3440;
+      --link: #91c9ff;
+      --green: #587d64;
+      --teal: #486f7e;
+      --amber: #7d6845;
+      --violet: #68617d;
+      --note: #25303a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(210px, 260px) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    nav {
+      border-right: 1px solid var(--border);
+      background: #0f1116;
+      padding: 28px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+    nav .brand {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    nav a {
+      display: block;
+      padding: 7px 9px;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    nav a.active {
+      background: var(--panel-2);
+      color: var(--text);
+    }
+    main {
+      max-width: 1120px;
+      width: 100%;
+      padding: 42px 48px 72px;
+    }
+    header.page-header {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 22px;
+    }
+    h1 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: 23px;
+      line-height: 1.3;
+      margin: 0;
+      letter-spacing: 0;
+    }
+    h3 {
+      font-size: 16px;
+      margin: 22px 0 8px;
+      color: #cbd4df;
+      letter-spacing: 0;
+    }
+    .meta, .notice, .description, .evidence, .footnotes {
+      color: var(--muted);
+    }
+    .notice { margin-top: 5px; font-size: 14px; }
+    .description {
+      max-width: 78ch;
+    }
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 22px 0;
+    }
+    .feature-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border-radius: 999px;
+      padding: 3px 10px;
+      color: #f1f5f9;
+      font-size: 12px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .badge-code_verified { background: var(--green); }
+    .badge-menu_declared { background: var(--teal); }
+    .badge-docs_supported, .badge-example_supported { background: var(--amber); }
+    .badge-inferred_from_code, .badge-needs_human_check { background: var(--violet); }
+    .feature-body {
+      margin-top: 14px;
+      max-width: 82ch;
+    }
+    .lead p:first-child {
+      font-size: 17px;
+      color: #edf2f7;
+    }
+    .usage-notes {
+      margin: 14px 0;
+      padding-left: 22px;
+      color: #c9d3df;
+    }
+    .usage-notes li {
+      margin: 8px 0;
+    }
+    .callout {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-left: 3px solid var(--teal);
+      background: var(--note);
+      color: #d6dee8;
+      border-radius: 6px;
+    }
+    .callout p {
+      margin: 0;
+    }
+    .command-block {
+      margin-top: 20px;
+    }
+    .block-title {
+      color: #cbd4df;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      color: #cbd4df;
+      font-weight: 650;
+    }
+    code {
+      background: #0d1015;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: #dbeafe;
+    }
+    .source-refs {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footnotes {
+      border-top: 1px solid var(--border);
+      margin-top: 34px;
+      padding-top: 16px;
+      font-size: 14px;
+    }
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .audit-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    ul { padding-left: 22px; }
+    @media (max-width: 760px) {
+      .layout { display: block; }
+      nav {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      main { padding: 28px 20px 56px; }
+      .feature-head { display: block; }
+      .badge { margin-top: 8px; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="brand">TreeSheets Reference</div>
+      <a href="index.html">TreeSheets Reference</a>
+<a href="concepts.html">Core Concepts</a>
+<a href="selection.html">Selection and Navigation</a>
+<a href="editing.html">Editing Cells</a>
+<a href="grids.html">Grids and Hierarchies</a>
+<a class="active" href="layout.html">Layout and View</a>
+<a href="import_export.html">Import and Export</a>
+<a href="search.html">Search and Filtering</a>
+<a href="scripting.html">Scripting and Evaluation</a>
+<a href="options.html">Options</a>
+<a href="menus.html">Menu Reference</a>
+<a href="audit.html">Documentation Audit</a>
+<a href="sources.html">Source Index</a>
+    </nav>
+    <main>
+      <header class="page-header">
+        <h1>Layout and View</h1>
+        <p class="description">Zooming, text size, column width, render styles, presentation scaling, scrolling, and view-related options.</p>
+        <div class="meta">Updated last on 2026-05-09 &middot; Source commit <code>84ef9b924c79</code></div>
+        <div class="notice">Machine-assisted reference docs. Reliability indicators and footnote citations are included with every section.</div>
+      </header>
+      <p>TreeSheets layout is meant to keep large nested sheets compact while letting you zoom into the part you want to read or edit. Layout commands change how selected cells and grids occupy screen space; view commands change what portion of the sheet you are looking at.</p><article class="feature" id="styles-sizing-color">
+  <div class="feature-head">
+    <h2>Text style, sizing, colors, and borders</h2>
+    <span class="badge badge-code_verified">Code verified</span>
+  </div>
+  <div class="feature-body">
+<div class="lead"><p>Style commands toggle bold, italic, typewriter, underline, and strikethrough styling on selected cells. Text-size commands make selected content more or less prominent. Column-width commands change wrapping width, which is useful for long text. Border-width and color commands change how selected grids and cells are drawn.</p></div>
+<ul class="usage-notes">
+<li>These commands require a selected grid. Style and reset commands iterate selected cells, while border width acts on the selected grid itself.</li>
+<li>These changes are undoable and TreeSheets recalculates layout after they are applied.</li>
+<li>Reset colors treats tag cells specially by resetting the stored tag color, while normal cells reset text, cell, and nested-grid border colors.</li>
+</ul>
+<aside class="callout"><p>The border menu labels are numbered 0 through 5, but the visible result is a set of progressively wider grid borders rather than a literal zero-width-to-five-width scale.</p></aside>
+</div>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu or option</th><th>Shortcut</th></tr></thead><tbody><tr><td>Toggle text styles</td><td>Edit &gt; Text Style</td><td>Ctrl+B, Ctrl+I, Ctrl+Alt+T, Ctrl+U, Ctrl+T</td></tr>
+<tr><td>Text sizing and column width</td><td>Edit &gt; Text Sizing</td><td>Shift+PgUp/PgDn, Alt+PgUp/PgDn, Ctrl+R</td></tr>
+<tr><td>Grid border width</td><td>Edit &gt; Set Grid Border Width</td><td>Ctrl+Shift+1..5, Ctrl+Shift+9</td></tr></tbody></table></div>
+  <p class="evidence">Verified from style menus, style behavior, color/dropdown behavior, tutorial layout examples, and history notes.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-styles-sizing-color-1">[1]</a> <a href="#src-styles-sizing-color-2">[2]</a> <a href="#src-styles-sizing-color-3">[3]</a> <a href="#src-styles-sizing-color-4">[4]</a> <a href="#src-styles-sizing-color-5">[5]</a> <a href="#src-styles-sizing-color-6">[6]</a> <a href="#src-styles-sizing-color-7">[7]</a> <a href="#src-styles-sizing-color-8">[8]</a> <a href="#src-styles-sizing-color-9">[9]</a></div>
+</article>
+<article class="feature" id="layout-rendering">
+  <div class="feature-head">
+    <h2>Layout direction and render styles</h2>
+    <span class="badge badge-code_verified">Code verified</span>
+  </div>
+  <div class="feature-body">
+<div class="lead"><p>Layout commands change whether cell text and child grids are arranged vertically or horizontally, and whether grids are drawn in grid, bubble-hierarchy, or line styles. Render-style-only commands preserve the current orientation while changing the drawing style.</p></div>
+<ul class="usage-notes">
+<li>The selected grid must not be a thin selection. Render-style-only commands set the containing grid draw style when the whole grid is selected.</li>
+<li>The changes are undoable and TreeSheets redraws the affected layout.</li>
+<li>Thin selections are rejected with the normal no-thin-selection message.</li>
+</ul>
+<aside class="callout"><p>Shortcut labels deliberately use Ctrl on macOS and Alt elsewhere.</p></aside>
+</div>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu or option</th><th>Shortcut</th></tr></thead><tbody><tr><td>Vertical/horizontal layout with render style</td><td>Edit &gt; Layout &amp; Render Style</td><td>Alt+1..6 on non-macOS, Ctrl+1..6 on macOS</td></tr>
+<tr><td>Render style only</td><td>Edit &gt; Layout &amp; Render Style</td><td>Alt+7..9 on non-macOS, Ctrl+7..9 on macOS</td></tr>
+<tr><td>Toggle vertical layout</td><td>Edit &gt; Layout &amp; Render Style</td><td>Alt+0 on non-macOS, Ctrl+0 on macOS</td></tr></tbody></table></div>
+  <p class="evidence">Verified from platform-specific menu labels, layout/render command behavior, tutorial notes, and history notes.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-layout-rendering-1">[1]</a> <a href="#src-layout-rendering-2">[2]</a> <a href="#src-layout-rendering-3">[3]</a> <a href="#src-layout-rendering-4">[4]</a> <a href="#src-layout-rendering-5">[5]</a> <a href="#src-layout-rendering-6">[6]</a></div>
+</article>
+<article class="feature" id="view-zoom-presentation">
+  <div class="feature-head">
+    <h2>Zoom, scroll, tabs, fullscreen, and scaled presentation view</h2>
+    <span class="badge badge-code_verified">Code verified</span>
+  </div>
+  <div class="feature-body">
+<div class="lead"><p>Zoom moves the view into or out of nested grids, making deeply nested or tiny text readable without permanently changing the sheet. Scrolling moves the canvas when the current layout is larger than the window. Fullscreen hides normal window chrome; scaled presentation view fits the sheet to the available screen area for presentation-style viewing.</p></div>
+<ul class="usage-notes">
+<li>Zooming in needs a selected cell or grid context. Zooming out can return toward the root view. Tab commands cycle between open TreeSheets documents.</li>
+<li>TreeSheets keeps a view path for the zoomed-in cell and redraws the current view. Scaled presentation view computes a screen-fitting scale between normal size and a capped enlarged view, then restores normal rendering when toggled off.</li>
+<li>When a command jumps to a cell inside a folded grid, TreeSheets may unfold ancestors or zoom out enough to make the selection visible.</li>
+</ul>
+<aside class="callout"><p>F12 is described historically as useful for presentations. It changes how the current view is drawn; it is not a slide deck mode.</p></aside>
+</div>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu or option</th><th>Shortcut</th></tr></thead><tbody><tr><td>Zoom in / out</td><td>View</td><td>Ctrl+MouseWheel, Ctrl+PgUp/PgDn</td></tr>
+<tr><td>Scroll sheet</td><td>View &gt; Scroll Sheet</td><td>MouseWheel, PgUp/PgDn, Alt+Arrow</td></tr>
+<tr><td>Next/previous tab</td><td>View</td><td>Ctrl+Tab, Ctrl+Shift+Tab</td></tr>
+<tr><td>Fullscreen / scaled presentation view</td><td>View</td><td>F11, F12</td></tr></tbody></table></div>
+  <p class="evidence">Verified from View menu declarations, view command handlers, rendering scale behavior, tutorial zoom guidance, and history notes.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-view-zoom-presentation-1">[1]</a> <a href="#src-view-zoom-presentation-2">[2]</a> <a href="#src-view-zoom-presentation-3">[3]</a> <a href="#src-view-zoom-presentation-4">[4]</a> <a href="#src-view-zoom-presentation-5">[5]</a> <a href="#src-view-zoom-presentation-6">[6]</a></div>
+</article>
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-styles-sizing-color-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L99-L110">TS/docs/tutorial.html:L99-L110</a> - Tutorial explains relative text size, zoom readability, and column-width wrapping.</li>
+<li id="src-styles-sizing-color-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L161-L184">TS/docs/history.txt:L161-L184</a> - History describes column sizing, mouse wheel modifiers, and grid border color/width.</li>
+<li id="src-styles-sizing-color-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L180-L205">src/tsframe.h:L180-L205</a> - Text sizing and border-width menu entries.</li>
+<li id="src-styles-sizing-color-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L309-L325">src/tsframe.h:L309-L325</a> - Text style and last-color menu entries.</li>
+<li id="src-styles-sizing-color-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1474-L1485">src/document.h:L1474-L1485</a> - Style command dispatch.</li>
+<li id="src-styles-sizing-color-6"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1051-L1059">src/document.h:L1051-L1059</a> - Zoom/text-size/column-width action routing.</li>
+<li id="src-styles-sizing-color-7"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1660-L1740">src/document.h:L1660-L1740</a> - Border, reset, last-color, and mini-size behavior.</li>
+<li id="src-styles-sizing-color-8"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/grid.h#L664-L669">src/grid.h:L664-L669</a> - Grid style helper toggles text style flags on selected cells.</li>
+<li id="src-styles-sizing-color-9"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2317-L2325">src/document.h:L2317-L2325</a> - Color dropdown handler applies selected color to cells.</li>
+<li id="src-layout-rendering-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L108-L118">TS/docs/history.txt:L108-L118</a> - History notes added rendering options and broader support for operations on selected grids.</li>
+<li id="src-layout-rendering-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L103-L119">src/tsframe.h:L103-L119</a> - Platform-specific CTRLORALT and ALTORCTRL macros.</li>
+<li id="src-layout-rendering-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L380-L399">src/tsframe.h:L380-L399</a> - Layout and render-style menu entries.</li>
+<li id="src-layout-rendering-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1674-L1684">src/document.h:L1674-L1684</a> - Layout command dispatch.</li>
+<li id="src-layout-rendering-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L2083-L2092">src/document.h:L2083-L2092</a> - layrender validates selection and applies layout/render style.</li>
+<li id="src-layout-rendering-6"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/cell.h#L9-L14">src/cell.h:L9-L14</a> - Cell and draw-style enum values.</li>
+<li id="src-view-zoom-presentation-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/tutorial.html#L99-L107">TS/docs/tutorial.html:L99-L107</a> - Tutorial explains shrinking content, zooming into nested grids, and zooming back out.</li>
+<li id="src-view-zoom-presentation-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L183-L186">TS/docs/history.txt:L183-L186</a> - History notes fullscreen and scaled presentation view.</li>
+<li id="src-view-zoom-presentation-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L491-L549">src/tsframe.h:L491-L549</a> - View menu entries for scrolling, zooming, tabs, fullscreen, scaled view, and filters.</li>
+<li id="src-view-zoom-presentation-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L437-L458">src/document.h:L437-L458</a> - Zoom view-path behavior.</li>
+<li id="src-view-zoom-presentation-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L567-L579">src/document.h:L567-L579</a> - Scaled view computes and applies screen-fitting scale.</li>
+<li id="src-view-zoom-presentation-6"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1236-L1241">src/document.h:L1236-L1241</a> - Scaled presentation view command toggles state and reports status.</li></ol></section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 id = "layout-rendering"
 title = "Layout direction and render styles"
 category = "grids"
-page = "grids"
+page = "layout"
 
 [[commands]]
 name = "Vertical/horizontal layout with render style"
@@ -21,19 +21,19 @@ menu_path = "Edit > Layout & Render Style"
 shortcut = "Alt+0 on non-macOS, Ctrl+0 on macOS"
 command_id = "A_TEXTGRID"
 
-[verification]
-level = "implementation_verified"
-text = "Verified from platform-specific menu labels and layout/render command behavior."
+[evidence]
+level = "code_verified"
+text = "Verified from platform-specific menu labels, layout/render command behavior, tutorial notes, and history notes."
 
 [behavior]
 summary = """
-Layout commands set selected cells or selected grids to vertical/horizontal text-and-grid layout and grid, bubble-hierarchy, or line render styles. Render-style-only commands preserve orientation while changing draw style.
+Layout commands change whether cell text and child grids are arranged vertically or horizontally, and whether grids are drawn in grid, bubble-hierarchy, or line styles. Render-style-only commands preserve the current orientation while changing the drawing style.
 """
 context = """
 The selected grid must not be a thin selection. Render-style-only commands set the containing grid draw style when the whole grid is selected.
 """
 effects = """
-Commands add undo, apply the chosen layout or render style, refresh layout, and redraw the canvas.
+The changes are undoable and TreeSheets redraws the affected layout.
 """
 edge_cases = """
 Thin selections are rejected with the normal no-thin-selection message.
@@ -43,13 +43,19 @@ Shortcut labels deliberately use Ctrl on macOS and Alt elsewhere.
 """
 
 [[sources]]
-type = "ui"
+type = "history"
+file = "TS/docs/history.txt"
+lines = "108-118"
+label = "History notes added rendering options and broader support for operations on selected grids."
+
+[[sources]]
+type = "menu"
 file = "src/tsframe.h"
 lines = "103-119"
 label = "Platform-specific CTRLORALT and ALTORCTRL macros."
 
 [[sources]]
-type = "ui"
+type = "menu"
 file = "src/tsframe.h"
 lines = "380-399"
 label = "Layout and render-style menu entries."

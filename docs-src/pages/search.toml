@@ -3,6 +3,5 @@ title = "Search and Filtering"
 order = 50
 description = "Search toolbar behavior, replace actions, and document filters."
 intro = """
-Search state lives on the application system object and is consumed by document commands that jump, replace, or hide non-matching cells.
+Search, replace, and filter commands help move through large sheets, change matching text, or visually reduce the document to cells that match a search, edit time, note, or color condition.
 """
-

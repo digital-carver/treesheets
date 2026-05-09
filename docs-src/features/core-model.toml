@@ -1,28 +1,40 @@
 id = "core-model"
 title = "Cells, grids, and selections"
 category = "core concepts"
-page = "index"
+page = "concepts"
 
-[verification]
-level = "implementation_verified"
-text = "Verified from the selection, grid, and cell model code."
+[evidence]
+level = "code_verified"
+text = "Verified from the document model, selection model, file-format notes, and the official tutorial."
 
 [behavior]
 summary = """
-A TreeSheets document starts from a root cell that can contain a grid. Each grid contains cells and remembers layout details such as its size, column widths, orientation, border appearance, and fold state. A selection can cover cells, sit on a grid line, or become a text cursor inside one cell.
+A TreeSheets document is a root cell containing a grid. Cells can hold text, images, notes, and nested grids, so a sheet can behave like a spreadsheet, an outline, a mind map, or a compact personal database depending on how you nest those grids.
 """
 context = """
-Most commands need an active grid selection. Single-cell commands require one selected cell or a grid-line selection that can be expanded into a neighboring cell; whole-grid commands usually require the current selection to cover the grid.
+Most commands act on the current selection. The selection may be a rectangle of cells, a grid line used for insertion or deletion, or a text cursor inside one cell.
 """
 effects = """
-Selection state can enter text edit mode, exit text edit mode, expand to all cells, or be reassigned to a parent or child grid.
+Selection state determines whether TreeSheets edits text, inserts or deletes rows and columns, enters a child grid, or applies commands to a larger rectangular group.
 """
 edge_cases = """
 If a command needs a selected grid, a non-thin selection, or exactly one cell and the current selection cannot provide it, TreeSheets reports that requirement instead of changing the document.
 """
 quirks = """
-The same visible selection system covers three modes: rectangular cell selections, grid-line positions used for insertion or deletion, and text cursors inside a cell.
+The same visible selection system covers rectangular cell selections, grid-line positions, and text cursors. That makes many shortcuts context-sensitive.
 """
+
+[[sources]]
+type = "docs"
+file = "TS/docs/tutorial.html"
+lines = "76-103"
+label = "Official tutorial introduces cells, grid lines, subgrids, selections, resizing, and zooming."
+
+[[sources]]
+type = "file_format"
+file = "TS/docs/file_format_spec.txt"
+lines = "1-17"
+label = "File format overview describes saved selection, zoom level, images, and root cell."
 
 [[sources]]
 type = "implementation"

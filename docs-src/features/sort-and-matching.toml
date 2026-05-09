@@ -1,0 +1,79 @@
+id = "sort-and-matching"
+title = "Sort rows and jump to matching cells"
+category = "selection"
+page = "selection"
+
+[[commands]]
+name = "Sort ascending / descending"
+menu_path = "Edit > Grid Reorganization"
+shortcut = ""
+command_id = "A_SORT/A_SORTD"
+
+[[commands]]
+name = "Go to matching cell"
+menu_path = "Edit > Selection"
+shortcut = "F6, Shift+F6, F7, Shift+F7"
+command_id = "A_LINK/A_LINKREV/A_LINKIMG/A_LINKIMGREV"
+
+[evidence]
+level = "code_verified"
+text = "Verified from menu declarations, command handlers, grid search/sort helpers, and history notes."
+
+[behavior]
+summary = """
+Sorting rearranges rows based on a one-column selection. Matching-cell commands jump to another cell with the same text, or to another cell using the same image, in forward or reverse search order.
+"""
+context = """
+Sorting needs a 1xN selection that identifies both the sort key column and the rows affected. Matching by text needs a selected cell with text; matching by image needs a selected cell with an image.
+"""
+effects = """
+Sorting is undoable and redraws the grid. Matching changes the selection to the next matching cell and scrolls or zooms as needed to make it visible.
+"""
+edge_cases = """
+If there is no matching cell, TreeSheets reports that no match was found. Matching compares cell text or image identity, not the visible formatting around it.
+"""
+quirks = """
+The sort menu text gives the main selection rule, but sorting complex nested data still deserves manual checking before relying on it for important data cleanup.
+"""
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "266-267"
+label = "History describes Go To Matching Cell behavior."
+
+[[sources]]
+type = "menu"
+file = "src/tsframe.h"
+lines = "275-279"
+label = "Matching-cell menu entries."
+
+[[sources]]
+type = "menu"
+file = "src/tsframe.h"
+lines = "333-345"
+label = "Sort menu entries and tooltip describe the selection rule."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1645-1646"
+label = "Sort command dispatch."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1971-1986"
+label = "Matching-cell command behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "2173-2179"
+label = "Sort precondition and execution behavior."
+
+[[sources]]
+type = "implementation"
+file = "src/grid.h"
+lines = "305-317"
+label = "Grid-level matching search."

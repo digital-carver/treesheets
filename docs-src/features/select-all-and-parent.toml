@@ -21,9 +21,9 @@ menu_path = "Edit > Selection > Select First Child; Edit > Insert New Grid"
 shortcut = "Shift+Enter / Ins"
 command_id = "A_ENTERGRID"
 
-[verification]
-level = "implementation_verified"
-text = "Verified from menu entries and the corresponding selection behavior."
+[evidence]
+level = "code_verified"
+text = "Verified from menu entries, selection behavior, and history notes describing Ctrl+A, Esc, and Shift+Enter."
 
 [behavior]
 summary = """
@@ -43,7 +43,13 @@ The same user action can either enter an existing child grid or create a new chi
 """
 
 [[sources]]
-type = "ui"
+type = "history"
+file = "TS/docs/history.txt"
+lines = "286-308"
+label = "History notes Esc selecting parent, Shift+Enter selecting first child, and Ctrl+A selecting the current grid."
+
+[[sources]]
+type = "menu"
 file = "src/tsframe.h"
 lines = "223-273"
 label = "Selection menu entries for select all, parent, and child traversal."

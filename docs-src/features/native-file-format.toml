@@ -1,0 +1,55 @@
+id = "native-file-format"
+title = "Native .cts file contents"
+category = "import/export"
+page = "import_export"
+
+[evidence]
+level = "docs_supported"
+text = "Supported by the bundled file-format specification and save/load implementation references."
+
+[behavior]
+summary = """
+The native `.cts` file stores the TreeSheets document structure, selection size, zoom level, embedded images, root cell, cell text state, notes, optional nested grids, grid dimensions, column widths, layout direction, and folded state.
+"""
+context = """
+This is mainly useful for users who care about portability, backups, or external import/export tools. Normal editing should use TreeSheets' Save, Open, Import, and Export commands.
+"""
+effects = """
+Because images and nested grids are stored in the native file, a saved `.cts` can preserve much more TreeSheets-specific structure than CSV or plain text exports.
+"""
+edge_cases = """
+The checked-in file-format note describes version 23, while the implementation may have evolved. Treat it as a helpful compatibility reference rather than a complete current reverse-engineering manual.
+"""
+quirks = """
+The file-format page is intentionally technical; this user reference translates it only into the visible things a saved file preserves.
+"""
+
+[[sources]]
+type = "file_format"
+file = "TS/docs/file_format_spec.txt"
+lines = "1-17"
+label = "Native file header, selection, zoom, images, document marker, and root cell."
+
+[[sources]]
+type = "file_format"
+file = "TS/docs/file_format_spec.txt"
+lines = "25-58"
+label = "Image, cell, text, and grid fields saved by the native format."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "138-186"
+label = "Current save path writes TSFF header, selection, zoom level, images, root cell, and tags."
+
+[[sources]]
+type = "implementation"
+file = "src/cell.h"
+lines = "355-415"
+label = "Cell save/load behavior for text, notes, images, and grids."
+
+[[sources]]
+type = "implementation"
+file = "src/grid.h"
+lines = "518-538"
+label = "Grid save/load behavior for dimensions, widths, layout direction, and folded state."

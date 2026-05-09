@@ -87,7 +87,7 @@
       color: #cbd4df;
       letter-spacing: 0;
     }
-    .meta, .notice, .description, .verification, .footnotes {
+    .meta, .notice, .description, .evidence, .footnotes {
       color: var(--muted);
     }
     .notice { margin-top: 5px; font-size: 14px; }
@@ -118,10 +118,10 @@
       white-space: nowrap;
       border: 1px solid rgba(255,255,255,.08);
     }
-    .badge-implementation_verified { background: var(--green); }
-    .badge-ui_verified { background: var(--teal); }
-    .badge-docs_history_verified { background: var(--amber); }
-    .badge-source_not_found, .badge-needs_human_check { background: var(--violet); }
+    .badge-code_verified { background: var(--green); }
+    .badge-menu_declared { background: var(--teal); }
+    .badge-docs_supported, .badge-example_supported { background: var(--amber); }
+    .badge-inferred_from_code, .badge-needs_human_check { background: var(--violet); }
     .feature-body {
       margin-top: 14px;
       max-width: 82ch;
@@ -226,49 +226,79 @@
     <nav>
       <div class="brand">TreeSheets Reference</div>
       <a href="index.html">TreeSheets Reference</a>
+<a href="concepts.html">Core Concepts</a>
 <a href="selection.html">Selection and Navigation</a>
 <a href="editing.html">Editing Cells</a>
-<a href="grids.html">Grids and Layout</a>
+<a href="grids.html">Grids and Hierarchies</a>
+<a href="layout.html">Layout and View</a>
 <a href="import_export.html">Import and Export</a>
 <a href="search.html">Search and Filtering</a>
 <a class="active" href="scripting.html">Scripting and Evaluation</a>
-<a href="sources.html">Source Audit</a>
+<a href="options.html">Options</a>
+<a href="menus.html">Menu Reference</a>
+<a href="audit.html">Documentation Audit</a>
+<a href="sources.html">Source Index</a>
     </nav>
     <main>
       <header class="page-header">
         <h1>Scripting and Evaluation</h1>
         <p class="description">Lobster script menu integration, program evaluation, and operation cell markers.</p>
-        <div class="meta">Updated last on 2026-05-08 · Source commit <code>261add4e446c</code></div>
-        <div class="notice">AI-generated reference docs. Reliability indicators and footnote citations are included with every section.</div>
+        <div class="meta">Updated last on 2026-05-09 &middot; Source commit <code>84ef9b924c79</code></div>
+        <div class="notice">Machine-assisted reference docs. Reliability indicators and footnote citations are included with every section.</div>
       </header>
       <p>When Lobster support is enabled, TreeSheets exposes script history commands and a program evaluation mode based on cell types.</p><article class="feature" id="scripting-evaluation">
   <div class="feature-head">
     <h2>Program evaluation and Lobster scripts</h2>
-    <span class="badge badge-implementation_verified">Implementation verified</span>
+    <span class="badge badge-code_verified">Code verified</span>
   </div>
   <div class="feature-body">
-<div class="lead"><p>Program &gt; Run evaluates the root cell through the evaluator, resets children, clears selection, and refreshes. Mark commands assign cell types used by the evaluator; operation cells infer their precise operation type from text. When Lobster is enabled, scripts are loaded into a Script menu and executed from history entries.</p></div>
+<div class="lead"><p>Program &gt; Run evaluates the root cell as a TreeSheets program. Mark commands label selected cells as data, operation, variable assign/read, or horizontal/vertical views for the evaluator. When Lobster support is enabled, TreeSheets adds a Script menu that can run bundled or user-added `.lobster` scripts.</p></div>
 <ul class="usage-notes">
 <li>Run acts on the document root. Mark commands require an active grid selection. Script menu commands are available only in builds compiled with Lobster support.</li>
-<li>Run records undo on the root, evaluates, resets layouts, clears selection and drag state, and refreshes. Mark commands add undo and change celltype for every selected cell.</li>
+<li>Run is undoable and refreshes the sheet after evaluation. Mark commands are also undoable and change how the evaluator interprets the selected cells.</li>
 <li>Script menu entries and tag popup entries share the same menu dispatch path, so script commands are handled before ordinary document-editing commands.</li>
 </ul>
 <aside class="callout"><p>Script menu behavior is source-verified, but it appears in the application only when Lobster support is enabled at build time.</p></aside>
 </div>
-  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu</th><th>Shortcut</th></tr></thead><tbody><tr><td>Run</td><td>Program &gt; Run</td><td>Ctrl+Alt+F5</td></tr>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu or option</th><th>Shortcut</th></tr></thead><tbody><tr><td>Run</td><td>Program &gt; Run</td><td>Ctrl+Alt+F5</td></tr>
 <tr><td>Mark as</td><td>Program &gt; Mark as</td><td>Ctrl+Alt+D/O/A/R/./,</td></tr>
 <tr><td>Add/remove Lobster script</td><td>Script</td><td>Ctrl+Alt+L, Ctrl+Shift+Alt+L</td></tr></tbody></table></div>
-  <p class="verification">Verified from Program menu definitions, Lobster menu setup, and evaluation behavior.</p>
+  <p class="evidence">Verified from Program menu definitions, Lobster menu setup, evaluator dispatch, script interface code, and the generated scripting reference.</p>
   
-  <div class="source-refs">Sources: <a href="#src-scripting-evaluation-1">[1]</a> <a href="#src-scripting-evaluation-2">[2]</a> <a href="#src-scripting-evaluation-3">[3]</a> <a href="#src-scripting-evaluation-4">[4]</a> <a href="#src-scripting-evaluation-5">[5]</a> <a href="#src-scripting-evaluation-6">[6]</a> <a href="#src-scripting-evaluation-7">[7]</a></div>
+  <div class="source-refs">Sources: <a href="#src-scripting-evaluation-1">[1]</a> <a href="#src-scripting-evaluation-2">[2]</a> <a href="#src-scripting-evaluation-3">[3]</a> <a href="#src-scripting-evaluation-4">[4]</a> <a href="#src-scripting-evaluation-5">[5]</a> <a href="#src-scripting-evaluation-6">[6]</a> <a href="#src-scripting-evaluation-7">[7]</a> <a href="#src-scripting-evaluation-8">[8]</a></div>
 </article>
-<section class="footnotes"><h2>Sources</h2><ol><li id="src-scripting-evaluation-1"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L652-L681">src/tsframe.h:L652-L681</a> - Conditional Script menu and Program menu entries.</li>
-<li id="src-scripting-evaluation-2"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L1161-L1178">src/tsframe.h:L1161-L1178</a> - Add/remove Lobster script menu behavior.</li>
-<li id="src-scripting-evaluation-3"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/tsframe.h#L1258-L1266">src/tsframe.h:L1258-L1266</a> - Script history command dispatch.</li>
-<li id="src-scripting-evaluation-4"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L897-L904">src/document.h:L897-L904</a> - Run command evaluates the document root and refreshes.</li>
-<li id="src-scripting-evaluation-5"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/document.h#L1488-L1508">src/document.h:L1488-L1508</a> - Mark commands assign evaluator cell types.</li>
-<li id="src-scripting-evaluation-6"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/evaluator.h#L207-L208">src/evaluator.h:L207-L208</a> - Evaluator entry point evaluates the root cell.</li>
-<li id="src-scripting-evaluation-7"><a href="https://github.com/digital-carver/treesheets/blob/261add4e446c43cc6f580c0695d84a52a8f5f32e/src/cell.h#L9-L9">src/cell.h:L9-L9</a> - Cell type enum used by program/evaluator markers.</li></ol></section>
+<article class="feature" id="lobster-scripting-api">
+  <div class="feature-head">
+    <h2>TreeSheets functions available to Lobster scripts</h2>
+    <span class="badge badge-docs_supported">Docs supported</span>
+  </div>
+  <div class="feature-body">
+<div class="lead"><p>TreeSheets exposes a `ts` namespace to Lobster scripts. Scripts can navigate the document, inspect the current selection, read and write cell text and notes, create grids, insert rows and columns, delete ranges, set colors and style bits, change relative text size and column width, filter text, set status messages, ask the user for filenames, inspect filenames and edit timestamps, and attach or remove images.</p></div>
+<ul class="usage-notes">
+<li>The API acts on a script-side current cell. Scripts start at the document root, can jump to the current view or user selection, and then navigate parent/child relationships.</li>
+<li>Mutating API calls change the open TreeSheets document through the same document model used by the GUI. Script execution status or errors are surfaced through TreeSheets&#x27; script runner.</li>
+<li>These functions are available only when TreeSheets is built with Lobster support and the script is run through the TreeSheets script system.</li>
+</ul>
+<aside class="callout"><p>The scripting reference is generated by the Lobster compiler tooling, but it is an existing bundled TreeSheets reference and is treated here as documentation evidence, not generated machinegen evidence.</p></aside>
+</div>
+  
+  <p class="evidence">Supported by the bundled scripting reference and script interface declarations; individual scripts should still be tested in a Lobster-enabled build.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-lobster-scripting-api-1">[1]</a> <a href="#src-lobster-scripting-api-2">[2]</a> <a href="#src-lobster-scripting-api-3">[3]</a> <a href="#src-lobster-scripting-api-4">[4]</a> <a href="#src-lobster-scripting-api-5">[5]</a></div>
+</article>
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-scripting-evaluation-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/script_reference.html#L9-L130">TS/docs/script_reference.html:L9-L130</a> - Scripting reference lists TreeSheets-specific Lobster functions for navigation, text, grids, styles, images, and status.</li>
+<li id="src-scripting-evaluation-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L652-L681">src/tsframe.h:L652-L681</a> - Conditional Script menu and Program menu entries.</li>
+<li id="src-scripting-evaluation-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L1161-L1178">src/tsframe.h:L1161-L1178</a> - Add/remove Lobster script menu behavior.</li>
+<li id="src-scripting-evaluation-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L1258-L1266">src/tsframe.h:L1258-L1266</a> - Script history command dispatch.</li>
+<li id="src-scripting-evaluation-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L897-L904">src/document.h:L897-L904</a> - Run command evaluates the document root and refreshes.</li>
+<li id="src-scripting-evaluation-6"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/document.h#L1488-L1508">src/document.h:L1488-L1508</a> - Mark commands assign evaluator cell types.</li>
+<li id="src-scripting-evaluation-7"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/evaluator.h#L207-L208">src/evaluator.h:L207-L208</a> - Evaluator entry point evaluates the root cell.</li>
+<li id="src-scripting-evaluation-8"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/cell.h#L9-L9">src/cell.h:L9-L9</a> - Cell type enum used by program/evaluator markers.</li>
+<li id="src-lobster-scripting-api-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/script_reference.html#L9-L130">TS/docs/script_reference.html:L9-L130</a> - TreeSheets-specific Lobster function reference.</li>
+<li id="src-lobster-scripting-api-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/script_interface.h#L19-L46">src/script_interface.h:L19-L46</a> - Script interface methods exposed to Lobster integration.</li>
+<li id="src-lobster-scripting-api-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/treesheets_impl.h#L63-L130">src/treesheets_impl.h:L63-L130</a> - Document navigation, text, note, grid, and delete implementation for scripts.</li>
+<li id="src-lobster-scripting-api-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/treesheets_impl.h#L152-L224">src/treesheets_impl.h:L152-L224</a> - Color, filtering, style, filename, image, and status operations for scripts.</li>
+<li id="src-lobster-scripting-api-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/lobster_impl.cpp#L15-L247">src/lobster_impl.cpp:L15-L247</a> - Lobster registration of TreeSheets builtins.</li></ol></section>
     </main>
   </div>
 </body>

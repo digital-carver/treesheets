@@ -27,19 +27,19 @@ menu_path = "Edit > Grid Reorganization"
 shortcut = "Ctrl+Shift+T for transpose"
 command_id = "A_TRANSPOSE/A_HIFY/A_FLATTEN"
 
-[verification]
-level = "implementation_verified"
-text = "Verified from menu entries and grid-structure command branches."
+[evidence]
+level = "code_verified"
+text = "Verified from menu entries, grid-structure command branches, the official tutorial, and history notes."
 
 [behavior]
 summary = """
-Grid creation adds a subgrid to one selected cell or enters an existing one. Wrap creates a new parent hierarchy around the selection. Folding toggles whether selected subgrids are displayed. Transpose changes grid orientation, Hierarchify converts a table-like grid into hierarchy, and Flatten converts nested hierarchy into a flat grid sized by depth and leaves.
+Grid creation adds a subgrid to one selected cell or enters an existing subgrid. Wrap creates a new parent hierarchy around the current selection. Folding hides or shows subgrids inside selected cells. Transpose changes grid orientation, Hierarchify converts repeated table values into hierarchy, and Flatten converts nested hierarchy into a flat grid for export or spreadsheet-style work.
 """
 context = """
 Creation needs one expandable cell. Transpose rejects thin selections. Hierarchify requires a selected cell or whole grid with a table-like grid. Flatten requires a grid and can operate on the selected cell or all selected grid.
 """
 effects = """
-Structural commands add undo, mutate grid ownership or layout, reset child layout caches, rewrite selection, and refresh the canvas.
+Structural changes are undoable. TreeSheets refreshes layout and updates the selection to the affected grid or cell where appropriate.
 """
 edge_cases = """
 The root grid cannot be removed by grid deletion. Hierarchify refuses grids whose cells already contain subgrids.
@@ -49,13 +49,31 @@ Fold state is saved in TreeSheets XML, so folded grids remain folded when the st
 """
 
 [[sources]]
-type = "ui"
+type = "docs"
+file = "TS/docs/tutorial.html"
+lines = "91-98"
+label = "Tutorial introduces subgrid creation, nested editing, multi-cell selection, deletion, and cell movement."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "51-53"
+label = "History describes folding grids and zooming into folded contents."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "154-157"
+label = "History documents CSV export, Hierarchy Swap, Wrap in new parent, and filters."
+
+[[sources]]
+type = "menu"
 file = "src/tsframe.h"
 lines = "333-345"
 label = "Grid reorganization menu entries."
 
 [[sources]]
-type = "ui"
+type = "menu"
 file = "src/tsframe.h"
 lines = "434-457"
 label = "Grid insertion, wrap, and fold menu entries."

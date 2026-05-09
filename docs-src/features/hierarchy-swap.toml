@@ -1,0 +1,61 @@
+id = "hierarchy-swap"
+title = "Hierarchy Swap"
+category = "grids"
+page = "grids"
+
+[[commands]]
+name = "Hierarchy Swap"
+menu_path = "Edit > Grid Reorganization"
+shortcut = "F8"
+command_id = "A_HSWAP"
+
+[evidence]
+level = "code_verified"
+text = "Verified from the dedicated in-repository Hierarchy Swap reference and the current implementation."
+
+[behavior]
+summary = """
+Hierarchy Swap promotes cells with the same text as the selected cell upward within the selected cell's grandparent scope. It is useful when a hierarchy has the right information but is organized around the wrong level, such as wanting people grouped above projects instead of inside projects.
+"""
+context = """
+The selected cell must have both a parent and a grandparent, and both the parent and grandparent grids must be one-dimensional: either 1xN or Nx1.
+"""
+effects = """
+Matching cells are promoted, their ancestor chain is nested under the promoted cell, duplicate promoted tags are merged, empty one-cell shells are pruned, and the command remains undoable as one operation.
+"""
+edge_cases = """
+Matching is exact and case-sensitive. A very deep match may need repeated swaps because each keypress works from the selected cell's grandparent grid.
+"""
+quirks = """
+Hierarchy Swap can restructure multiple matching branches in one keypress. Preview the structure mentally or keep undo close when using it on large sheets.
+"""
+
+[[sources]]
+type = "docs"
+file = "TS/docs/HIERARCHY_SWAP.md"
+lines = "2-15"
+label = "Dedicated reference summarizes menu location, preconditions, errors, selection behavior, and undo."
+
+[[sources]]
+type = "docs"
+file = "TS/docs/HIERARCHY_SWAP.md"
+lines = "49-59"
+label = "Dedicated reference explains exact matching, shape constraints, merge behavior, repeated hops, and cleanup."
+
+[[sources]]
+type = "menu"
+file = "src/tsframe.h"
+lines = "333-345"
+label = "Grid reorganization menu includes Hierarchy Swap."
+
+[[sources]]
+type = "implementation"
+file = "src/document.h"
+lines = "1991-2002"
+label = "Command handler validates shape and calls the hierarchy swap algorithm."
+
+[[sources]]
+type = "implementation"
+file = "src/grid.h"
+lines = "893-984"
+label = "Hierarchy swap promotion, deletion, and merge algorithm."

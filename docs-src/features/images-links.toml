@@ -15,19 +15,19 @@ menu_path = "Edit > Browsing"
 shortcut = "F5, F4"
 command_id = "A_BROWSE/A_BROWSEF"
 
-[verification]
-level = "implementation_verified"
-text = "Verified from image and browsing menus plus the behavior they trigger."
+[evidence]
+level = "code_verified"
+text = "Verified from image and browsing menus, implementation behavior, tutorial guidance, and history notes."
 
 [behavior]
 summary = """
-Image commands add, save, rescale, display-scale, reset, convert, reuse, or remove images in selected cells. Browsing commands launch selected cell text either as a URL in the default browser or as a file path in the default application.
+Image commands add, save, rescale, display-scale, reset, convert, reuse, or remove images in selected cells. Browsing commands open selected cell text as a URL in the default browser or as a file path in the default application.
 """
 context = """
 Most image commands require selected cells and act recursively through the selection when collecting images. Browsing iterates selected cells without recursion.
 """
 effects = """
-Image mutation updates image buffers or display scale, resets layout, and refreshes. File browsing resolves relative file paths against the current TreeSheets file path before launching.
+Image changes are undoable and TreeSheets refreshes the layout afterward. File browsing resolves relative file paths against the current TreeSheets file path before launching.
 """
 edge_cases = """
 Saving images reports when the selection has no images. Browsing stops after a configured maximum number of launches and reports failed launches.
@@ -37,7 +37,19 @@ Display-only image scaling applies to all uses of the same image object, not onl
 """
 
 [[sources]]
-type = "ui"
+type = "docs"
+file = "TS/docs/tutorial.html"
+lines = "118-118"
+label = "Tutorial describes adding images to cells and storing them inside the file."
+
+[[sources]]
+type = "history"
+file = "TS/docs/history.txt"
+lines = "56-73"
+label = "History describes the image dropdown, image rendering, scaling, and tiny-cell behavior."
+
+[[sources]]
+type = "menu"
 file = "src/tsframe.h"
 lines = "347-377"
 label = "Image and browsing menu entries."

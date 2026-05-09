@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TreeSheets Reference - TreeSheets Reference</title>
+  <title>Options - TreeSheets Reference</title>
   <style>
     :root {
       color-scheme: dark;
@@ -225,7 +225,7 @@
   <div class="layout">
     <nav>
       <div class="brand">TreeSheets Reference</div>
-      <a class="active" href="index.html">TreeSheets Reference</a>
+      <a href="index.html">TreeSheets Reference</a>
 <a href="concepts.html">Core Concepts</a>
 <a href="selection.html">Selection and Navigation</a>
 <a href="editing.html">Editing Cells</a>
@@ -234,28 +234,45 @@
 <a href="import_export.html">Import and Export</a>
 <a href="search.html">Search and Filtering</a>
 <a href="scripting.html">Scripting and Evaluation</a>
-<a href="options.html">Options</a>
+<a class="active" href="options.html">Options</a>
 <a href="menus.html">Menu Reference</a>
 <a href="audit.html">Documentation Audit</a>
 <a href="sources.html">Source Index</a>
     </nav>
     <main>
       <header class="page-header">
-        <h1>TreeSheets Reference</h1>
-        <p class="description">Source-cited reference documentation for TreeSheets users.</p>
+        <h1>Options</h1>
+        <p class="description">Application preferences, rendering toggles, document safety options, and HTML autoexport.</p>
         <div class="meta">Updated last on 2026-05-09 &middot; Source commit <code>84ef9b924c79</code></div>
         <div class="notice">Machine-assisted reference docs. Reliability indicators and footnote citations are included with every section.</div>
       </header>
-      <p>TreeSheets is organized around cells that can contain text, images, notes, and nested grids. These pages describe how the application behaves from a user&#x27;s point of view, using implementation code, menu declarations, existing docs, history notes, scripting references, and in-repository examples as cited evidence.</p><div class="audit-grid"><div class="audit-box"><strong>20</strong><br>feature sections</div><div class="audit-box"><strong>17</strong><br>code verified</div><div class="audit-box"><strong>84ef9b924c79</strong><br>source commit</div></div><h2>Pages</h2><ul><li><a href="concepts.html">Core Concepts</a> - Cells, grids, subgrids, selections, zoomed views, notes, images, and saved document state.</li>
-<li><a href="selection.html">Selection and Navigation</a> - Selection shapes, movement, expansion, parent/child traversal, and matching-cell jumps.</li>
-<li><a href="editing.html">Editing Cells</a> - Text editing, clipboard operations, deletion, notes, images, styles, and sizing.</li>
-<li><a href="grids.html">Grids and Hierarchies</a> - Subgrid creation, folding, hierarchy operations, sorting, transposition, hierarchify, and flattening.</li>
-<li><a href="layout.html">Layout and View</a> - Zooming, text size, column width, render styles, presentation scaling, scrolling, and view-related options.</li>
-<li><a href="import_export.html">Import and Export</a> - File import, export formats, clipboard serialization, and image export behavior.</li>
-<li><a href="search.html">Search and Filtering</a> - Search toolbar behavior, replace actions, and document filters.</li>
-<li><a href="scripting.html">Scripting and Evaluation</a> - Lobster script menu integration, program evaluation, and operation cell markers.</li>
-<li><a href="options.html">Options</a> - Application preferences, rendering toggles, document safety options, and HTML autoexport.</li>
-<li><a href="menus.html">Menu Reference</a> - Source-derived menu, option, and command declaration inventory.</li><li><a href="audit.html">Documentation Audit</a> - coverage, evidence strength, and missing menu declarations.</li><li><a href="sources.html">Source Index</a> - cited files and line ranges.</li></ul>
+      <p>Options mostly change persistent application behavior: fonts, colors, toolbar visibility, file safety features, cursor navigation, mouse-wheel behavior, dark-mode rendering, and automatic HTML export.</p><article class="feature" id="options-preferences">
+  <div class="feature-head">
+    <h2>Application options and persistent preferences</h2>
+    <span class="badge badge-menu_declared">Menu declared</span>
+  </div>
+  <div class="feature-body">
+<div class="lead"><p>Options let you customize fonts, language, key bindings, default column width, background and cursor colors, toolbar/statusbar visibility, tab placement, tray behavior, startup minimization, mouse-wheel behavior, cursor navigation between cells, backup/autosave/autoreload behavior, document centering, line rendering, dark-mode inversion, and grid-border roundness.</p></div>
+<ul class="usage-notes">
+<li>Most checkable options are persistent preferences. Dialog-based options, such as font selection, language, key bindings, and default column width, prompt before changing the stored value.</li>
+<li>Changing an option usually writes to the application configuration and refreshes the current UI or document view. Some options, such as file watching and autosave, affect later background behavior rather than the current sheet immediately.</li>
+<li>The option labeled &quot;File Tabs on the bottom&quot; writes the tab-placement preference; the menu text and internal historical name disagree about top/bottom orientation, so the live UI should be checked if this detail matters.</li>
+</ul>
+<aside class="callout"><p>This section deliberately uses a weaker evidence level because it covers many options from declarations and persistence paths without tracing every resulting UI effect.</p></aside>
+</div>
+  <div class="command-block"><div class="block-title">Where to find it</div><table><thead><tr><th>Action</th><th>Menu or option</th><th>Shortcut</th></tr></thead><tbody><tr><td>Fonts, key bindings, language, default column width, colors</td><td>Options</td><td></td></tr>
+<tr><td>Toolbar, statusbar, tabs, tray, startup, wheel, cursor navigation, file safety</td><td>Options</td><td></td></tr>
+<tr><td>Centered rendering, faster line rendering, dark-mode inversion, border roundness</td><td>Options</td><td></td></tr></tbody></table></div>
+  <p class="evidence">Broad option coverage is based on menu declarations and preference persistence code. Individual visual effects need more focused user testing.</p>
+  
+  <div class="source-refs">Sources: <a href="#src-options-preferences-1">[1]</a> <a href="#src-options-preferences-2">[2]</a> <a href="#src-options-preferences-3">[3]</a> <a href="#src-options-preferences-4">[4]</a> <a href="#src-options-preferences-5">[5]</a> <a href="#src-options-preferences-6">[6]</a></div>
+</article>
+<section class="footnotes"><h2>Sources</h2><ol><li id="src-options-preferences-1"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L573-L649">src/tsframe.h:L573-L649</a> - Options menu declarations.</li>
+<li id="src-options-preferences-2"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/tsframe.h#L1174-L1219">src/tsframe.h:L1174-L1219</a> - Option handlers write persistent configuration and refresh UI state.</li>
+<li id="src-options-preferences-3"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/system.h#L26-L44">src/system.h:L26-L44</a> - Default option values.</li>
+<li id="src-options-preferences-4"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/src/system.h#L74-L105">src/system.h:L74-L105</a> - Configuration loading for options and dark-mode color mask.</li>
+<li id="src-options-preferences-5"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L8-L8">TS/docs/history.txt:L8-L8</a> - History notes the cursor-key navigation option.</li>
+<li id="src-options-preferences-6"><a href="https://github.com/digital-carver/treesheets/blob/84ef9b924c79b3798995eb78dde6460f77204119/TS/docs/history.txt#L120-L120">TS/docs/history.txt:L120-L120</a> - History notes the mouse-wheel scrolling and zooming swap option.</li></ol></section>
     </main>
   </div>
 </body>

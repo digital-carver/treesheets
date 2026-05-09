@@ -1,0 +1,7 @@
+id = "options"
+title = "Options"
+order = 70
+description = "Application preferences, rendering toggles, document safety options, and HTML autoexport."
+intro = """
+Options mostly change persistent application behavior: fonts, colors, toolbar visibility, file safety features, cursor navigation, mouse-wheel behavior, dark-mode rendering, and automatic HTML export.
+"""
